@@ -1,0 +1,59 @@
+[[plugin.deps]]
+use = "dedukun/relative-motions"
+rev = "df97039"
+hash = "395940d2b22941e0acb1232579c9d4cf"
+
+[[plugin.deps]]
+use = "AnirudhG07/nbpreview"
+rev = "1d85745"
+hash = "d378328e5d0a1b9fb9f04ab3aade4575"
+
+[[plugin.deps]]
+use = "AnirudhG07/rich-preview"
+rev = "8be4d27"
+hash = "c9a3d0731e7d7340e2c6d6126b1f3aa3"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "600614a"
+hash = "4c7e8fd0266eedee7b619d966bd2d025"
+
+[[plugin.deps]]
+use = "boydaihungst/file-extra-metadata"
+rev = "fdea1c6"
+hash = "8fd3b7f3607be6a8a3ef7b7692e923ce"
+
+[[plugin.deps]]
+use = "llanosrocas/githead"
+rev = "45bd61e"
+hash = "49f2baf77a7e779d06b7521a02ebc253"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "600614a"
+hash = "284f6694e3b1a4afd686acf1052acd90"
+
+[[plugin.deps]]
+use = "AnirudhG07/custom-shell"
+rev = "2f3d7a6"
+hash = "bf2dfe68c5dff1dbb898013e4545507e"
+
+[[plugin.deps]]
+use = "macydnah/office"
+rev = "d9d8f7d"
+hash = "789c25a2103902e2e7b15d65c796f5d8"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mactag"
+rev = "beb586a"
+hash = "5f957d83569f0bdb52e0e2d1b8f1e64c"
+
+[[plugin.deps]]
+use = "pirafrank/what-size"
+rev = "b23e3a4"
+hash = "98e5f5af3efd3ba8bc2db0720187cc83"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "fc8eeaa"
+hash = ""
