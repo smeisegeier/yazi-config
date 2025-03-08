@@ -72,7 +72,6 @@ keymap = [
 	{ on = [ "p","L" ],         run = "link --relative",             desc = "Symlink the relative path of yanked files" },
 	# { on = [ "p","h" ],         run = "shell ln {yanked} .",desc = "hardlink" },
 
-
 	{ on = "<Delete>",  run = "remove",                      desc = "Trash selected files" },
 	{ on = "<backspace>",  run = "remove",                      desc = "Trash selected files" },
 	{ on = "<S-Delete>",         run = "remove --permanently",        desc = "PERMANENTLY delete selected files" },
