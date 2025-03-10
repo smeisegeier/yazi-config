@@ -62,9 +62,13 @@ ya pack -i
 
 - clone repository
 
+> 🔧 if no git is present, install via `sudo apt install git` etc
+
 ```bash
-git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
+git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && cd ~/.config/yazi
 ```
+
+<br>
 
 - make script executable
 
@@ -72,11 +76,15 @@ git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 chmod 755 scripts/install_linux.sh
 ```
 
+<br>
+
 - run install script
 
 ```bash
 ./scripts/install_linux.sh
 ```
+
+<br>
 
 - launch
 
@@ -87,7 +95,8 @@ nu
 # run yazi
 y
 ```
-<!-- ```bash
+
+```bash
 # use this mode (single user) in case SELinux is present (eg. Fedora)
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
@@ -116,4 +125,4 @@ y='def --env y [] {
 }'
 
 echo ($y) >> ~/.config/nushell/config.nu
-``` -->
+```
