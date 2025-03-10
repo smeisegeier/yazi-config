@@ -16,11 +16,6 @@ echo "Installing packages: yazi, ffmpeg, p7zip, jq, poppler, fd, ripgrep, fzf, z
 nix-env -iA nixpkgs.yazi nixpkgs.ffmpeg nixpkgs.p7zip nixpkgs.jq nixpkgs.poppler nixpkgs.fd nixpkgs.ripgrep nixpkgs.fzf nixpkgs.zoxide nixpkgs.imagemagick nixpkgs.vscode nixpkgs.nushell nixpkgs.wezterm nixpkgs.broot nixpkgs.ncdu
 echo "Packages installed."
 
-# Clone into ~/.config
-echo "Cloning yazi config repository into ~/.config/yazi..."
-git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
-echo "Config cloned."
-
 # Update packs
 echo "Updating packs..."
 ya pack -i

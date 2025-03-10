@@ -58,21 +58,35 @@ ya pack -i
 - [nix](https://nixos.org/download/#) is used as homebrew alternative (⚠️ homebrew is not supported on ARM Linux)
 - 🚧 `ghostty` may fail on installation
 
+<br>
+
+- clone repository
 
 ```bash
-# make script executable
+git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
+```
+
+- make script executable
+
+```bash
 chmod 755 scripts/install_linux.sh
+```
 
-# run script
+- run install script
+
+```bash
 ./scripts/install_linux.sh
+```
 
+- launch
+
+```bash
 # run nushell for best experience
 nu
 
 # run yazi
 y
 ```
-
 <!-- ```bash
 # use this mode (single user) in case SELinux is present (eg. Fedora)
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
