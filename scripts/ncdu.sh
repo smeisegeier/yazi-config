@@ -27,4 +27,4 @@ fi
 
 # Run ncdu on the directory
 echo "Running ncdu on directory: $dir"
-ncdu "$dir"
+ncdu -r --show-itemcount --color dark-bg "$dir"
