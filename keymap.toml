@@ -89,19 +89,16 @@ keymap = [
 	{ on = [ "f","z" ],   run = "plugin fzf",    desc = "Jump to a directory or reveal a file using fzf" },
 	{ on = [ "f", "y" ], run = "shell --block -- 'c=$(fzf --preview \"bat --color=always --style=plain --line-range=:500 {}\") && [ -n \"$c\" ] && ya emit cd \"$(dirname \"$c\")\" && ya emit select \"$(basename \"$c\")\"'", desc = "🔍 FZF select + jump" },
 
-
-
 	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
 	# { on = "n", run = "find_arrow",              desc = "Go to the next found" },
 	# { on = "N", run = "find_arrow --previous",   desc = "Go to the previous found" },
 
-
     { on = [ "k","a","a" ], run = "shell '$HOME/.config/yazi/scripts/tar_selected.sh \"$@\"' --block", desc = "📦 Archive Files" },
     { on = [ "k","a","u" ], run = "shell '$HOME/.config/yazi/scripts/untar_selected.sh \"$@\"' --block", desc = "🎊 Uncompress" },
+	{ on   = [ "k", "b" ], run  = "shell '$HOME/.config/yazi/scripts/broot.sh \"$1\"' --block", desc = "🌴 broot dir" },
 	{ on = [ "k", "c" ], run  = "plugin chmod", desc = "✍️ Chmod on selected files" },
 	{ on = [ "k", "d" ], run = "plugin diff", desc= "🔃 Diff the selected with the hovered file"},
 	{ on = [ "k", "f" ], run = "shell 'open -R \"$@\"'", desc= "Open in 🍎 macos finder"},
-    { on = [ "k", "k" ], run = "shell 'code \"$@\"'", desc = "Open selected files in 💻 vscode" },
     # { on = [ "k", "g", "c" ], run = "shell '$HOME/.config/yazi/scripts/gpg_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Crypt Files pgp" },
     { on = [ "k", "g", "e" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Encrypt Files pgp" },
     { on = [ "k", "g", "E" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s \"$@\"' --block", desc = "🔐☑️ SignEncrypt Files pgp" },
@@ -109,8 +106,13 @@ keymap = [
     { on = [ "k", "g", "s" ], run = "shell '$HOME/.config/yazi/scripts/gpg_create_sig_selected.sh \"$@\"' --block", desc = "🖊️ Create sig for Files" },
     { on = [ "k", "g", "v" ], run = "shell '$HOME/.config/yazi/scripts/gpg_verify_selected.sh \"$@\"' --block", desc = "❔ Verify sig pgp" },
     { on = [ "k", "g", "l" ], run = 'shell --block -- gpg --list-packets "$1" | grep -A 1 "signature packet" ', desc = "🔍 List packets 📦" },
+    { on = [ "k", "k" ], run = "shell 'code \"$@\"'", desc = "Open selected files in 💻 vscode" },
 
-	{ on =  [ "k","t" ],  run = "create",             desc = "🔨 Create a file (or dir/ )" },
+    { on = [ "k", "m","a" ], run = "plugin mactag add", desc = "🏷️ Tag selected files", for="macos" },
+    { on = [ "k", "m","r" ], run = "plugin mactag remove", desc = "🏷️ Untag selected files", for="macos" },
+
+	{ on = [ "k", "s" ], run  = "shell '$HOME/.config/yazi/scripts/ncdu.sh \"$1\"' --block", desc = "🧮 Show size dir" },
+	{ on = [ "k","t" ],  run = "create", esc = "🔨 Create a file (or dir/ )" },
 	# { on = [ "k", "k" ], run = "plugin file-actions around", desc= "Perform actions on selected files"},
 	# { on = [ "k", "x" ], run = "plugin my-plugin", desc= "TEST"},
     # { on = [ "k", "u" ], run = "shell 'tar -xzvf \"$@\" '", desc = "⬇️ Uncompress" },
@@ -123,12 +125,8 @@ keymap = [
     { on = [ "k", "x","x" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
     { on = [ "k", "x","m" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
     # { on = [ "k", "z" ], run = "plugin custom-shell bash --wait", desc = "custom-shell as default, waits for user" },
-    { on = [ "k", "m","a" ], run = "plugin mactag add", desc = "🏷️ Tag selected files", for="macos" },
-    { on = [ "k", "m","r" ], run = "plugin mactag remove", desc = "🏷️ Untag selected files", for="macos" },
 	# { on = [ "k", "e" ], run = "plugin eza-preview",  desc = "🌴 Toggle tree/list dir preview" },
 	# { on   = [ "k", "s" ], run  = "plugin what-size", desc = "🧮 Calc size of selection or cwd" },
-	{ on   = [ "k", "s" ], run  = "shell '$HOME/.config/yazi/scripts/ncdu.sh \"$1\"' --block", desc = "🧮 Show size dir" },
-	{ on   = [ "k", "b" ], run  = "shell '$HOME/.config/yazi/scripts/broot.sh \"$1\"' --block", desc = "🌴 broot dir" },
 	{ on   = [ "k", "y" ], run  = "plugin tree-to-clipboard", desc = "tree to clipboard" },
 
 	{ on = [ "!" ], run  = "shell 'echo \"Option1\nOption2\" | fzf --prompt=\"Choose an option: \"' --block", desc = "Open shell here"},

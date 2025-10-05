@@ -94,12 +94,8 @@ ya pack -i
 ```bash
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && cd ~/.config/yazi
 
-# install yazi and all dependencies
-export NIXPKGS_ALLOW_UNFREE=1
-nix-env -iA nixpkgs.yazi nixpkgs.ffmpeg nixpkgs.p7zip nixpkgs.jq nixpkgs.poppler nixpkgs.fd nixpkgs.ripgrep nixpkgs.fzf nixpkgs.zoxide nixpkgs.imagemagick nixpkgs.vscode nixpkgs.nushell nixpkgs.broot nixpkgs.ncdu
-
 # get specific version
-cd ~/downloads
+cd ~/Downloads
 wget https://archive.archlinux.org/packages/y/yazi/yazi-25.2.11-1-x86_64.pkg.tar.zst
 sudo pacman -U yazi-25.2.11-1-x86_64.pkg.tar.zst
 
@@ -129,7 +125,7 @@ nu
 y
 
 # debug mode (debug | info | warn | error)
-YAZI_LOG=debug yazi
+YAZI_LOG=info yazi
 
 # after launch log is in ~/.local/state/yazi/yazi.log
 ```
