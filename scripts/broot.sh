@@ -18,7 +18,8 @@ fi
 if [ -f "$path" ]; then
     dir=$(dirname "$path")
 elif [ -d "$path" ]; then
-    dir="$path"
+    # dir="$path"
+    dir=$(dirname "$path")
 else
     echo "'$path' is not a valid file or directory."
     exit 1

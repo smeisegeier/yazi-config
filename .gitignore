@@ -1,7 +1,7 @@
 .env
 .tmp/
 .DS_Store
-flavors/
-plugins/
+# flavors/
+# plugins/
 yazi
 tempfile

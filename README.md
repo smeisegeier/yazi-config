@@ -1,6 +1,6 @@
 # file-manager-config
 
-🚧 work in progress 🚧
+⚠️ this config is still a mess. it now points to yazi version `25.2.11` to have a consistent behaviour and to _not break on update_
 
 ## pre-install
 
@@ -24,7 +24,11 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 ```
 
 ```bash
-brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick
+# install yazi on specific version
+brew install yazi@25.2.11
+
+# install dependencies
+brew install ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell vscode
 
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 
@@ -36,8 +40,10 @@ ya pack -i
 
 [![windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/)
 
+**⚠️ outdated**
+
 ```bash
-# try nerfonts install
+# try nerdfonts install
 winget install DEVCOM.JetBrainsMonoNerdFont
 
 winget install sxyazi.yazi Gyan.FFmpeg 7zip.7zip jqlang.jq sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick
@@ -59,18 +65,11 @@ ya pack -i
 
 ![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey)
 
-- [nix](https://nixos.org/download/#) is the recommended package manager
-- 🚧 `ghostty` may fail on installation
+- exampls useage on arch linux
+- as for terminal: any will do (kitty, alacritty, ghostty etc)
 
 <br>
 
-- clone repository
-
-> 🔧 if no git is present, install via `sudo apt install git` etc
-
-```bash
-git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && cd ~/.config/yazi
-```
 <!-- <br>
 
 - make script executable
@@ -85,35 +84,32 @@ chmod 755 scripts/install_linux.sh
 
 ```bash
 ./scripts/install_linux.sh
-``` -->
-
-```bash
-# use this mode (single user) in case SELinux is present (eg. Fedora)
-sh <(curl -L https://nixos.org/nix/install) --no-daemon
-
-# run to activate nix. home dir might not be correctly expanded here
-. ~/.nix-profile/etc/profile.d/nix.sh
-
-# install yazi and all dependencies
-export NIXPKGS_ALLOW_UNFREE=1
-nix-env -iA nixpkgs.yazi nixpkgs.ffmpeg nixpkgs.p7zip nixpkgs.jq nixpkgs.poppler nixpkgs.fd nixpkgs.ripgrep nixpkgs.fzf nixpkgs.zoxide nixpkgs.imagemagick nixpkgs.vscode nixpkgs.nushell nixpkgs.broot nixpkgs.ncdu
-
 
 git clone https://github.com/yazi-rs/flavors.git ~/.config/yazi/flavors
 
 # update packs
 ya pack -i
+``` -->
 
-# init nushell
-nu
+```bash
+git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && cd ~/.config/yazi
 
-# and quit again
-exit
+# install yazi and all dependencies
+export NIXPKGS_ALLOW_UNFREE=1
+nix-env -iA nixpkgs.yazi nixpkgs.ffmpeg nixpkgs.p7zip nixpkgs.jq nixpkgs.poppler nixpkgs.fd nixpkgs.ripgrep nixpkgs.fzf nixpkgs.zoxide nixpkgs.imagemagick nixpkgs.vscode nixpkgs.nushell nixpkgs.broot nixpkgs.ncdu
+
+# get specific version
+cd ~/downloads
+wget https://archive.archlinux.org/packages/y/yazi/yazi-25.2.11-1-x86_64.pkg.tar.zst
+sudo pacman -U yazi-25.2.11-1-x86_64.pkg.tar.zst
+
+# install dependencies
+sudo pacman -S ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick nushell broot ncdu nushell vscode
 
 # add alias
 echo -e "\nalias q = exit" >> ~/.config/nushell/config.nu
 
-# add func
+# add func to cd into last dir
 y='def --env y [] {
     let tempfile = $"/($env.HOME)/.config/yazi/tempfile"
     yazi --cwd-file=($tempfile)
@@ -131,4 +127,9 @@ nu
 
 # run yazi
 y
+
+# debug mode (debug | info | warn | error)
+YAZI_LOG=debug yazi
+
+# after launch log is in ~/.local/state/yazi/yazi.log
 ```

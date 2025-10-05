@@ -86,7 +86,11 @@ keymap = [
 	{ on = [ "f","r" ],         run = "search rg",                   desc = "Find files by content using ripgrep" },
 	{ on = "<C-s>",     run = "search none",                 desc = "Cancel the ongoing search" },
 	{ on = [ "f","o" ], run = "plugin zoxide",               desc = "Jump to a directory using zoxide" },
-	{ on = [ "f","z" ],   run = "plugin fzf",                  desc = "Jump to a directory or reveal a file using fzf" },
+	{ on = [ "f","z" ],   run = "plugin fzf",    desc = "Jump to a directory or reveal a file using fzf" },
+	{ on = [ "f", "y" ], run = "shell --block -- 'c=$(fzf --preview \"bat --color=always --style=plain --line-range=:500 {}\") && [ -n \"$c\" ] && ya emit cd \"$(dirname \"$c\")\" && ya emit select \"$(basename \"$c\")\"'", desc = "🔍 FZF select + jump" },
+
+
+
 	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
 	# { on = "n", run = "find_arrow",              desc = "Go to the next found" },
 	# { on = "N", run = "find_arrow --previous",   desc = "Go to the previous found" },
@@ -119,8 +123,8 @@ keymap = [
     { on = [ "k", "x","x" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
     { on = [ "k", "x","m" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
     # { on = [ "k", "z" ], run = "plugin custom-shell bash --wait", desc = "custom-shell as default, waits for user" },
-    { on = [ "k", "m","a" ], run = "plugin mactag add", desc = "🏷️ Tag selected files" },
-    { on = [ "k", "m","r" ], run = "plugin mactag remove", desc = "🏷️ Untag selected files" },
+    { on = [ "k", "m","a" ], run = "plugin mactag add", desc = "🏷️ Tag selected files", for="macos" },
+    { on = [ "k", "m","r" ], run = "plugin mactag remove", desc = "🏷️ Untag selected files", for="macos" },
 	# { on = [ "k", "e" ], run = "plugin eza-preview",  desc = "🌴 Toggle tree/list dir preview" },
 	# { on   = [ "k", "s" ], run  = "plugin what-size", desc = "🧮 Calc size of selection or cwd" },
 	{ on   = [ "k", "s" ], run  = "shell '$HOME/.config/yazi/scripts/ncdu.sh \"$1\"' --block", desc = "🧮 Show size dir" },
@@ -204,6 +208,7 @@ keymap = [
 	{ on = [ "g", "T" ],       run = "cd ~/.Trash",   desc = "Go to the bin directory" },
 	{ on = [ "g", "f" ],       run = "cd -r %f",   desc = "follow symlink" },
 	{ on = [ "g", "y" ],       run = "cd ~/.config/yazi",   desc = "-> yazi" },
+	{ on = [ "g", "i" ],       run = "cd ~/com~apple~CloudDocs",   desc = "-> icloud", for = "macos" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
 	# Help

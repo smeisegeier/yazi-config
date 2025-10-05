@@ -38,7 +38,7 @@ edit = [
 	{ run = '${EDITOR:=code} "$@"', desc = "$EDITOR", block = false, orphan = true, for = "macos" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
-    { run = '${EDITOR:=code} "$@"', desc = "VS Code", block = true, orphan = false, for = "linux" },
+    { run = '${EDITOR:=kate} "$@"', desc = "KDE kate", block = true, orphan = false, for = "linux" },
 ]
 open = [
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
