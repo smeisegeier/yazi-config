@@ -95,9 +95,6 @@ ya pack -i
 # http
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && cd ~/.config/yazi
 
-# or ssh
-git clone git@github.com:smeisegeier/yazi-config && cd ~/.config/yazi
-
 # get specific version
 cd ~/Downloads
 wget https://archive.archlinux.org/packages/y/yazi/yazi-25.2.11-1-x86_64.pkg.tar.zst
