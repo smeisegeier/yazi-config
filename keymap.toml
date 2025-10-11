@@ -196,18 +196,26 @@ keymap = [
 	{ on = "w", run = "tasks_show", desc = "Show task manager" },
 
 	# Goto
-	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go to the home directory" },
+	{ on = [ "g", "b" ],       run = "cd ~/.Trash",   desc = "Go to the bin directory" },
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Go to the config directory" },
 	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "Go to the downloads directory" },
+	{ on = [ "g", "e" ],       run = "cd /etc",   desc = "Go to the etc directory" },
+	{ on = [ "g", "f" ],       run = "cd -r %f",   desc = "follow symlink" },
+	{ on = [ "g", "g" ],       run = "cd ~/repos",   desc = "Go to the git repo directory" },
+	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go to the home directory" },
+	{ on = [ "g", "i" ],       run = "cd ~/com~apple~CloudDocs",   desc = "-> icloud", for = "macos" },
+	{ on = [ "g", "m" ],       run = "cd /mnt",   desc = "Go to the mnt directory" },
 	{ on = [ "g", "r" ],       run = "cd /",   desc = "Go to the root directory" },
 	{ on = [ "g", "t" ],       run = "cd ~/tmp",   desc = "Go to the (home) tmp directory" },
-	{ on = [ "g", "g" ],       run = "cd ~/repos",   desc = "Go to the git repo directory" },
-	{ on = [ "g", "b" ],       run = "cd ~/.Trash",   desc = "Go to the bin directory" },
 	{ on = [ "g", "T" ],       run = "cd ~/.Trash",   desc = "Go to the bin directory" },
-	{ on = [ "g", "f" ],       run = "cd -r %f",   desc = "follow symlink" },
 	{ on = [ "g", "y" ],       run = "cd ~/.config/yazi",   desc = "-> yazi" },
-	{ on = [ "g", "i" ],       run = "cd ~/com~apple~CloudDocs",   desc = "-> icloud", for = "macos" },
+	{ on = [ "g", "v" ],       run = "cd /Volumes",   desc = "-> Volumes", for = "macos" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
+
+	# enquire
+	# { on = [ "e", "s" ], run = 'shell "sh -c \"ssh-add -l | fzf | awk ''{print \\$2}''\""', desc = "get ssh keys" }
+    {on = [ "e", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash \"$@\"' --block", desc = "get ssh keys" },
+    # {on = [ "k", "g", "e" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Encrypt Files pgp" },
 
 	# Help
 	{ on = "<F1>", run = "help", desc = "Open help" },

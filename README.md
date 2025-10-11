@@ -92,7 +92,11 @@ ya pack -i
 ``` -->
 
 ```bash
+# http
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && cd ~/.config/yazi
+
+# or ssh
+git clone git@github.com:smeisegeier/yazi-config && cd ~/.config/yazi
 
 # get specific version
 cd ~/Downloads
@@ -105,7 +109,7 @@ sudo pacman -S ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick nushell
 # add alias
 echo -e "\nalias q = exit" >> ~/.config/nushell/config.nu
 
-# add func to cd into last dir
+# add func to cd into last dir for nushell
 y='def --env y [] {
     let tempfile = $"/($env.HOME)/.config/yazi/tempfile"
     yazi --cwd-file=($tempfile)
@@ -113,6 +117,25 @@ y='def --env y [] {
     cd $new_dir
 }'
 echo "$y" >> ~/.config/nushell/config.nu
+
+# now the zsh version
+y='function y() {
+    # This creates a unique, absolute path in /tmp/
+    local tmp="$(mktemp -u --tmpdir="/tmp" "yazi-cwd.XXXXXX")"
+    local cwd
+
+    # Run yazi with the absolute path
+    yazi "$@" --cwd-file="$tmp"
+
+    # Read the file
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+
+    rm -f -- "$tmp"
+}'
+echo "$y" >> ~/.zshrc
+
 ```
 
 - launch
