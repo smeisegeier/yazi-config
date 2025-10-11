@@ -3,68 +3,78 @@
 # This script must be sourced in your shell startup file (e.g., ~/.zshrc or ~/.bashrc)
 # Example: source /path/to/fzf.sh
 
-# A helper function to check if a command exists
-command_exists () {
-    command -v "$1" >/dev/null 2>&1
-}
+source $HOME/.config/yazi/scripts/utils.sh
 
-source ./utils.sh
+# OS_NAME=$(get_os)
 
 # -----------------------------------------------------------------------------
 # SSH Hash Selection Function
-# Prints the hash of the selected SSH key to standard output.
+# Prints the hash of the selected SSH key to standard output AND copies it.
 # -----------------------------------------------------------------------------
 function get_ssh_hash() {
-    if ! command_exists ssh-add || ! command_exists fzf || ! command_exists awk; then
-        echo "Error: 'ssh-add', 'fzf', or 'awk' is not installed." >&2
-        return 1
-    fi
+    # 1. Check basic utilities (ssh-add is checked implicitly by use_fzf)
+    # if ! check_commands ssh-add; then
+    #     return 1
+    # fi
 
-    # List identities from ssh-agent, use fzf for interactive selection
-    # and awk to extract the key hash (the second field)
-    local selected_hash
-    selected_hash=$(ssh-add -l 2>/dev/null | \
-        fzf --prompt="Select SSH Key Hash: " --preview-window=up:1 | \
-        awk '{print $2}')
+    # 2. Use the helper function to select and extract the hash (position 2)
+    local selected
+    selected=$(
+        use_fzf "ssh-add -l" "2" "Select SSH Key Hash: "
+    )
 
-    if [ -z "$selected_hash" ]; then
-        # Key selection cancelled or no keys found
-        return 1
-    fi
+    # 3. Echo the hash, pipe it to the clipboard function, and then echo again
+    # to ensure the final output is available for command substitution.
+    echo "$selected" | to_clipboard
 
-    local OS_NAME
-    OS_NAME=$(get_os)
+    # Print the selected hash to standard output
+    echo "$selected"
+}
 
-    # 3. Determine the clipboard command based on OS_NAME
-    case "$OS_NAME" in
+
+function get_ps() {
+    # if ! check_commands ps; then return 1; fi
+    local selected
+    selected=$(use_fzf "ps aux" "2" "select process: ")
+    echo "$selected" | to_clipboard
+    echo "$selected"
+}
+
+function get_recent_files() {
+    # if ! check_commands find; then return 1; fi
+    local selected
+    selected=$(use_fzf "find . -type f -mtime -7 -print" "1" "Open Recent File: ")
+    echo "$selected" | to_clipboard
+    echo "$selected"
+}
+
+function get_gpg() {
+    # if ! check_commands find; then return 1; fi
+    local selected
+    selected=$(use_fzf "gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {key=\$5} /^uid/ {print key, \$10}'" "1" "Select GPG Key ID: ")
+    echo "$selected" | to_clipboard
+    echo "$selected"
+}
+function get_disk() {
+    # if ! check_commands find; then return 1; fi
+    local selected
+    local os_name="${OS_NAME:-$(get_os)}" # Use $OS_NAME if set, otherwise call get_os
+    DELIM=" --- "
+
+    case "$os_name" in
         macos)
-            clipboard_cmd="pbcopy"
+            selected=$(use_fzf "diskutil list | grep -E '^\s*([0-9]|Container)' | awk '{print \$4\"$DELIM\"\$5 \$6\"$DELIM\"\$NF}'" "4" "Select Disk Identifier: ")            
             ;;
         linux)
-            clipboard_cmd="wl-copy"
+            selected=$(use_fzf "lsblk -l -o UUID,NAME,SIZE,MOUNTPOINT,FSTYPE,LABEL" "1" "Select Block Device UUID: ")
             ;;
         windows)
-            clipboard_cmd="clip.exe"
-            ;;
-        *)
-            echo "Warning: Unknown OS ('$os_name'). Hash will be printed, but not copied." >&2
-            # Set to a non-existent command to skip piping
-            clipboard_cmd=""
+            selected=$(use_fzf "wmic diskdrive get Caption,Size,InterfaceType /value | findstr /R \"^Caption=.* ^Size=.*\" | awk -F= '{ORS=NR%2?\" \":\"\\n\"; print \$2}'" "1" "Select Disk Drive: ")
             ;;
     esac
 
-    # 4. Echo the hash AND pipe it to the clipboard
-    echo "$selected_hash" | {
-        # Check if the determined clipboard command exists before running
-        if [ -n "$clipboard_cmd" ] && command_exists "$(echo "$clipboard_cmd" | awk '{print $1}')"; then
-            # Pipe to the clipboard command
-            eval "$clipboard_cmd"
-            echo "SSH Hash copied to clipboard." >&2
-        else
-            echo "Warning: Clipboard utility ('$clipboard_cmd') not found. Hash printed only." >&2
-        fi
-    }
-
-    # Also echo the hash to stdout one final time (redundant if piped above, but ensures output)
-    echo "$selected_hash"
+    echo "$selected" | to_clipboard
+    echo "$selected"
 }
+
+

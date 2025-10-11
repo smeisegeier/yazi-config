@@ -213,9 +213,11 @@ keymap = [
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
 	# enquire
-	# { on = [ "e", "s" ], run = 'shell "sh -c \"ssh-add -l | fzf | awk ''{print \\$2}''\""', desc = "get ssh keys" }
-    {on = [ "e", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash \"$@\"' --block", desc = "get ssh keys" },
-    # {on = [ "k", "g", "e" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Encrypt Files pgp" },
+    { on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "copy disk/partition 💾" },
+    { on = [ "c", "g" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_gpg' --block", desc = "copy gpg key 🔐" },
+    {on = [ "c", "p" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ps' --block", desc = "copy process " },
+    { on = [ "c", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash' --block", desc = "get ssh key 🔐" },
+    {on = [ "c", "r" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_recent_files' --block", desc = "copy recent file ⏱️" },
 
 	# Help
 	{ on = "<F1>", run = "help", desc = "Open help" },
