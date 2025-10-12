@@ -78,3 +78,24 @@ function get_disk() {
 }
 
 
+function get_log() {
+    # if ! check_commands find; then return 1; fi
+    local selected
+    local os_name="${OS_NAME:-$(get_os)}" # Use $OS_NAME if set, otherwise call get_os
+    DELIM=" --- "
+
+    case "$os_name" in
+        macos)
+            selected=$(use_fzf "START_TIME=\$(date +'%Y-%m-%d 00:00:00'); END_TIME=\$(date +'%Y-%m-%d %H:%M:%S'); log show --start \"\$START_TIME\" --end \"\$END_TIME\" --info --debug --last 1d --predicate 'messageType == 17' | awk '{print \$0}'" "1" "Select Today's Critical Fault Log: ")
+            ;;
+        linux)
+            selected=$(use_fzf "journalctl --since today --priority=3 --no-pager --output cat" "1" "Select Today's Critical Log: ")
+            ;;
+        windows)
+            selected=$(use_fzf "powershell -Command \"Get-WinEvent -LogName System -MaxEvents 500 | Where-Object { \$\_.TimeCreated -ge (Get-Date).AddDays(-1) } | Select-Object TimeCreated,LevelDisplayName,Message | Format-List | Out-String -Stream\"" "1" "Select Recent System Event: ")
+            ;;
+    esac
+
+    echo "$selected" | to_clipboard
+    echo "$selected"
+}

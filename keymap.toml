@@ -215,6 +215,7 @@ keymap = [
 	# enquire
     { on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "copy disk/partition 💾" },
     { on = [ "c", "g" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_gpg' --block", desc = "copy gpg key 🔐" },
+    {on = [ "c", "l" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_log' --block", desc = "copy log 📃" },
     {on = [ "c", "p" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ps' --block", desc = "copy process " },
     { on = [ "c", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash' --block", desc = "get ssh key 🔐" },
     {on = [ "c", "r" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_recent_files' --block", desc = "copy recent file ⏱️" },
