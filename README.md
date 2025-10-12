@@ -28,7 +28,7 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 brew install yazi@25.2.11
 
 # install dependencies
-brew install ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell vscode
+brew install ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell vscode ouch ncdu
 
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 
@@ -101,7 +101,7 @@ wget https://archive.archlinux.org/packages/y/yazi/yazi-25.2.11-1-x86_64.pkg.tar
 sudo pacman -U yazi-25.2.11-1-x86_64.pkg.tar.zst
 
 # install dependencies
-sudo pacman -S ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick nushell broot ncdu nushell vscode
+sudo pacman -S ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick nushell broot ncdu nushell vscode ouch ncdu
 
 # add alias
 echo -e "\nalias q = exit" >> ~/.config/nushell/config.nu

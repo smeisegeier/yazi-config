@@ -437,3 +437,8 @@ desc = "Rename selected file(s)"
 [[manager.prepend_keymap]]
 on  = "M"
 run = "plugin mount"
+
+# [[manager.prepend_keymap]]
+# on = ["k","a","o"]
+# run = "plugin ouch"
+# desc = "Compress with ouch"
