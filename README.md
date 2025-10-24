@@ -93,20 +93,24 @@ ya pack -i
 
 ```bash
 # http
-git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && cd ~/.config/yazi
+git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 
 # get specific version
 cd ~/Downloads
 wget https://archive.archlinux.org/packages/y/yazi/yazi-25.2.11-1-x86_64.pkg.tar.zst
 sudo pacman -U yazi-25.2.11-1-x86_64.pkg.tar.zst
 
-# install dependencies
-sudo pacman -S ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick nushell broot ncdu nushell vscode ouch ncdu
+# install dependencies beyond what yazi already did
+sudo pacman -S nushell broot ncdu code ouch
 
-# add alias
+# start / quit nushell once to get a config
+nu
+exit
+
+# add alias, now always quit using 'q'
 echo -e "\nalias q = exit" >> ~/.config/nushell/config.nu
 
-# add func to cd into last dir for nushell
+# ensure these are run in zsh: add func to cd into last dir for nushell
 y='def --env y [] {
     let tempfile = $"/($env.HOME)/.config/yazi/tempfile"
     yazi --cwd-file=($tempfile)
@@ -138,9 +142,6 @@ echo "$y" >> ~/.zshrc
 - launch
 
 ```bash
-# run nushell for best experience
-nu
-
 # run yazi
 y
 
