@@ -137,6 +137,12 @@ y='function y() {
 }'
 echo "$y" >> ~/.zshrc
 
+# pin yazi version
+sudo nano /etc/pacman.conf
+
+# add this line
+IgnorePkg = yazi
+
 ```
 
 - launch
