@@ -47,7 +47,7 @@ function get_os() {
 
 # Executes a command, pipes output to fzf, and extracts a field using awk.
 # Usage: use_fzf "<command>" "<awk_pos>" "<fzf_prompt>"
-function use_fzf() {
+function use_fzf_bck() {
     local cmd="$1"
     local pos="$2"
     local prompt="${3:-Select option:}"
@@ -70,6 +70,36 @@ function use_fzf() {
     echo "$result"
 }
 
+
+# Executes a command, pipes output to fzf, and extracts a field using awk.
+# Usage: use_fzf "<list_command>" "<awk_pos>" "<fzf_prompt>" "<preview_command>"
+function use_fzf() {
+    local cmd="$1"
+    local pos="$2"
+    local prompt="${3:-Select option:}"
+    local preview_cmd="$4" # New argument is $4
+    local result
+    
+    if ! check_commands fzf awk; then return 1; fi
+
+    result=$(
+        eval "$cmd" 2>/dev/null | \
+            fzf --multi \
+                --ansi \
+                --prompt="$prompt" \
+                --preview-window=up:1 \
+                --preview "$preview_cmd" | \
+            awk "{print \$$pos}"
+    )
+
+    # Check if the selection was canceled or empty
+    if [ -z "$result" ]; then
+        return 1
+    fi
+
+    # Print the result (the selected value(s))
+    echo "$result"
+}
 
 # Pipes content to the appropriate clipboard utility based on OS_NAME.
 # Assumes OS_NAME variable is set in the calling environment.

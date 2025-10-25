@@ -99,3 +99,58 @@ function get_log() {
     echo "$selected" | to_clipboard
     echo "$selected"
 }
+
+function get_installs() {
+    # This assumes 'get_os', 'to_clipboard', and 'check_commands' are defined
+    local os_name="${OS_NAME:-$(get_os)}"
+    local package_list_command=""
+    local install_command_prefix=""
+    local preview_command="" # Variable to hold the $4 argument
+    local selected_package=""
+    local final_command_string=""
+    local awk_pos="1"        # Package name is typically the first field
+
+    # --- Setup Package Manager Commands ---
+
+    case "$os_name" in
+        macos)
+            if ! command -v brew &> /dev/null; then echo "Error: brew not found." >&2; return 1; fi
+            package_list_command="brew formulae"
+            install_command_prefix="brew install"
+            preview_command="brew info {}" # Preview command for Homebrew
+            ;;
+        linux)
+            if ! command -v paru &> /dev/null; then echo "Error: paru not found." >&2; return 1; fi
+            package_list_command="paru -Slq"
+            install_command_prefix="paru -S"
+            preview_command="paru -Si {}" # Preview command for Paru
+            ;;
+        *)
+            echo "Error: Unsupported package manager for OS: $os_name" >&2
+            return 1
+            ;;
+    esac
+
+    # --- Execute fzf and Selection ---
+    
+    # New call: $1: list_cmd, $2: awk_pos, $3: prompt, $4: preview_cmd
+    selected_package=$(use_fzf \
+        "$package_list_command" \
+        "$awk_pos" \
+        "Select package(s) to install with $install_command_prefix: " \
+        "$preview_command") # This is the new $4 argument
+
+    # Check return status of use_fzf
+    if [ $? -ne 0 ]; then
+        echo "Selection cancelled or failed. Aborting." >&2
+        return 0
+    fi
+
+    # 2. Construct the final command string
+    final_command_string=$(echo "$selected_package" | xargs -r echo "$install_command_prefix")
+
+    # 3. Output the result
+    echo "Command copied to clipboard: $final_command_string"
+    echo "$final_command_string" | to_clipboard
+    echo "$final_command_string"
+}
