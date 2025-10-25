@@ -33,6 +33,9 @@ function get_ssh_hash() {
 
 
 function get_ps() {
+    # ps aux -r | head -n 31  
+    # ps aux -m | head -n 31  
+
     # if ! check_commands ps; then return 1; fi
     local selected
     selected=$(use_fzf "ps aux" "2" "select process: ")

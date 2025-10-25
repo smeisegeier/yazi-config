@@ -3,7 +3,6 @@ require("relative-motions"):setup({ show_numbers="relative", show_motion = true 
 require("githead"):setup()
 
 -- require("eza-preview"):setup()
---require("scripts.fzf_jump")
 
 require("copy-file-contents"):setup({
 	append_char = "\n",

@@ -16,16 +16,19 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 
 ![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey)
 
-- clearly use [homebrew](https://brew.sh) here
+<!-- - clearly use [homebrew](https://brew.sh) here -->
 
 ```bash
-# install homebrew
+# install homebrew if needed
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 ```bash
-# install yazi on specific version
-brew install yazi@25.2.11
+# install yazi on specific version, this wont work with brew
+mkdir .yazi_tmp && unzip -d .yazi_tmp assets/yazi-aarch64-apple-darwin_25_4_3.zip && rm -f ~/.local/bin/{yazi,ya} && mv .yazi_tmp/*/yazi ~/.local/bin/yazi && mv .yazi_tmp/*/ya ~/.local/bin/ya && chmod +x ~/.local/bin/{yazi,ya} && rm -rf .yazi_tmp
+
+# ⚠️ allow this binary to run, overrides macos security
+xattr -d com.apple.quarantine ~/.local/bin/yazi;
 
 # install dependencies
 brew install ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell vscode ouch ncdu
