@@ -1,2 +1,0 @@
-nu -ic 'ls; input'
-bash -ic 'ls; read'

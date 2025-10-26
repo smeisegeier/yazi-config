@@ -140,15 +140,18 @@ previewers = [
 	# Fallback
 
 	{ name = "*", run = "file" },
-	# { name = "*.ipynb", run = "nbpreview" },
 ]
 
 prepend_previewers = [
 	# { name = "*.csv", run = "rich-preview"}, # for csv files
-    { name = "*.md", run = "rich-preview" }, # for markdown (.md) files
+	{ name = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+    #{ name = "*.md", run = "rich-preview" }, # for markdown (.md) files
     { name = "*.rst", run = "rich-preview"}, # for restructured text (.rst) files
-    { name = "*.ipynb", run = "rich-preview"}, # for jupyter notebooks (.ipynb)
-    # { name = "*.json", run = "rich-preview"}, # for jupyter notebooks (.ipynb)
+    { name = "*.ipynb", run = "rich-preview"}, # looks good
+	#{ name = "*.ipynb", run = "nbpreview" }, # not work
+
+	{ name = "*.json", run = "nbpreview" }, # looks better than rich
+    #{ name = "*.json", run = "rich-preview"},
 
     # Office Documents
     { mime = "application/vnd.openxmlformats-officedocument.*", run = "office" },
@@ -161,11 +164,16 @@ prepend_previewers = [
     { name = "*.pptx", run = "office" },
     { name = "*.ods", run = "office" },
 
-    # { name = "*.db", run = "preview" },
-    # { name = "*.sqlite", run = "preview" },
-
-	# { name = "*/", run = "eza-preview" },
+	#{ name = "*.csv", run = "duckdb" },  
+	{ name = "*.tsv", run = "duckdb" },  
+	#{ name = "*.json", run = "duckdb" },  
+	{ name = "*.parquet", run = "duckdb" },  
+	#{ name = "*.txt", run = "duckdb" },  
+	#{ name = "*.xlsx", run = "duckdb" },  
+	{ name = "*.db", run = "duckdb" },
+	{ name = "*.duckdb", run = "duckdb" },
 ]
+
 
 # do not preview empty files
 # append_previewers = [
@@ -188,6 +196,13 @@ prepend_preloaders = [
     { name = "*.xls", run = "office" },
     { name = "*.pptx", run = "office" },
     { name = "*.ods", run = "office" },
+
+	#{ name = "*.csv", run = "duckdb", multi = false },  
+	{ name = "*.tsv", run = "duckdb", multi = false },  
+	#{ name = "*.json", run = "duckdb", multi = false },  
+	{ name = "*.parquet", run = "duckdb", multi = false },
+	#{ name = "*.txt", run = "duckdb", multi = false },  
+	#{ name = "*.xlsx", run = "duckdb", multi = false }
 
 ]
 

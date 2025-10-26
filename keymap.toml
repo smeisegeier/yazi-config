@@ -125,8 +125,6 @@ keymap = [
     { on = [ "k", "x","x" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
     { on = [ "k", "x","m" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
     # { on = [ "k", "z" ], run = "plugin custom-shell bash --wait", desc = "custom-shell as default, waits for user" },
-	# { on = [ "k", "e" ], run = "plugin eza-preview",  desc = "🌴 Toggle tree/list dir preview" },
-	# { on   = [ "k", "s" ], run  = "plugin what-size", desc = "🧮 Calc size of selection or cwd" },
 	{ on   = [ "k", "y" ], run  = "plugin tree-to-clipboard", desc = "tree to clipboard" },
 
 	{ on = [ "!" ], run  = "shell 'echo \"Option1\nOption2\" | fzf --prompt=\"Choose an option: \"' --block", desc = "Open shell here"},

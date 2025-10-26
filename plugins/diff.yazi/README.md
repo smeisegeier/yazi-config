@@ -7,7 +7,7 @@ https://github.com/yazi-rs/plugins/assets/17523360/eff5e949-386a-44ea-82f9-4cb4a
 ## Installation
 
 ```sh
-ya pack -a yazi-rs/plugins:diff
+ya pkg add yazi-rs/plugins:diff
 ```
 
 ## Usage
@@ -15,13 +15,13 @@ ya pack -a yazi-rs/plugins:diff
 Add this to your `~/.config/yazi/keymap.toml`:
 
 ```toml
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = "<C-d>"
 run  = "plugin diff"
 desc = "Diff the selected with the hovered file"
 ```
 
-Make sure the <kbd>C</kbd> + <kbd>d</kbd> key is not used elsewhere.
+Note that, the keybindings above are just examples, please tune them up as needed to ensure they don't conflict with your other commands/plugins.
 
 ## License
 

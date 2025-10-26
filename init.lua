@@ -1,69 +1,69 @@
 -- ~/.config/yazi/init.lua
-require("relative-motions"):setup({ show_numbers="relative", show_motion = true })
+require("relative-motions"):setup({ show_numbers = "relative", show_motion = true })
+
+require("duckdb"):setup()
+
 require("githead"):setup({
-  order = {
-    "__spacer__",
-    "stashes",
-    "__spacer__",
-    "state",
-    "__spacer__",
-    "staged",
-    "__spacer__",
-    "unstaged",
-    "__spacer__",
-    "untracked",
-    "__spacer__",
-    "branch",
-    "remote_branch",
-    "__spacer__",
-    "tag",
-    "__spacer__",
-    "commit",
-    "__spacer__",
-    "behind_ahead_remote",
-    "__spacer__",
-  },
+	order = {
+		"__spacer__",
+		"stashes",
+		"__spacer__",
+		"state",
+		"__spacer__",
+		"staged",
+		"__spacer__",
+		"unstaged",
+		"__spacer__",
+		"untracked",
+		"__spacer__",
+		"branch",
+		"remote_branch",
+		"__spacer__",
+		"tag",
+		"__spacer__",
+		"commit",
+		"__spacer__",
+		"behind_ahead_remote",
+		"__spacer__",
+	},
 
-  branch_borders = "{}",
-  branch_prefix = "|",
-  branch_color = "#7aa2f7",
-  remote_branch_color = "#9ece6a",
-  always_show_remote_branch = true,
-  always_show_remote_repo = true,
+	branch_borders = "{}",
+	branch_prefix = "|",
+	branch_color = "#7aa2f7",
+	remote_branch_color = "#9ece6a",
+	always_show_remote_branch = true,
+	always_show_remote_repo = true,
 
-  tag_symbol = "󰓼",
-  always_show_tag = true,
-  tag_color = "#bb9af7",
+	tag_symbol = "󰓼",
+	always_show_tag = true,
+	tag_color = "#bb9af7",
 
-  commit_symbol = "",
-  always_show_commit = true,
-  commit_color = "#e0af68",
+	commit_symbol = "",
+	always_show_commit = true,
+	commit_color = "#e0af68",
 
-  staged_color = "#73daca",
-  staged_symbol = "●",
+	staged_color = "#73daca",
+	staged_symbol = "●",
 
-  unstaged_color = "#e0af68",
-  unstaged_symbol = "✗",
+	unstaged_color = "#e0af68",
+	unstaged_symbol = "✗",
 
-  untracked_color = "#f7768e",
-  untracked_symbol = "?",
+	untracked_color = "#f7768e",
+	untracked_symbol = "?",
 
-  state_color = "#f5c359",
-  state_symbol = "󱐋",
+	state_color = "#f5c359",
+	state_symbol = "󱐋",
 
-  stashes_color = "#565f89",
-  stashes_symbol = "⚑",
+	stashes_color = "#565f89",
+	stashes_symbol = "⚑",
 })
-
--- require("eza-preview"):setup()
 
 require("copy-file-contents"):setup({
 	append_char = "\n",
 	notification = true,
 })
 
-
-require("mactag"):setup {
+require("mactag"):setup({
 	-- Keys used to add or remove tags
 	keys = {
 		r = "Red",
@@ -76,16 +76,15 @@ require("mactag"):setup {
 	},
 	-- Colors used to display tags
 	colors = {
-		Red    = "#ee7b70",
+		Red = "#ee7b70",
 		Orange = "#f5bd5c",
 		Yellow = "#fbe764",
-		Green  = "#91fc87",
-		Blue   = "#5fa3f8",
+		Green = "#91fc87",
+		Blue = "#5fa3f8",
 		Purple = "#cb88f8",
 		-- "no-sync" = "#777777",
 	},
-}
-
+})
 
 function Linemode:size_mtime()
 	local time = math.floor(self._file.cha.mtime or 0)
@@ -106,7 +105,6 @@ function Linemode:size_mtime_perm()
 	local nlink = string.format("%02d", self._file.cha.nlink or 0)
 	local permissions = self._file.cha:perm() or ""
 
-
 	-- Get the last modification time
 	local time = math.floor(self._file.cha.mtime or 0)
 	if time == 0 then
@@ -123,19 +121,15 @@ function Linemode:size_mtime_perm()
 	-- Format the output with permissions, size, and time
 	return string.format("%s %s %s %s", size and ya.readable_size(size) or "-", time, nlink, permissions)
 end
-	
-
-
-
 
 -- Define a function to display a message in Yazi
 function hi()
-    -- The print function sends output to Yazi's message area
-    ya.notify {
+	-- The print function sends output to Yazi's message area
+	ya.notify({
 		title = "Yazi",
 		content = "Hello, world!",
-		timeout = 5
-	}
+		timeout = 5,
+	})
 end
 
 Status:children_add(function()
@@ -144,12 +138,12 @@ Status:children_add(function()
 		return ""
 	end
 
-	return ui.Line {
+	return ui.Line({
 		ui.Span(ya.user_name(h.cha.uid) or tostring(h.cha.uid)):fg("magenta"),
 		":",
 		ui.Span(ya.group_name(h.cha.gid) or tostring(h.cha.gid)):fg("magenta"),
 		" ",
-	}
+	})
 end, 500, Status.RIGHT)
 
 Header:children_add(function()
@@ -158,7 +152,6 @@ Header:children_add(function()
 	end
 	return ui.Span(ya.user_name() .. "@" .. ya.host_name() .. ":"):fg("blue")
 end, 500, Header.LEFT)
-
 
 function Status:name()
 	local h = self._current.hovered
@@ -173,7 +166,6 @@ function Status:name()
 
 	return " " .. h.name:gsub("\r", "?", 1) .. linked
 end
-
 
 ----@diagnostic disable: undefined-global
 -- return {
@@ -192,6 +184,6 @@ end
 -- 			os.execute(string. format("opener detatch \"%s\"", h.url))
 -- 		else
 -- 			ya.manager_emit("open", {})
--- 		end 
+-- 		end
 -- 	end,
 -- 	}
