@@ -1,53 +1,79 @@
---- @async entry  -- Required for Command API and ya.manager_emit
-local state = ya.sync(function() return cx.active.current.cwd end)
+local M = {}
 
-local function fail(s, ...) ya.notify { title = "Fzf", content = string.format(s, ...), timeout = 5, level = "error" } end
+local state = ya.sync(function()
+	local selected = {}
+	for _, url in pairs(cx.active.selected) do
+		selected[#selected + 1] = url
+	end
+	return cx.active.current.cwd, selected
+end)
 
-local function entry()
-    local _permit = ya.hide()
-    local cwd = tostring(state())
+function M:entry()
+	ya.emit("escape", { visual = true })
 
-    -- 1. Command to generate a clean list of files (find | sed)
-    -- 🔑 FIX: Escaping the single quotes for 'sed' to fix the Lua syntax error.
-    local file_list_cmd = Command("sh"):args({ "-c", "find . -mindepth 1 | sed \'s/^\\.\\///\'" })
+	local _permit = ya.hide()
+	local cwd, selected = state()
 
-    -- 2. Your fzf command, now with arguments and receiving stdin from the list command
-    local child, err =
-        Command("fzf")
-            :args({ 
-                "--ansi",
-                "--layout=reverse",
-                "--preview", "bat --color=always --style=numbers --line-range :500 {}",
-                "--bind", "ctrl-u:preview-page-up,ctrl-d:preview-page-down" 
-            })
-            :cwd(cwd)
-            :stdin(file_list_cmd)  -- Pipes the file list into fzf
-            :stdout(Command.PIPED)
-            :stderr(Command.INHERIT)
-            :spawn()
+	local output, err = M.run_with(cwd, selected)
+	if not output then
+		return ya.notify { title = "Fzf", content = tostring(err), timeout = 5, level = "error" }
+	end
 
-    if not child then
-        return fail("Failed to start `fzf`, error: " .. err)
-    end
+	local urls = M.split_urls(cwd, output)
+	if #urls == 1 then
+		local cha = #selected == 0 and fs.cha(urls[1])
+		ya.emit(cha and cha.is_dir and "cd" or "reveal", { urls[1] })
+	elseif #urls > 1 then
+		urls.state = #selected > 0 and "off" or "on"
+		ya.emit("toggle_all", urls)
+	end
+end
+function M.run_with(cwd, selected)
+	local child, err = Command("fzf")
+		:arg("--ansi")
+		:arg("--layout=default") -- Prompt at the bottom
+		:arg("--preview")
+		:arg("bat --color=always --style=numbers --line-range :500 {}")
+		:arg("--bind") 
+		:arg("ctrl-u:preview-page-up,ctrl-d:preview-page-down")
+        :arg("--no-mouse")
+		:arg("-m")
+		:cwd(tostring(cwd))
+		:stdin(#selected > 0 and Command.PIPED or Command.INHERIT)
+		:stdout(Command.PIPED)
+		:spawn()
 
-    local output, err = child:wait_with_output()
-    if not output then
-        return fail("Cannot read `fzf` output, error: " .. err)
-    elseif not output.status.success and output.status.code ~= 130 then
-        return fail("`fzf` exited with error code %s", output.status.code)
-    end
+	if not child then
+		return nil, Err("Failed to start `fzf`, error: %s", err)
+	end
 
-    if output.status.code == 130 then
-        return
-    end
+	for _, u in ipairs(selected) do
+		child:write_all(string.format("%s\n", u))
+	end
+	if #selected > 0 then
+		child:flush()
+	end
 
-    -- Process valid output
-    local target = output.stdout:gsub("\n$", "")
-    target = target:gsub("^./", "") 
-
-    if target ~= "" then
-        ya.manager_emit(target:find("[/\\]$") and "cd" or "reveal", { target })
-    end
+	local output, err = child:wait_with_output()
+	if not output then
+		return nil, Err("Cannot read `fzf` output, error: %s", err)
+	elseif not output.status.success and output.status.code ~= 130 then
+		return nil, Err("`fzf` exited with error code %s", output.status.code)
+	end
+	return output.stdout, nil
 end
 
-return { entry = entry }
+function M.split_urls(cwd, output)
+	local t = {}
+	for line in output:gmatch("[^\r\n]+") do
+		local u = Url(line)
+		if u.is_absolute then
+			t[#t + 1] = u
+		else
+			t[#t + 1] = cwd:join(u)
+		end
+	end
+	return t
+end
+
+return M

@@ -13,6 +13,9 @@
 
 This is a Yazi plugin that replaces the default file previewer and spotter with extra information.
 
+> [!IMPORTANT]
+> Minimum version: yazi v25.5.28
+
 ## Preview
 
 ### Before:
@@ -21,7 +24,7 @@ This is a Yazi plugin that replaces the default file previewer and spotter with 
 
   ![Before preview](statics/2024-11-17-12-06-24.png)
 
-- Spotter (yazi >= v0.4 after 21/11/2024)
+- Spotter
 
   ![Before spot](statics/2024-11-21-04-19-01.png)
 
@@ -31,13 +34,13 @@ This is a Yazi plugin that replaces the default file previewer and spotter with 
 
 ![After previewer](statics/2024-11-21-05-27-48.png)
 
-- Spotter (yazi >= v0.4 after 21/11/2024)
+- Spotter
 
 ![After spotter](statics/2024-11-21-05-29-50.png)
 
 ## Requirements
 
-- [yazi >=0.4](https://github.com/sxyazi/yazi)
+- [yazi >= 25.5.28](https://github.com/sxyazi/yazi)
 - Tested on Linux. For MacOS, Windows: some fields will shows empty values.
 
 ## Installation
@@ -45,29 +48,18 @@ This is a Yazi plugin that replaces the default file previewer and spotter with 
 Install the plugin:
 
 ```sh
-ya pack -a boydaihungst/file-extra-metadata
-```
-
-Add spotter keybind, makes sure not conflict with other `<Tab>` keybind in
-`manager` section:
-
-```toml
-[manager]
-keymap = [
-  # ...
-  # Spotting
-  { on = "<Tab>", run = "spot", desc = "Spot hovered file" },
-]
+ya pkg add boydaihungst/file-extra-metadata
 ```
 
 Create `~/.config/yazi/yazi.toml` and add:
+For yazi nightly replace `name` with `url`
 
 ```toml
 [plugin]
   append_previewers = [
     { name = "*", run = "file-extra-metadata" },
   ]
-  # yazi v0.4 after 21/11/2024
+
   # Setup keybind for spotter: https://github.com/sxyazi/yazi/pull/1802
   append_spotters = [
     { name = "*", run = "file-extra-metadata" },
@@ -83,7 +75,7 @@ or
     # disable default file plugin { name = "*", run = "file" },
     { name = "*", run = "file-extra-metadata" },
   ]
-  # yazi v0.4 after 21/11/2024
+
   # Setup keybind for spotter: https://github.com/sxyazi/yazi/pull/1802
   spotters = [
     # ... the rest
@@ -91,6 +83,22 @@ or
     # { name = "*", run = "file" },
     { name = "*", run = "file-extra-metadata" },
   ]
+```
+
+### Custom theme
+
+Read more: https://github.com/sxyazi/yazi/pull/2391
+
+Edit or add `yazi/theme.toml`:
+
+```toml
+[spot]
+border = { fg = "#4fa6ed" }
+title = { fg = "#4fa6ed" }
+
+# Table.
+tbl_cell = { fg = "#4fa6ed", reversed = true }
+tbl_col = { fg = "#4fa6ed" }
 ```
 
 ## For developer

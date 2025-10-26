@@ -1,6 +1,6 @@
 # file-manager-config
 
-⚠️ this config is still a mess. it now points to yazi version `25.2.11` to have a consistent behaviour and to _not break on update_
+this uses **current** yazi release `25.5.31`
 
 ## pre-install
 
@@ -13,8 +13,7 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 ```
 
 ## install
-
-![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey)
+### 1) ![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey)
 
 <!-- - clearly use [homebrew](https://brew.sh) here -->
 
@@ -23,52 +22,28 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-```bash
+<!-- 
+cd ~/.config/yazi
+
 # install yazi on specific version, this wont work with brew
 mkdir .yazi_tmp && unzip -d .yazi_tmp assets/yazi-aarch64-apple-darwin_25_4_3.zip && rm -f ~/.local/bin/{yazi,ya} && mv .yazi_tmp/*/yazi ~/.local/bin/yazi && mv .yazi_tmp/*/ya ~/.local/bin/ya && chmod +x ~/.local/bin/{yazi,ya} && rm -rf .yazi_tmp
 
 # ⚠️ allow this binary to run, overrides macos security
-xattr -d com.apple.quarantine ~/.local/bin/yazi;
+xattr -d com.apple.quarantine ~/.local/bin/yazi; 
+-->
 
-# install dependencies
-brew install ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell vscode ouch ncdu
+```bash
+
+# install dependencies. this assumes vscode is installed already
+brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell  ouch ncdu
 
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 
-# update packs
-ya pack -i
-
-```
-<!-- install yazi packages from toml -->
-
-[![windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/)
-
-**⚠️ outdated**
-
-```bash
-# try nerdfonts install
-winget install DEVCOM.JetBrainsMonoNerdFont
-
-winget install sxyazi.yazi Gyan.FFmpeg 7zip.7zip jqlang.jq sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick
-
-cd ${env:APPDATA} && mkdir yazi 
-
-# -> config dir
-# cd ${env:APPDATA}/yazi 2>nul || cd "%APPDATA%"/yazi
-
-# clone into %APPDATA%/yazi/config
-git clone https://github.com/smeisegeier/yazi-config ./config
-
-# go there
-cd config
-
-# update packs
-ya pack -i
 ```
 
-![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey)
+### 2) ![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey)
 
-- exampls useage on arch linux
+- example useage on arch linux
 - as for terminal: any will do (kitty, alacritty, ghostty etc)
 
 <br>
@@ -95,17 +70,38 @@ ya pack -i
 ``` -->
 
 ```bash
-# http
-git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
-
-# get specific version
-cd ~/Downloads
-wget https://archive.archlinux.org/packages/y/yazi/yazi-25.2.11-1-x86_64.pkg.tar.zst
-sudo pacman -U yazi-25.2.11-1-x86_64.pkg.tar.zst
-
 # install dependencies beyond what yazi already did
-sudo pacman -S nushell broot ncdu code ouch
+sudo pacman -S yazi nushell broot ncdu code ouch
 
+git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
+```
+
+### 3) [![windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/) **⚠️ outdated**
+
+```bash
+# try nerdfonts install
+winget install DEVCOM.JetBrainsMonoNerdFont
+
+winget install sxyazi.yazi Gyan.FFmpeg 7zip.7zip jqlang.jq sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick
+
+cd ${env:APPDATA} && mkdir yazi 
+
+# -> config dir
+# cd ${env:APPDATA}/yazi 2>nul || cd "%APPDATA%"/yazi
+
+# clone into %APPDATA%/yazi/config
+git clone https://github.com/smeisegeier/yazi-config ./config
+
+# go there
+cd config
+
+# update packs
+ya pack -i
+```
+
+## customization
+
+```bash
 # start / quit nushell once to get a config
 nu
 exit
@@ -139,16 +135,11 @@ y='function y() {
     rm -f -- "$tmp"
 }'
 echo "$y" >> ~/.zshrc
-
-# pin yazi version
-sudo nano /etc/pacman.conf
-
-# add this line
-IgnorePkg = yazi
-
 ```
 
-- launch
+## launch
+
+- after restart / sourcing of zsh and nushell
 
 ```bash
 # run yazi
