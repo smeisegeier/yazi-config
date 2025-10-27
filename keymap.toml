@@ -38,8 +38,8 @@ keymap = [
 	{ on = "ö", run = "back",    desc = "Go back to the previous directory" },
 	{ on = "ä", run = "forward", desc = "Go forward to the next directory" },
 
-	{ on = "n",        run = "seek -5", desc = "Seek up 5 units in the preview" },
-	{ on = "m",        run = "seek 5",  desc = "Seek down 5 units in the preview" },
+	{ on = "n",        run = "seek -5", desc = "Seek up units in the preview" },
+	{ on = "m",        run = "seek 5",  desc = "Seek down units in the preview" },
 	# { on = "<A-PageUp>",   run = "seek -5", desc = "Seek up 5 units in the preview" },
 	# { on = "<A-PageDown>", run = "seek 5",  desc = "Seek down 5 units in the preview" },
 
@@ -53,10 +53,10 @@ keymap = [
 
 	# Selection
 	{ on = "<Space>", run = [ "toggle --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
-	{ on = "v",       run = "visual_mode",                        desc = "Enter visual mode (selection mode)" },
-	{ on = "V",       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
-	{ on = "s",   run = "toggle_all --state=true",            desc = "Select all files" },
-	{ on = "S",   run = "toggle_all --state=none",            desc = "Inverse selection of all files" },
+	{ on = "s",       run = "visual_mode",                        desc = "Enter visual mode (selection mode)" },
+	{ on = "S",       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
+	{ on = "a",   run = "toggle_all --state=true",            desc = "Select all files" },
+	{ on = "A",   run = "toggle_all --state=none",            desc = "Inverse selection of all files" },
 
 	# Operation
 	# { on = [ "k","k" ], run = "shell 'open \"$@\" &' --", desc = "Open selected files in the background"	},	
@@ -124,6 +124,12 @@ keymap = [
 	# { on = [ "k", "x" ], run = "shell 'nu -c \"echo \\\"Press enter to continue\\\"; read -r in\"' --block", desc = "yo" },
     { on = [ "k", "x","x" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
     { on = [ "k", "x","m" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
+    { on = [ "k", "x","u" ], run = "plugin duckdb -ui", desc = "ui for duckdb" },
+    { on = [ "b" ], run = "plugin duckdb +1", desc = "->" },
+    { on = [ "v" ], run = "plugin duckdb -1", desc = "<-" },
+    { on = [ "T" ], run = "plugin toggle-pane min-preview", desc = "toggle min preview" },
+    { on = [ "Z" ], run = "plugin toggle-pane max-preview", desc = "toggle max preview" },
+
     # { on = [ "k", "z" ], run = "plugin custom-shell bash --wait", desc = "custom-shell as default, waits for user" },
 	{ on   = [ "k", "y" ], run  = "plugin tree-to-clipboard", desc = "tree to clipboard" },
 

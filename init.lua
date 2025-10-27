@@ -2,6 +2,13 @@
 require("relative-motions"):setup({ show_numbers = "relative", show_motion = true })
 
 require("duckdb"):setup()
+-- require("duckdb"):setup({
+-- 	mode = "standard",            -- Default: "summarized"
+-- 	cache_size = 1000,                          -- Default: 500
+-- 	row_id = true,             -- Default: false
+-- 	minmax_column_width = int,                  -- Default: 21
+-- 	column_fit_factor = float                  -- Default: 10.0
+-- })
 
 require("githead"):setup({
 	order = {
