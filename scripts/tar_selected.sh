@@ -48,7 +48,7 @@ file_count=${#relative_paths[@]}
 if [ "$archive_type" == "tar.gz" ]; then
     tar -czvf "$archive_name" "${relative_paths[@]}"
 elif [ "$archive_type" == "zip" ]; then
-    zip -r "$archive_name" "${relative_paths[@]}"
+    zip -r "$archive_name" "${relative_paths[@]}" -x "*.DS_Store" -x "__MACOSX/*"
 else
     echo "Unsupported archive type selected. Exiting."
     exit 1
