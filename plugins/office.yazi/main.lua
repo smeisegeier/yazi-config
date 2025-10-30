@@ -1,19 +1,19 @@
 --- @since 25.2.7
 
 local M = {}
-
 local function find_libreoffice_executable()
-    -- List of common executable names/paths, prioritized by likelihood of success or standard name.
-    -- Order:
-    -- 1. 'soffice' (The core executable name, often symlinked on macOS and some Linux setups)
-    -- 2. 'libreoffice' (The common wrapper script name on many Linux distros)
-    -- 3. Common *absolute* paths (Optional, for environments with limited $PATH)
     local names = {
+        -- 1. macOS-specific absolute path - HIGHEST PRIORITY for macOS
+        "/Applications/LibreOffice.app/Contents/MacOS/soffice",
+        
+        -- 2. Standard names that rely on $PATH (may work if a symlink exists or $PATH is configured)
         "soffice",
         "libreoffice",
+        
+        -- 3. Other common absolute paths (often for Linux/non-default setups)
         "/usr/bin/soffice",
         "/usr/local/bin/soffice",
-        "/usr/lib/libreoffice/program/soffice", -- Common deep path on Linux
+        "/usr/lib/libreoffice/program/soffice",
     }
 
     -- Note: Yazi's Lua environment provides a way to check if a command exists in $PATH.
@@ -65,87 +65,47 @@ function M:seek(job)
 end
 
 
-
 function M:doc2pdf(job)
-    local tmp = "/tmp/yazi-" .. ya.uid() .. "/" .. ya.hash("office.yazi") .. "/"
+	local tmp = "/tmp/yazi-" .. ya.uid() .. "/" .. ya.hash("office.yazi") .. "/"
 
-    -- Use the dynamically determined executable name/path (LO_EXEC)
-    local libreoffice = Command(LO_EXEC)
-        :arg({
-            "--headless",
-            "--convert-to",
-            'pdf:draw_pdf_Export:{"PageRange":{"type":"string","value":"' .. job.skip + 1 .. '"}}',
-            "--outdir",
-            tmp,
-            tostring(job.file.url),
-        })
-        :stdin(Command.NULL)
-        :stdout(Command.PIPED)
-        :stderr(Command.PIPED)
-        :output()
-        
-    -- The rest of your error checking logic remains the same
-    if not libreoffice or not libreoffice.status or not libreoffice.status.success then
-        -- Handle failure (this is where the original 'nil' error was happening)
-        -- The check needs to be more robust since `libreoffice` might still be nil
-        if not libreoffice then
-            return nil, Err("Failed to start LibreOffice executable: %s", LO_EXEC)
-        end
-        
-        -- Existing failure logic:
-        local output = libreoffice.stdout .. libreoffice.stderr
-        local version = (output:match("LibreOffice .+") or ""):gsub("%\n.*", "")
-        local error = (output:match("Error:? .+") or ""):gsub("%\n.*", "")
-        if version ~= "" or error ~= "" then
-            ya.err((version or "LibreOffice") .. " " .. (error or "Unknown error"))
-        end
-        return nil, Err("Failed to preconvert `%s` to a temporary PDF", job.file.name)
-    end
-    
-    -- ... rest of successful conversion logic ...
+	--[[	For Future Reference: Regarding `libreoffice` as preconverter
+	  1. It prints errors to stdout (always, doesn't matter if it succeeded or it failed)
+	  2. Always writes the converted files to the filesystem, so no "Mario|Bros|Piping|Magic" for the data stream (https://ask.libreoffice.org/t/using-convert-to-output-to-stdout/38753)
+	  3. The `pdf:draw_pdf_Export` filter needs literal double quotes when defining its options (https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html?&DbPAR=SHARED&System=UNIX#generaltext/shared/guide/pdf_params.xhp)
+	  3.1 Regarding double quotes and Lua strings, see https://www.lua.org/manual/5.1/manual.html#2.1 --]]
+	local libreoffice = Command("soffice")
+		:arg({
+			"--headless",
+			"--convert-to",
+			'pdf:draw_pdf_Export:{"PageRange":{"type":"string","value":"' .. job.skip + 1 .. '"}}',
+			"--outdir",
+			tmp,
+			tostring(job.file.url),
+		})
+		:stdin(Command.NULL)
+		:stdout(Command.PIPED)
+		:stderr(Command.PIPED)
+		:output()
+
+	if not libreoffice.status.success then
+		local output = libreoffice.stdout .. libreoffice.stderr
+		local version = (output:match("LibreOffice .+") or ""):gsub("%\n.*", "")
+		local error = (output:match("Error:? .+") or ""):gsub("%\n.*", "")
+		if version ~= "" or error ~= "" then
+			ya.err((version or "LibreOffice") .. " " .. (error or "Unknown error"))
+		end
+		return nil, Err("Failed to preconvert `%s` to a temporary PDF", job.file.name)
+	end
+
+	local tmp = tmp .. job.file.name:gsub("%.[^%.]+$", ".pdf")
+	local read_permission = io.open(tmp, "r")
+	if not read_permission then
+		return nil, Err("Failed to read `%s`: make sure file exists and have read access", tmp)
+	end
+	read_permission:close()
+
+	return tmp
 end
-
--- function M:doc2pdf(job)
--- 	local tmp = "/tmp/yazi-" .. ya.uid() .. "/" .. ya.hash("office.yazi") .. "/"
-
--- 	--[[	For Future Reference: Regarding `libreoffice` as preconverter
--- 	  1. It prints errors to stdout (always, doesn't matter if it succeeded or it failed)
--- 	  2. Always writes the converted files to the filesystem, so no "Mario|Bros|Piping|Magic" for the data stream (https://ask.libreoffice.org/t/using-convert-to-output-to-stdout/38753)
--- 	  3. The `pdf:draw_pdf_Export` filter needs literal double quotes when defining its options (https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html?&DbPAR=SHARED&System=UNIX#generaltext/shared/guide/pdf_params.xhp)
--- 	  3.1 Regarding double quotes and Lua strings, see https://www.lua.org/manual/5.1/manual.html#2.1 --]]
--- 	local libreoffice = Command("soffice")
--- 		:arg({
--- 			"--headless",
--- 			"--convert-to",
--- 			'pdf:draw_pdf_Export:{"PageRange":{"type":"string","value":"' .. job.skip + 1 .. '"}}',
--- 			"--outdir",
--- 			tmp,
--- 			tostring(job.file.url),
--- 		})
--- 		:stdin(Command.NULL)
--- 		:stdout(Command.PIPED)
--- 		:stderr(Command.PIPED)
--- 		:output()
-
--- 	if not libreoffice.status.success then
--- 		local output = libreoffice.stdout .. libreoffice.stderr
--- 		local version = (output:match("LibreOffice .+") or ""):gsub("%\n.*", "")
--- 		local error = (output:match("Error:? .+") or ""):gsub("%\n.*", "")
--- 		if version ~= "" or error ~= "" then
--- 			ya.err((version or "LibreOffice") .. " " .. (error or "Unknown error"))
--- 		end
--- 		return nil, Err("Failed to preconvert `%s` to a temporary PDF", job.file.name)
--- 	end
-
--- 	local tmp = tmp .. job.file.name:gsub("%.[^%.]+$", ".pdf")
--- 	local read_permission = io.open(tmp, "r")
--- 	if not read_permission then
--- 		return nil, Err("Failed to read `%s`: make sure file exists and have read access", tmp)
--- 	end
--- 	read_permission:close()
-
--- 	return tmp
--- end
 
 function M:preload(job)
 	local cache = ya.file_cache(job)

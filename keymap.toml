@@ -58,7 +58,7 @@ keymap = [
 	{ on = "a",   run = "toggle_all --state=true",            desc = "Select all files" },
 	{ on = "A",   run = "toggle_all --state=none",            desc = "Inverse selection of all files" },
 
-	{ on = "S",       run = "plugin sshfs -- menu",                desc = "plugin sshfs -- menu" },
+	{ on = "S",       run = "plugin sshfs -- menu",                desc = " 🔑 sshfs -- menu (🐧 linux only)", for="linux" },
 
 
 
@@ -102,7 +102,7 @@ keymap = [
 	{ on   = [ "k", "b" ], run  = "shell '$HOME/.config/yazi/scripts/broot.sh \"$1\"' --block", desc = "🌴 broot dir" },
 	{ on = [ "k", "c" ], run  = "plugin chmod", desc = "✍️ Chmod on selected files" },
 	{ on = [ "k", "d" ], run = "plugin diff", desc= "🔃 Diff the selected with the hovered file"},
-	{ on = [ "k", "f" ], run = "shell 'open -R \"$@\"'", desc= "Open in 🍎 macos finder"},
+	{ on = [ "k", "f" ], run = "shell 'open -R \"$@\"'", desc= "Open in 🍎 macos finder", for="macos"},
     # { on = [ "k", "g", "c" ], run = "shell '$HOME/.config/yazi/scripts/gpg_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Crypt Files pgp" },
     { on = [ "k", "g", "e" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Encrypt Files pgp" },
     { on = [ "k", "g", "E" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s \"$@\"' --block", desc = "🔐☑️ SignEncrypt Files pgp" },
