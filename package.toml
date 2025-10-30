@@ -68,6 +68,11 @@ use = "yazi-rs/plugins:toggle-pane"
 rev = "8f1d971"
 hash = "8a7c58225816a163a6e8730c0adafbc8"
 
+[[plugin.deps]]
+use = "uhs-robert/sshfs"
+rev = "2728b14"
+hash = "8ee736ae855ed80ae341136bb8fb353c"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "fc8eeaa"

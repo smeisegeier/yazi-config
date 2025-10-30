@@ -10,6 +10,11 @@ require("duckdb"):setup({
  	column_fit_factor = float                  -- Default: 10.0
 })
 
+if os.getenv("OSTYPE") == "linux-gnu" then
+  require("sshfs"):setup()
+end
+
+
 require("githead"):setup({
 	order = {
 		"__spacer__",

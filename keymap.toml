@@ -54,9 +54,13 @@ keymap = [
 	# Selection
 	{ on = "<Space>", run = [ "toggle --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
 	{ on = "s",       run = "visual_mode",                        desc = "Enter visual mode (selection mode)" },
-	{ on = "S",       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
+	#{ on = "S",       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
 	{ on = "a",   run = "toggle_all --state=true",            desc = "Select all files" },
 	{ on = "A",   run = "toggle_all --state=none",            desc = "Inverse selection of all files" },
+
+	{ on = "S",       run = "plugin sshfs -- menu",                desc = "plugin sshfs -- menu" },
+
+
 
 	# Operation
 	# { on = [ "k","k" ], run = "shell 'open \"$@\" &' --", desc = "Open selected files in the background"	},	
