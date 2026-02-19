@@ -81,7 +81,7 @@ function get_log() {
 
     case "$os_name" in
         macos)
-            selected=$(use_fzf "START_TIME=\$(date +'%Y-%m-%d 00:00:00'); END_TIME=\$(date +'%Y-%m-%d %H:%M:%S'); log show --start \"\$START_TIME\" --end \"\$END_TIME\" --info --debug --last 1d --predicate 'messageType == 17' | awk '{print \$0}'" "1" "Select Today's Critical Fault Log: ")
+            selected=$(use_fzf " ")
             ;;
         linux)
             selected=$(use_fzf "journalctl --since today --priority=3 --no-pager --output cat" "1" "Select Today's Critical Log: ")
@@ -94,6 +94,32 @@ function get_log() {
     echo "$selected" | to_clipboard
     echo "$selected"
 }
+
+function get_lock() {
+    # if ! check_commands find; then return 1; fi
+
+    # * check if a filename argument was provided
+    if [ -z "$1" ]; then
+        echo "Error: Filename argument is missing." >&2
+        return 1
+    fi
+
+    local target_file="$1" # Store the argument in a local variable    local selected
+    local selected
+    local os_name="${OS_NAME:-$(get_os)}" # Use $OS_NAME if set, otherwise call get_os
+    DELIM=" --- "
+
+    case "$os_name" in
+        macos)
+            selected=$(use_fzf "lsof \"$target_file\"" "2" "Select File Lock: ")
+            ;;
+    esac
+
+    echo "$selected" | to_clipboard
+    echo "$selected"
+}
+
+
 
 function get_packages_available() {
     # This assumes 'get_os', 'to_clipboard', and 'check_commands' are defined
