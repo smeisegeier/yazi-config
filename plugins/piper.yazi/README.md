@@ -53,7 +53,7 @@ url = "*.csv"
 run = 'piper -- bat -p --color=always "$1"'
 ```
 
-Note that certain distributions might use a different name for `bat`, like Debian and Ubuntu uses `batcat` instead, so please adjust accordingly.
+Note that certain distributions might use a different name than `bat`, like Debian and Ubuntu use `batcat`, so please adjust accordingly.
 
 ### Preview Markdown with [`glow`](https://github.com/charmbracelet/glow)
 
@@ -73,6 +73,14 @@ url = "*/"
 run = 'piper -- eza -TL=3 --color=always --icons=always --group-directories-first --no-quotes "$1"'
 ```
 
+### Preview the schema of a SQLite database
+
+```toml
+[[plugin.prepend_previewers]]
+mime = "application/sqlite3"
+run  = 'piper -- sqlite3 "$1" ".schema --indent"'
+```
+
 ### Use [`hexyl`](https://github.com/sharkdp/hexyl) as fallback previewer
 
 Yazi defaults to using [`file -bL "$1"`](https://github.com/sxyazi/yazi/blob/main/yazi-plugin/preset/plugins/file.lua) if there's no matched previewer.
@@ -84,6 +92,10 @@ This example uses `hexyl` as a fallback previewer instead of `file`.
 url = "*"
 run = 'piper -- hexyl --border=none --terminal-width=$w "$1"'
 ```
+
+## Related projects
+
+[`faster-piper.yazi`](https://github.com/alberti42/faster-piper.yazi): a cache-based, scrolling-optimized rewrite compatible with `piper.yazi`.
 
 ## License
 

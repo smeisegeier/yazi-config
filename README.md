@@ -1,6 +1,6 @@
 # file-manager-config
 
-this uses **current** yazi release `25.5.31`
+this uses yazi release `26.1.22`
 
 ## pre-install
 
@@ -13,6 +13,7 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 ```
 
 ## install
+
 ### 1) ![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey)
 
 <!-- - clearly use [homebrew](https://brew.sh) here -->
@@ -35,7 +36,7 @@ xattr -d com.apple.quarantine ~/.local/bin/yazi;
 ```bash
 
 # install dependencies. this assumes vscode is installed already
-brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell ouch ncdu nbpreview rich-cli glow mactag
+brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell ouch ncdu nbpreview rich-cli glow mactag librsvg ffmpegthumbnailer resvg
 
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 

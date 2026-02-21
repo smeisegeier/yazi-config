@@ -84,7 +84,7 @@ require("mactag"):setup({
 		g = "Green",
 		b = "Blue",
 		p = "Purple",
-		n = "no-sync",
+		-- n = "no-sync",
 	},
 	-- Colors used to display tags
 	colors = {
@@ -96,6 +96,7 @@ require("mactag"):setup({
 		Purple = "#cb88f8",
 		-- "no-sync" = "#777777",
 	},
+	order=500,
 })
 
 function Linemode:size_mtime()

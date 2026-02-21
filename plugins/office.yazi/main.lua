@@ -1,44 +1,6 @@
 --- @since 25.2.7
 
 local M = {}
-local function find_libreoffice_executable()
-    local names = {
-        -- 1. macOS-specific absolute path - HIGHEST PRIORITY for macOS
-        "/Applications/LibreOffice.app/Contents/MacOS/soffice",
-        
-        -- 2. Standard names that rely on $PATH (may work if a symlink exists or $PATH is configured)
-        "soffice",
-        "libreoffice",
-        
-        -- 3. Other common absolute paths (often for Linux/non-default setups)
-        "/usr/bin/soffice",
-        "/usr/local/bin/soffice",
-        "/usr/lib/libreoffice/program/soffice",
-    }
-
-    -- Note: Yazi's Lua environment provides a way to check if a command exists in $PATH.
-    -- Assuming `Command.exists(name)` or similar is available, or you can run `which`.
-
-    for _, name in ipairs(names) do
-        -- A proper implementation would check if the command can be successfully run
-        -- or resolved (e.g., using `ya.which(name)` if available).
-        -- Since we don't have the full Yazi API, we'll rely on the simple name first,
-        -- as you confirmed "soffice" works via $PATH lookup.
-
-        -- For maximal safety, you can wrap a basic command execution check here,
-        -- but using the name directly is the simplest start.
-        if name == "soffice" or name == "libreoffice" then
-            return name
-        end
-    end
-
-    -- If no common executable name works, fall back to the generic 'soffice' or nil
-    return "soffice" -- Falls back to the name that worked for you
-end
-
--- Determine the executable once
-local LO_EXEC = find_libreoffice_executable()
-
 
 function M:peek(job)
 	local start, cache = os.clock(), ya.file_cache(job)
@@ -64,7 +26,6 @@ function M:seek(job)
 	end
 end
 
-
 function M:doc2pdf(job)
 	local tmp = "/tmp/yazi-" .. ya.uid() .. "/" .. ya.hash("office.yazi") .. "/"
 
@@ -73,7 +34,7 @@ function M:doc2pdf(job)
 	  2. Always writes the converted files to the filesystem, so no "Mario|Bros|Piping|Magic" for the data stream (https://ask.libreoffice.org/t/using-convert-to-output-to-stdout/38753)
 	  3. The `pdf:draw_pdf_Export` filter needs literal double quotes when defining its options (https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html?&DbPAR=SHARED&System=UNIX#generaltext/shared/guide/pdf_params.xhp)
 	  3.1 Regarding double quotes and Lua strings, see https://www.lua.org/manual/5.1/manual.html#2.1 --]]
-	local libreoffice = Command("soffice")
+	local libreoffice = Command("libreoffice")
 		:arg({
 			"--headless",
 			"--convert-to",

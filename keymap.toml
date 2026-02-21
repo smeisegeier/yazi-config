@@ -449,6 +449,11 @@ desc = "Rename selected file(s)"
 on  = "M"
 run = "plugin mount"
 
+[[mgr.prepend_keymap]]
+on   = [ "R" ]
+run  = "reload"
+desc = "Reload current directory and refresh previews"
+
 # [[manager.prepend_keymap]]
 # on = ["k","a","o"]
 # run = "plugin ouch"
