@@ -2,7 +2,7 @@
 
 def main [x: string] {
     # Check if $x ends with .db or .sqlite
-    if ($x | str ends-with ".db") or ($x | str ends-with ".sqlite") {
+    let output = if ($x | str ends-with ".db") or ($x | str ends-with ".sqlite") {
         # If it does, open it with sqlite3
         print $"open ($x) | schema"
         open $x | schema
@@ -13,4 +13,9 @@ def main [x: string] {
     } else {
         print "❌ Error: File must end with .db or .sqlite"
     }
+
+    # Force flush and wait
+    print $output
+    ^read -p "Press Enter to continue..."
+
 }
