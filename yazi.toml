@@ -17,8 +17,8 @@ file = "yazi.log"
 
 [preview]
 tab_size       = 2
-max_width      = 1200
-max_height     = 1000
+max_width      = 2000
+max_height     = 1600
 image_filter   = "triangle"
 image_quality  = 75
 svg_precision  = 2
@@ -31,9 +31,9 @@ edit = [
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
     { run = '${EDITOR:=kate} "$@"', desc = "KDE kate", block = true, orphan = false, for = "linux" },
 ]
-open = [
+sys-open = [
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
-	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
+    { run = 'open "$@"', desc = "Open", orphan = true, for = "macos" },
 	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
 
@@ -41,7 +41,7 @@ open = [
 rules = [
     { name = "*/", use = [ "edit", "reveal" ] },
     { mime = "text/*", use = [ "edit" ] },
-    { name = "*", use = [ "open" ] },
+    { name = "*", use = [ "sys-open", "reveal", "edit" ] },
 ]
 
 [plugin]

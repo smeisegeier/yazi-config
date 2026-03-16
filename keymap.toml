@@ -64,8 +64,10 @@ keymap = [
 
 	# Operation
 	# { on = [ "k","k" ], run = "shell 'open \"$@\" &' --", desc = "Open selected files in the background"	},	
-	{ on = "<Enter>",   run = "open", block = false,                 desc = "Open selected files" },
-	{ on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
+	{ on = "<Enter>",   run = 'shell "open \"$@\"" --orphan', desc = "Open selected files" },
+	# { on = "<S-Enter>", run = 'shell "open  \"$0\"" --interactive', desc = "Open New Instance" },
+	# { on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
+	{ on = "<S-Enter>", run = 'shell "osascript -e \"tell application \\\"Finder\\\" to reveal POSIX file \\\"$0\\\"\" -e \"tell application \\\"Finder\\\" to activate\" -e \"tell application \\\"System Events\\\" to keystroke \\\" \\\"\"" --orphan', desc = "Real Quick Look" },
 	{ on = [ "y","c" ],         run = "plugin copy-file-contents",                        desc = "Copy contents of files" },
 	{ on = [ "y","y" ],         run = "yank",                        desc = "Copy selected files" },
 	{ on = [ "y","x" ],         run = "yank --cut",                  desc = "Cut the selected files" },
@@ -458,3 +460,24 @@ desc = "Reload current directory and refresh previews"
 # on = ["k","a","o"]
 # run = "plugin ouch"
 # desc = "Compress with ouch"
+
+[[mgr.prepend_keymap]]
+on   = "+"
+run  = "plugin zoom 1"
+desc = "Zoom in hovered file"
+
+[[mgr.prepend_keymap]]
+on   = "-"
+run  = "plugin zoom -1"
+desc = "Zoom out hovered file"
+
+# [[mgr.prepend_keymap]]
+# [[manager.prepend_keymap]]
+# on   = [ "enter" ]
+# # run  = 'shell "open \"$0\"" --orphan'
+# run  = 'shell "open $0" --orphan'
+# desc = "Open with System"
+
+# [[plugin.prepend_previewers]]
+# mime = "image/{jpeg,png,webp}"
+# run  = "zoom 5"
