@@ -64,6 +64,7 @@ keymap = [
 
 	# Operation
 	# { on = [ "k","k" ], run = "shell 'open \"$@\" &' --", desc = "Open selected files in the background"	},	
+	# { on = "<Enter>", run = "open", desc = "Open based on yazi.toml rules" },
 	{ on = "<Enter>",   run = 'shell "open \"$@\"" --orphan', desc = "Open selected files" },
 	# { on = "<S-Enter>", run = 'shell "open  \"$0\"" --interactive', desc = "Open New Instance" },
 	# { on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
@@ -112,6 +113,7 @@ keymap = [
     { on = [ "k", "g", "s" ], run = "shell '$HOME/.config/yazi/scripts/gpg_create_sig_selected.sh \"$@\"' --block", desc = "🖊️ Create sig for Files" },
     { on = [ "k", "g", "v" ], run = "shell '$HOME/.config/yazi/scripts/gpg_verify_selected.sh \"$@\"' --block", desc = "❔ Verify sig pgp" },
     { on = [ "k", "g", "l" ], run = 'shell --block -- gpg --list-packets "$1" | grep -A 1 "signature packet" ', desc = "🔍 List packets 📦" },
+	{ on = [ "k", "j" ], run = "shell '$HOME/.config/yazi/scripts/json_open.sh \"$1\"' --block", desc = "📄 open json or yaml" },
     { on = [ "k", "k","k" ], run = "shell 'code \"$@\"'", desc = "Open selected files in 💻 vscode" },
     { on = [ "k", "k", "o" ], run = "shell 'cot \"$@\"'", desc = "Open selected (*large*) files in cotedit", for="macos" },
 
@@ -132,11 +134,18 @@ keymap = [
     { on = [ "k", "x","x" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
     { on = [ "k", "x","m" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
     { on = [ "k", "x","u" ], run = "plugin duckdb -ui", desc = "ui for duckdb" },
+	# { on = [ "k", "j", "e" ], run = "shell 'nu -c \"open \"$0\" | explore\"' --block --confirm", desc = "Nushell Explore" },
+	# { on = [ "k", "j", "j" ], run = "shell 'nu -c \"open \"$0\" \"' --block --confirm", desc = "Nushell show" },
+
+
+
     { on = [ "b" ], run = "plugin duckdb +1", desc = "->" },
     { on = [ "v" ], run = "plugin duckdb -1", desc = "<-" },
     { on = [ "T" ], run = "plugin toggle-pane min-preview", desc = "toggle min preview" },
     { on = [ "Z" ], run = "plugin toggle-pane max-preview", desc = "toggle max preview" },
 
+
+	# { on = [ "u" ], run = "unselect --all", desc = "Clear all selections globally" },
     # { on = [ "k", "z" ], run = "plugin custom-shell bash --wait", desc = "custom-shell as default, waits for user" },
 	{ on   = [ "k", "y" ], run  = "plugin tree-to-clipboard", desc = "tree to clipboard" },
 
