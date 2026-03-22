@@ -26,67 +26,111 @@ svg_precision  = 2
 # sixel_fraction was removed in v26 - it's now automatic
 
 [opener]
-duckdb-ui = [
-    # { run = 'echo "DEBUG: Rule Triggered for $1"; read -p "Press Enter..."', block = true, desc = "DEBUG DUCKDB" }    # { run = 'shell "duckdb -ui \"$1\"" --block', desc = "Open in DuckDB Web UI" },
-	# { run = 'duckdb -ui "$@"', block = true, desc = "Open in DuckDB Web UI" },
-    { run = 'duckdb -ui "$1"', block = true, desc = "DuckDB UI" }
-]
 edit = [
-    { run = '${EDITOR:=code} "$@"', desc = "VS Code", for = "macos" },
+    { run = 'code "$@"', desc = "🖥️ VS Code", for = "macos" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
     { run = '${EDITOR:=kate} "$@"', desc = "KDE kate", block = true, orphan = false, for = "linux" },
 ]
+edit-large = [
+    { run = 'cot "$@"', block = false, desc = "🗻 CotEditor for large files", for = "macos" },
+]
 sys-open = [
+    { run = 'open "$@"', desc = " Open with macOS settings", orphan = true, for = "macos" },
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
-    { run = 'open "$@"', desc = "Open", orphan = true, for = "macos" },
 	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
-
 quicklook = [
-    { run = 'osascript -e "tell application \"Finder\" to reveal POSIX file \"$1\"" -e "tell application \"Finder\" to activate" -e "tell application \"System Events\" to delay 0.5" -e "tell application \"System Events\" to keystroke \" \""', orphan = true, desc = "Quick Look" }
+    # { run = 'osascript -e "tell application \"Finder\" to reveal POSIX file \"$1\"" -e "tell application \"Finder\" to activate" -e "tell application \"System Events\" to delay 0.5" -e "tell application \"System Events\" to keystroke \" \""', orphan = true, desc = "🔍 Quicklook" }
+    { run = 'qlmanage -p "$1" >/dev/null 2>&1', desc = "🔍 Quicklook", orphan = true },
 ]
-
-# * for rename
+# * for batch rename
 terminal-block = [
-    { run = 'code --wait "$@"', desc = "edit", block = true },
+    { run = 'code --wait "$@"', desc = "-", block = true },
 ]
 play = [
-	{ run = "xdg-open %s1",    desc = "Play", for = "linux", orphan = true },
-	{ run = "open %s",         desc = "Play", for = "macos" },
-	{ run = 'start "" %s1',    desc = "Play", for = "windows", orphan = true },
+	{ run = "open %s",         desc = "▶️ Play", for = "macos" },
+	{ run = "xdg-open %s1",    desc = "▶️ Play", for = "linux", orphan = true },
+	{ run = 'start "" %s1',    desc = "▶️ Play", for = "windows", orphan = true },
 	{ run = "termux-open %s1", desc = "Play", for = "android" },
-	{ run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "Show media info", for = "unix" },
-	{ run = "mediainfo %s1 & pause", block = true, desc = "Show media info", for = "windows" },
+]
+mediainfo = [
+    { run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "🎬 Show media info", for = "unix" },
+	{ run = "mediainfo %s1 & pause", block = true, desc = "🎬 Show media info", for = "windows" },
+]
+exif = [
+    # { run = 'zsh -c "exiftool \"$1\" | bat"', block = true, desc = "📸 Show Full EXIF" }
+    # { run = 'exiftool "$1"', block = true, desc = "📸 Show Full EXIF" }
+    { run = 'zsh -c "exiftool \"$1\" | bat --language yaml --style=header,grid; echo \"\nPress any key\"; read -k 1"', block = true, desc = "📸 Show full EXIF" }
 ]
 download = [
-	{ run = "ya emit download --open %S", desc = "Download and open" },
-	{ run = "ya emit download %S",        desc = "Download" },
+	{ run = "ya emit download --open %S", desc = "🌐 Download and open" },
+	{ run = "ya emit download %S",        desc = "🌐 Download" },
 ]
 extract = [
-	{ run = "ya pub extract --list %s", desc = "Extract here" },
+	{ run = "ya pub extract --list %s", desc = "📦 Extract here" },
+]
+compress = [
+    { run = 'nu ~/.config/yazi/scripts/tar_selected.sh "$@"', desc = "📦 Compress files" },
 ]
 reveal = [
-    { run = 'open -R "$1"', desc = "Reveal in Finder", for = "macos" }
+    { run = 'open -R "$1"', desc = " Reveal in Finder", for = "macos" }
+]
+duckdb-ui = [
+    { run = 'duckdb -ui "$1"', block = true, desc = "🦆 DuckDB UI" }
+]
+explain = [
+    { run = 'nu ~/.config/yazi/scripts/explain.sh "$1"', block = true, desc = "💡 Explain schema" }
+]
+chmod = [
+    { run = 'ya emit plugin chmod', desc = "✍️ Chmod on selected files" }
+]
+pgp-encrypt = [
+    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh "$@"', block = true, desc = "🔐 Encrypt Files pgp" },
+    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s "$@"', block = true, desc = "🔐🖊️ Sign+Encrypt Files pgp" },
+    { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh "$@"', block = true, desc = "🖊️ Create sig for Files" },
+]
+pgp-decrypt = [
+    { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh "$@"', block = true, desc = "🔓 DeCrypt Files pgp" },
+    { run = 'gpg --list-packets "$@" | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "🔍 List packets 📦" },
+]
+sig = [
+    { run = '~/.config/yazi/scripts/gpg_verify_signature.sh "$1"', block = true, desc = "❔ Verify sig pgp" },
+]
+terminal-show = [
+    { run = 'bat "$@"; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
+]
+show-dir-size = [
+    { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
 ]
 
 [open] 
 rules = [
-	{ url = "*.duckdb", use = [ "duckdb-ui"] },
-    { mime = "text/plain", use = [ "terminal-block" ] },
-    # { mime = "image/svg+xml", use = [ "quicklook" ] },
+	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = [ "duckdb-ui","explain","reveal"] },
+	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","explain","reveal","terminal-show"] },
+    { url = "*.{sh,nu,ps1,py,lua,r,conf}", use = [ "edit","sys-open", "reveal","chmod","terminal-show" ] },
+    { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-block","pgp-encrypt","compress" ] },
 
-    { mime = "text/shellscript", use = [ "edit" ] },
-    { url = "*/", use = [ "edit", "reveal" ] },
-	{ mime = "text/*", use = [ "edit", "reveal" ] },
-	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
-	{ mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
-	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
+    { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal" ] },
+    { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
+    # { url = "*.{gpg}", use = [ "pgp-decrypt" ] },
+
+    { mime = "*/pgp-keys", use = [ "pgp-decrypt","terminal-show","reveal" ] },
+    # { url = "*.{asc,key}", use = [ "edit","terminal-show" ] },
+    { url = "*.{sig}", use = [ "sig","edit","terminal-show","reveal" ] },
+
+    { mime = "text/plain", use = [ "edit","reveal","pgp-encrypt" ] },
+    { mime = "image/*", use = [ "sys-open","mediainfo","exif","reveal" ] },
+    { mime = "text/html", use = [ "sys-open", "edit","reveal" ] },
+    { url = "*/", use = [ "edit", "compress","show-dir-size","reveal" ] },
+	# { mime = "text/*", use = [ "edit", "reveal" ] },
+	{ mime = "{audio,video}/*", use = [ "play", "mediainfo","exif", "reveal","pgp-encrypt" ] },
+	# { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal", "pgp-encrypt" ] },
 
 	{ mime = "vfs/{absent,stale}", use = "download" },
 	{ mime = "inode/empty", use = [ "edit", "reveal" ] },
-    { url = "*", use = [ "sys-open", "reveal", "edit" ] },
-	# { url = "*", use = [ "open", "reveal" ] },
+    { url = "*", use = [ "sys-open", "quicklook","reveal", "edit" ] },
 ]
 
 [plugin]
@@ -196,3 +240,13 @@ rename_offset = [ 0, 1, 50, 3 ]
 
 # 	{ name = "*", run = "file" },
 # ]
+
+[select]
+# The position of the menu (center is usually best for visibility)
+border   = { fg = "blue" }
+active   = { fg = "magenta", bold = true }
+inactive = { }
+
+# You can't set fixed width, but you can change the layout
+# 'top-center', 'bottom-center', or 'center'
+# 'center' feels "larger" because it occupies the focal point of the UI.

@@ -63,12 +63,15 @@ keymap = [
 
 
 	# Operation
-	# { on = [ "k","k" ], run = "shell 'open \"$@\" &' --", desc = "Open selected files in the background"	},	
-	{ on = "<Enter>", run = "open", desc = "Open based on yazi.toml rules" },
+	# { on = "<Enter>", run = "open", desc = "Open based on yazi.toml rules" },
 	# { on = "<Enter>",   run = 'shell "open \"$@\"" --orphan', desc = "Open selected files" },
 	# { on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
 	# { on = "<S-Enter>", run = 'shell "osascript -e \"tell application \\\"Finder\\\" to reveal POSIX file \\\"$0\\\"\" -e \"tell application \\\"Finder\\\" to activate\" -e \"tell application \\\"System Events\\\" to keystroke \\\" \\\"\"" --orphan', desc = "Real Quick Look" },
-	{ on = "<S-Enter>", run = 'shell "nu ~/.config/yazi/scripts/explain.sh \"$0\"" --block', desc = "Explain / Quick Look" },
+	{ on = [ "<Enter>" ], run = "open --interactive", desc = "Open with selection menu"},
+	# { on = "<S-Enter>", run = 'shell "nu ~/.config/yazi/scripts/explain.sh \"$0\"" --block', desc = "Explain / Quick Look" },
+
+	{ on = [ "<S-Enter>" ], run = 'shell "echo \"Edit\nEdit-Large\nPGP-Encrypt\nExif\nMediaInfo\nReveal\nChmod\nExplain\" | fzf --height 100% --reverse | xargs -I {} ya emit open --with {}" --block', desc = "🚀 Full-screen Opener Selector"},
+
 	{ on = [ "y","c" ],         run = "plugin copy-file-contents",                        desc = "Copy contents of files" },
 	{ on = [ "y","y" ],         run = "yank",                        desc = "Copy selected files" },
 	{ on = [ "y","x" ],         run = "yank --cut",                  desc = "Cut the selected files" },
@@ -105,7 +108,7 @@ keymap = [
 	{ on = [ "k", "c" ], run  = "plugin chmod", desc = "✍️ Chmod on selected files" },
 	{ on = [ "k", "d" ], run = "plugin diff", desc= "🔃 Diff the selected with the hovered file"},
 	{ on = [ "k", "f" ], run = "shell 'open -R \"$@\"'", desc= "Open in 🍎 macos finder", for="macos"},
-    # { on = [ "k", "g", "c" ], run = "shell '$HOME/.config/yazi/scripts/gpg_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Crypt Files pgp" },
+    # { on = [ "k", "g", "c" ], run = "shell '$HOME/.confi~g/yazi/scripts/gpg_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Crypt Files pgp" },
     { on = [ "k", "g", "e" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Encrypt Files pgp" },
     { on = [ "k", "g", "E" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s \"$@\"' --block", desc = "🔐☑️ SignEncrypt Files pgp" },
     { on = [ "k", "g", "d" ], run = "shell '$HOME/.config/yazi/scripts/gpg_decrypt_selected.sh \"$@\"' --block", desc = "🔓 DeCrypt Files pgp" },
@@ -232,14 +235,18 @@ keymap = [
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
 	# enquire
-    # { on = [ "c", "c" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_commands' --block", desc = "copy recent cli commands 🖥️" },
-    { on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "copy disk/partition 💾" },
+    # { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent"', desc = "start gpg agent" },
+	# { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent; gpg-connect-agent /bye; echo \"\n[ Done ] GPG Agent Started\"; read -n 1 < /dev/tty" --block', desc = "🔌 Start GPG Agent" },
+	{ on = [ "c", "a" ], run = 'shell "~/.config/yazi/scripts/start_agents.sh" --block', desc = "🔌 restart agents gpg + ssh" },
+	{ on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "copy disk/partition 💾" },
     { on = [ "c", "g" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_gpg' --block", desc = "copy gpg key 🔐" },
     { on = [ "c", "i" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_available' --block", desc = "list available packages 📦" },
     { on = [ "c", "I" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_installed' --block", desc = "list **installed** packages 📦" },
     { on = [ "c", "l" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_lock \"$1\"' --block", desc = "copy file lock " },
     { on = [ "c", "p" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ps' --block", desc = "copy process " },
-    { on = [ "c", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash' --block", desc = "get ssh key 🔐" },
+    { on = [ "c", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash' --block", desc = "copy ssh key 🔐" },
+
+
 
 	# Help
 	{ on = "<F1>", run = "help", desc = "Open help" },
@@ -463,6 +470,11 @@ run = "plugin mount"
 on   = [ "R" ]
 run  = "reload"
 desc = "Reload current directory and refresh previews"
+
+# [[manager.prepend_keymap]]
+# on   = [ "<S-Enter>" ]
+# run  = 'shell "echo \"Edit\nEdit-Large\nPGP-Encrypt\nExif\nMediaInfo\nReveal\nChmod\nXplain\" | fzf --height 100% --reverse | xargs -I {} ya emit open --with {}" --block'
+# desc = "Full-screen Opener Selector"
 
 # [[manager.prepend_keymap]]
 # on = ["k","a","o"]
