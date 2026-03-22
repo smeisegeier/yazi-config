@@ -21,6 +21,7 @@ navigation
 - `m` `n` - move up / down in preview
 - `v` `b` - move left / right in preview (tables)
 - `Shift + z` - toggle preview fullscreen
+- `ö` `ä` - previous / next folder in history
 
 ## pre-install
 

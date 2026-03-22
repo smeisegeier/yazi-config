@@ -91,7 +91,7 @@ pgp-encrypt = [
     { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh "$@"', block = true, desc = "🖊️ Create sig for Files" },
 ]
 pgp-decrypt = [
-    { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh "$@"', block = true, desc = "🔓 DeCrypt Files pgp" },
+    { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh "$@"', block = true, desc = "🔓 Decrypt Files pgp" },
     { run = 'gpg --list-packets "$@" | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "📦🔍 List packets" },
 ]
 sig = [
@@ -111,15 +111,16 @@ rules = [
     { url = "*.{sh,nu,ps1,py,lua,r,conf}", use = [ "edit","sys-open", "reveal","chmod","terminal-show" ] },
     { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-block","pgp-encrypt","compress" ] },
 
+    { url = "*.{gpg}", use = [ "pgp-decrypt","reveal" ] },
     { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal" ] },
+
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
-    # { url = "*.{gpg}", use = [ "pgp-decrypt" ] },
 
     { mime = "*/pgp-keys", use = [ "pgp-decrypt","terminal-show","reveal" ] },
     # { url = "*.{asc,key}", use = [ "edit","terminal-show" ] },
     { url = "*.{sig}", use = [ "sig","edit","terminal-show","reveal" ] },
 
-    { mime = "text/plain", use = [ "edit","reveal","pgp-encrypt" ] },
+    { mime = "text/plain", use = [ "edit","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","mediainfo","exif","reveal" ] },
     { mime = "text/html", use = [ "sys-open", "edit","reveal" ] },
     { url = "*/", use = [ "edit", "compress","show-dir-size","reveal" ] },
