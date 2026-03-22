@@ -114,9 +114,9 @@ keymap = [
     { on = [ "k", "g", "d" ], run = "shell '$HOME/.config/yazi/scripts/gpg_decrypt_selected.sh \"$@\"' --block", desc = "🔓 DeCrypt Files pgp" },
     { on = [ "k", "g", "s" ], run = "shell '$HOME/.config/yazi/scripts/gpg_create_sig_selected.sh \"$@\"' --block", desc = "🖊️ Create sig for Files" },
     { on = [ "k", "g", "v" ], run = "shell '$HOME/.config/yazi/scripts/gpg_verify_selected.sh \"$@\"' --block", desc = "❔ Verify sig pgp" },
-    { on = [ "k", "g", "l" ], run = 'shell --block -- gpg --list-packets "$1" | grep -A 1 "signature packet" ', desc = "🔍 List packets 📦" },
+    { on = [ "k", "g", "l" ], run = 'shell --block -- gpg --list-packets "$1" | grep -A 1 "signature packet" ', desc = "📦🔍 List packets" },
 	{ on = [ "k", "j" ], run = "shell '$HOME/.config/yazi/scripts/json_open.sh \"$1\"' --block", desc = "📄 open json or yaml" },
-    { on = [ "k", "k","k" ], run = "shell 'code \"$@\"'", desc = "Open selected files in 💻 vscode" },
+    { on = [ "k", "k","k" ], run = "shell 'code \"$@\"'", desc = "💻 Open selected files in vscode" },
     { on = [ "k", "k", "o" ], run = "shell 'cot \"$@\"'", desc = "Open selected (*large*) files in cotedit", for="macos" },
 
     { on = [ "k", "m","a" ], run = "plugin mactag add", desc = "🏷️ Tag selected files", for="macos" },
@@ -238,13 +238,13 @@ keymap = [
     # { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent"', desc = "start gpg agent" },
 	# { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent; gpg-connect-agent /bye; echo \"\n[ Done ] GPG Agent Started\"; read -n 1 < /dev/tty" --block', desc = "🔌 Start GPG Agent" },
 	{ on = [ "c", "a" ], run = 'shell "~/.config/yazi/scripts/start_agents.sh" --block', desc = "🔌 restart agents gpg + ssh" },
-	{ on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "copy disk/partition 💾" },
-    { on = [ "c", "g" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_gpg' --block", desc = "copy gpg key 🔐" },
-    { on = [ "c", "i" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_available' --block", desc = "list available packages 📦" },
-    { on = [ "c", "I" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_installed' --block", desc = "list **installed** packages 📦" },
+	{ on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "💾 copy disk/partition" },
+    { on = [ "c", "g" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_gpg' --block", desc = "🔐 copy gpg key" },
+    { on = [ "c", "i" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_available' --block", desc = "📦 list available packages" },
+    { on = [ "c", "I" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_installed' --block", desc = "📦 list **installed** packages" },
     { on = [ "c", "l" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_lock \"$1\"' --block", desc = "copy file lock " },
     { on = [ "c", "p" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ps' --block", desc = "copy process " },
-    { on = [ "c", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash' --block", desc = "copy ssh key 🔐" },
+    { on = [ "c", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash' --block", desc = "🔐 copy ssh key" },
 
 
 

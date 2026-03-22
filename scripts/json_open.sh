@@ -12,5 +12,5 @@ def main [x: string] {
         print $"❌ Error: ($x) is not a supported data file (JSON/YAML)"
     }
 
-    input "Press Enter to continue..."
+    input "Press any key..."
 }

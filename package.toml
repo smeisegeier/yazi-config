@@ -73,11 +73,6 @@ use = "yazi-rs/plugins:mactag"
 rev = "b224ddf"
 hash = "ec24097962fb6236ccdeadf1e0cf66e5"
 
-[[plugin.deps]]
-use = "yazi-rs/plugins:zoom"
-rev = "1962818"
-hash = "fa268cb59989a87780605fdcfb8d99a9"
-
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "4c57537"

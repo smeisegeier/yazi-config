@@ -23,5 +23,5 @@ def main [path: string] {
     }
 
     print "" # Spacer
-    input "Press Enter to exit..."
+    input "Press any key..."
 }

@@ -55,7 +55,7 @@ play = [
 	{ run = "termux-open %s1", desc = "Play", for = "android" },
 ]
 mediainfo = [
-    { run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "🎬 Show media info", for = "unix" },
+    { run = "mediainfo %s1; echo 'Press any key'; read -n 1", block = true, desc = "🎬 Show media info", for = "unix" },
 	{ run = "mediainfo %s1 & pause", block = true, desc = "🎬 Show media info", for = "windows" },
 ]
 exif = [
@@ -92,7 +92,7 @@ pgp-encrypt = [
 ]
 pgp-decrypt = [
     { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh "$@"', block = true, desc = "🔓 DeCrypt Files pgp" },
-    { run = 'gpg --list-packets "$@" | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "🔍 List packets 📦" },
+    { run = 'gpg --list-packets "$@" | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "📦🔍 List packets" },
 ]
 sig = [
     { run = '~/.config/yazi/scripts/gpg_verify_signature.sh "$1"', block = true, desc = "❔ Verify sig pgp" },

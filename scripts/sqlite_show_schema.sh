@@ -16,6 +16,6 @@ def main [x: string] {
 
     # Force flush and wait
     print $output
-    ^read -p "Press Enter to continue..."
+    ^read -p "Press any key..."
 
 }

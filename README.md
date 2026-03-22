@@ -1,6 +1,26 @@
 # file-manager-config
 
-this uses yazi release `26.1.22`
+[yazi](https://github.com/sxyazi/yazi) release `26.1.22` is used here
+
+## keymappings
+
+relevant keys
+
+- **`Enter` - file type sensitive operations**
+- `h` - show all mappings
+- `Space` - select / unselect files
+- `y` - yank / copy menu
+- `f` - find / search menu
+- `z` - filter (in current folder)
+- `o` - order menu
+- `g` - goto menu
+- `tab` - toggle file stats
+
+navigation
+
+- `m` `n` - move up / down in preview
+- `v` `b` - move left / right in preview (tables)
+- `Shift + z` - toggle preview fullscreen
 
 ## pre-install
 
@@ -44,7 +64,7 @@ git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 
 ### 2) ![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey)
 
-- example useage on arch linux
+- example usage on arch linux
 - as for terminal: any will do (kitty, alacritty, ghostty etc)
 
 <br>
