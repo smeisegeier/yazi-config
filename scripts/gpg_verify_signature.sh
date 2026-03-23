@@ -29,7 +29,18 @@ if [ ! -f "$orig_file" ]; then
     exit 1
 fi
 
-gpg --verify "$sig_file" "$orig_file"
+# Capture GPG output and check for signature status
+gpg_output=$(gpg --verify "$sig_file" "$orig_file" 2>&1)
+gpg_status=$?
+
+echo "$gpg_output"
+
+# Check for GOOD or BAD signature
+if echo "$gpg_output" | grep -q "gpg: Good signature"; then
+    echo -e "\033[0;32m✓ Signature VALID\033[0m"
+elif echo "$gpg_output" | grep -q "gpg: BAD signature"; then
+    echo -e "\033[0;31m✗ Signature INVALID\033[0m"
+fi
 
 echo "Press any key"
 read -n 1

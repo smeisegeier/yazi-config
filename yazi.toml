@@ -30,19 +30,19 @@ edit = [
     { run = 'code "$@"', desc = "🖥️ VS Code", for = "macos" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
-    { run = '${EDITOR:=kate} "$@"', desc = "KDE kate", block = true, orphan = false, for = "linux" },
+    { run = 'code "$@"', desc = "🖥️ VS Code", for = "linux" },
 ]
 edit-large = [
     { run = 'cot "$@"', block = false, desc = "🗻 CotEditor for large files", for = "macos" },
 ]
 sys-open = [
     { run = 'open "$@"', desc = " Open with macOS settings", orphan = true, for = "macos" },
-	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
-	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
+	{ run = 'xdg-open "$1"',                desc = "Open with OS settings", for = "linux" },
+	{ run = 'start "" "%1"', orphan = true, desc = "Open with Windows settings", for = "windows" },
 ]
 quicklook = [
     # { run = 'osascript -e "tell application \"Finder\" to reveal POSIX file \"$1\"" -e "tell application \"Finder\" to activate" -e "tell application \"System Events\" to delay 0.5" -e "tell application \"System Events\" to keystroke \" \""', orphan = true, desc = "🔍 Quicklook" }
-    { run = 'qlmanage -p "$1" >/dev/null 2>&1', desc = "🔍 Quicklook", orphan = true },
+    { run = 'qlmanage -p "$1" >/dev/null 2>&1', desc = "🔍 Quicklook", orphan = true , for = "macos"},
 ]
 # * for batch rename
 terminal-block = [
@@ -71,7 +71,7 @@ extract = [
 	{ run = "ya pub extract --list %s", desc = "📦 Extract here" },
 ]
 compress = [
-    { run = 'nu ~/.config/yazi/scripts/tar_selected.sh "$@"', desc = "📦 Compress files" },
+    { run = '~/.config/yazi/scripts/zip_selected.sh "$@"', block = true, desc = "🗜️ Zip files" },
 ]
 reveal = [
     { run = 'open -R "$1"', desc = " Reveal in Finder", for = "macos" }
@@ -106,7 +106,7 @@ show-dir-size = [
 
 [open] 
 rules = [
-	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = [ "duckdb-ui","explain","reveal"] },
+	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = [ "duckdb-ui","explain","reveal","compress"] },
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","explain","reveal","terminal-show"] },
     { url = "*.{sh,nu,ps1,py,lua,r,conf}", use = [ "edit","sys-open", "reveal","chmod","terminal-show" ] },
     { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-block","pgp-encrypt","compress" ] },

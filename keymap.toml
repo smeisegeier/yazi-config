@@ -102,7 +102,7 @@ keymap = [
 	# { on = "n", run = "find_arrow",              desc = "Go to the next found" },
 	# { on = "N", run = "find_arrow --previous",   desc = "Go to the previous found" },
 
-    { on = [ "k","a","a" ], run = "shell '$HOME/.config/yazi/scripts/tar_selected.sh \"$@\"' --block", desc = "📦 Archive Files" },
+    { on = [ "k","a","a" ], run = "shell '$HOME/.config/yazi/scripts/zip_selected.sh \"$@\"' --block", desc = "📦 Archive Files" },
     { on = [ "k","a","u" ], run = "shell '$HOME/.config/yazi/scripts/untar_selected.sh \"$@\"' --block", desc = "🎊 Uncompress" },
 	{ on   = [ "k", "b" ], run  = "shell '$HOME/.config/yazi/scripts/broot.sh \"$1\"' --block", desc = "🌴 broot dir" },
 	{ on = [ "k", "c" ], run  = "plugin chmod", desc = "✍️ Chmod on selected files" },

@@ -24,3 +24,6 @@ for file in "$@"; do
         echo "Failed to sign: $file"
     fi
 done
+
+echo "Press any key"
+read -n 1
