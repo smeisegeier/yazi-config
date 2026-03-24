@@ -110,14 +110,17 @@ rules = [
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","explain","reveal","terminal-show"] },
     { url = "*.{sh,nu,ps1,py,lua,r,conf}", use = [ "edit","sys-open", "reveal","chmod","terminal-show" ] },
     { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-block","pgp-encrypt","compress" ] },
+    { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 
     { url = "*.{gpg}", use = [ "pgp-decrypt","reveal" ] },
     { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal" ] },
-
-    { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
-
     { mime = "*/pgp-keys", use = [ "pgp-decrypt","terminal-show","reveal" ] },
-    # { url = "*.{asc,key}", use = [ "edit","terminal-show" ] },
+
+
+    { url = "*.{asc,key,pub}", use = [ "edit","terminal-show","reveal","chmod" ] },
+    # { url = "*id_ed25519", use = [ "edit","terminal-show","reveal","chmod" ] },
+    { url = "*id_{rsa,dsa,ecdsa,ed25519}*", use = [ "edit","terminal-show","reveal","chmod" ] },
+
     { url = "*.{sig}", use = [ "sig","edit","terminal-show","reveal" ] },
 
     { mime = "text/plain", use = [ "edit","reveal","terminal-show" ] },
