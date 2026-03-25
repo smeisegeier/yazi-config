@@ -239,6 +239,7 @@ keymap = [
 	# { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent; gpg-connect-agent /bye; echo \"\n[ Done ] GPG Agent Started\"; read -n 1 < /dev/tty" --block', desc = "🔌 Start GPG Agent" },
 	{ on = [ "c", "a" ], run = 'shell "~/.config/yazi/scripts/start_agents.sh" --block', desc = "🔌 restart agents gpg + ssh" },
 	{ on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "💾 copy disk/partition" },
+	{ on = [ "c", "f" ], run = 'shell "echo \"\n--- [ Git Fetching Remote... ] ---\n\"; git fetch --verbose; echo \"\n\033[0;90mPress any key to return to Yazi...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "🌐 git fetch" },
     { on = [ "c", "g" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_gpg' --block", desc = "🔐 copy gpg key" },
     { on = [ "c", "i" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_available' --block", desc = "📦 list available packages" },
     { on = [ "c", "I" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_installed' --block", desc = "📦 list **installed** packages" },
