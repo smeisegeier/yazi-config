@@ -121,7 +121,7 @@ rules = [
     # { url = "*id_ed25519", use = [ "edit","terminal-show","reveal","chmod" ] },
     { url = "*id_{rsa,dsa,ecdsa,ed25519}*", use = [ "edit","terminal-show","reveal","chmod" ] },
 
-    { url = "*.{sig}", use = [ "edit","terminal-show","reveal","sig" ] },
+    { url = "*.{sig}", use = [ "sig" ,"edit","terminal-show","reveal"] },
 
     { mime = "text/plain", use = [ "sys-open","edit","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","reveal","mediainfo","exif" ] },

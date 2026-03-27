@@ -3,9 +3,13 @@
 # --- 1. Initial Status Check ---
 echo -e "\033[0;34m--- Current Agent Status ---\033[0m"
 
-# Check GPG Cached Passphrases
-GPG_CACHED=$(gpg-connect-agent 'keyinfo --list' /bye | grep -c " 1 ")
-echo -e "GPG Passphrases Cached: \033[0;33m$GPG_CACHED\033[0m"
+# Check GPG Cached Passphrases (test if signing works without prompt)
+if echo "test" | gpg --clearsign --output /dev/null --batch 2>/dev/null; then
+    GPG_STATUS="\033[0;32mReady (cached)\033[0m"
+else
+    GPG_STATUS="\033[0;31mNot cached\033[0m"
+fi
+echo -e "GPG Passphrase Status: $GPG_STATUS"
 
 # Check SSH Identities
 if ssh-add -l > /dev/null 2>&1; then
@@ -31,9 +35,15 @@ gpgconf --kill gpg-agent
 gpg-connect-agent "UPDATESTARTUPTTY" /bye > /dev/null 2>&1
 
 # Trigger test sign to link TTY and cache passphrase
-echo "test" | gpg --clearsign --dry-run > /dev/null 2>&1
+echo -e "\033[0;36m[ GPG ] Enter passphrase if prompted...\033[0m"
+gpg --clearsign --output /dev/null <<< "test" || true
 
 # --- 4. SSH Refresh ---
+echo -e "\033[0;34m[ SSH ] Ensuring agent is running...\033[0m"
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)"
+fi
+
 echo -e "\033[0;34m[ SSH ] Verifying Keys...\033[0m"
 if ! ssh-add -l > /dev/null 2>&1; then
     echo "No identities. Please add your SSH key:"
@@ -44,5 +54,5 @@ fi
 
 # --- 5. Final Success ---
 echo -e "\n\033[0;32m[ ✔ ] Agents Synced and Verified\033[0m"
-echo "Press any key to return to Yazi..."
+echo "Press any key..."
 read -n 1 < /dev/tty
