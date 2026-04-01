@@ -1,0 +1,20 @@
+{
+    "json.schemas": [
+        {
+        "fileMatch": ["**/yazi/yazi.toml"],
+        "url": "file://${userHome}/repos/external/schemas/schemas/yazi.json"
+        },
+        {
+        "fileMatch": ["**/yazi/theme.toml"],
+        "url": "file://${userHome}/repos/external/schemas/schemas/theme.json"
+        },
+        {
+        "fileMatch": ["**/yazi/keymap.toml"],
+        "url": "file://${userHome}/repos/external/schemas/schemas/keymap.json"
+        },
+        {
+        "fileMatch": ["**/yazi/vfs.toml"],
+        "url": "file://${userHome}/repos/external/schemas/schemas/vfs.json"
+        }
+    ]
+}
