@@ -57,7 +57,7 @@ xattr -d com.apple.quarantine ~/.local/bin/yazi;
 ```bash
 
 # install dependencies. this assumes vscode is installed already
-brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell ouch ncdu nbpreview rich-cli glow mactag librsvg ffmpegthumbnailer resvg mediainfo
+brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell ouch ncdu nbpreview rich-cli glow mactag librsvg ffmpegthumbnailer resvg mediainfo tree
 
 git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
 

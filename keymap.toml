@@ -93,7 +93,7 @@ keymap = [
 	# Find
 	{ on = [ "f","f" ], run = "plugin fzf-finder", desc = "🔍 fzf select + jump" },
 	{ on = [ "f","n" ], run = "find --smart",            desc = "Find next file" },
-	{ on = [ "f","d" ],         run = "search fd",                   desc = "Find files by name using fd" },
+	# { on = [ "f","d" ],         run = "search fd",                   desc = "Find files by name using fd" },
 	{ on = [ "f","r" ],         run = "search rg",                   desc = "Find files by content using ripgrep" },
 	{ on = "<C-s>",     run = "search none",                 desc = "Cancel the ongoing search" },
 	{ on = [ "f","o" ], run = "plugin zoxide",               desc = "Jump to a directory using zoxide" },
@@ -114,7 +114,7 @@ keymap = [
     { on = [ "k", "g", "d" ], run = "shell '$HOME/.config/yazi/scripts/gpg_decrypt_selected.sh \"$@\"' --block", desc = "🔓 DeCrypt Files pgp" },
     { on = [ "k", "g", "s" ], run = "shell '$HOME/.config/yazi/scripts/gpg_create_sig_selected.sh \"$@\"' --block", desc = "🖊️ Create sig for Files" },
     { on = [ "k", "g", "v" ], run = "shell '$HOME/.config/yazi/scripts/gpg_verify_selected.sh \"$@\"' --block", desc = "❔ Verify sig pgp" },
-    { on = [ "k", "g", "l" ], run = 'shell --block -- gpg --list-packets "$1" | grep -A 1 "signature packet" ', desc = "📦🔍 List packets" },
+    { on = [ "k", "g", "l" ], run = 'shell --block -- gpg --pinentry-mode loopback --list-packets "$1" | grep -A 1 "signature packet" ', desc = "📦🔍 List packets" },
 	{ on = [ "k", "j" ], run = "shell '$HOME/.config/yazi/scripts/json_open.sh \"$1\"' --block", desc = "📄 open json or yaml" },
     { on = [ "k", "k","k" ], run = "shell 'code \"$@\"'", desc = "💻 Open selected files in vscode" },
     { on = [ "k", "k", "o" ], run = "shell 'cot \"$@\"'", desc = "Open selected (*large*) files in cotedit", for="macos" },
@@ -149,7 +149,6 @@ keymap = [
 
 	# { on = [ "u" ], run = "unselect --all", desc = "Clear all selections globally" },
     # { on = [ "k", "z" ], run = "plugin custom-shell bash --wait", desc = "custom-shell as default, waits for user" },
-	{ on   = [ "k", "y" ], run  = "plugin tree-to-clipboard", desc = "tree to clipboard" },
 
 	{ on = [ "!" ], run  = "shell 'echo \"Option1\nOption2\" | fzf --prompt=\"Choose an option: \"' --block", desc = "Open shell here"},
 	{ on = "<Tab>", run = "spot", desc = "Spot hovered file" },
@@ -167,6 +166,8 @@ keymap = [
 	{ on = [ "y", "d" ], run = "copy dirname",          desc = "Copy the directory path" },
 	{ on = [ "y", "f" ], run = "copy filename",         desc = "Copy the filename" },
 	{ on = [ "y", "F" ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
+	{ on   = [ "y", "t" ], run  = "plugin tree-to-clipboard", desc = "🌴 tree to clipboard" },
+
 
 	# Filter
 	{ on = "z", run = "filter --smart", desc = "Filter files" },

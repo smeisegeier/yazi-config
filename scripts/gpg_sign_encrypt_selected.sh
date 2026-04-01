@@ -23,7 +23,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 # Get the list of available public keys
-gpg_keys=$(gpg --list-keys --with-colons | awk -F: '/^pub/ {key=$5} /^uid/ {print key, $10}')
+gpg_keys=$(gpg --list-keys --with-colons | awk -F: '/^pub/ {key=$5} /^fpr/ {fpr=$10} /^uid/ {print fpr, $10}')
 
 if [ -z "$gpg_keys" ]; then
     echo "No GPG public keys found in the keyring."
@@ -40,7 +40,7 @@ selected_pub_key_id=$(echo "$selected_pub_key" | awk '{print $1}')
 
 # If signing is requested, select a private key
 if [ "$sign" = true ]; then
-    gpg_sec_keys=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {key=$5} /^uid/ {print key, $10}')
+    gpg_sec_keys=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {key=$5} /^fpr/ {fpr=$10} /^uid/ {print fpr, $10}')
     if [ -z "$gpg_sec_keys" ]; then
         echo "No GPG secret keys found in the keyring."
         exit 1
