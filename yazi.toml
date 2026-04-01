@@ -1,4 +1,4 @@
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+# "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
 [mgr]
 ratio          = [ 2, 4, 3 ]
@@ -108,7 +108,7 @@ show-dir-size = [
 rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = [ "explain","reveal","compress","duckdb-ui"] },
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "sys-open","edit","reveal","terminal-show","explain"] },
-    { url = "*.{sh,nu,ps1,py,lua,r,conf}", use = [ "edit","sys-open", "reveal","terminal-show","chmod" ] },
+    { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open", "reveal","terminal-show","chmod" ] },
     { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 
