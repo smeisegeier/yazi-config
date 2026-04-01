@@ -16,7 +16,7 @@ for file in "$@"; do
 
     # Decrypt the file
     echo "Decrypting '$file'..."
-    gpg --decrypt --verbose "$file" > "${file%.gpg}"  # Decrypt and save as original filename without .gpg extension
+    gpg --decrypt --pinentry-mode loopback --verbose "$file" > "${file%.gpg}"  # Decrypt and save as original filename without .gpg extension
 
     # Check if gpg succeeded
     if [ $? -eq 0 ]; then

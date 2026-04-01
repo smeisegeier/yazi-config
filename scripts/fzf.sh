@@ -17,10 +17,10 @@ function get_ssh_hash() {
     #     return 1
     # fi
 
-    # 2. Use the helper function to select and extract the hash (position 2)
+    # 2. Use the helper function to select and extract the full fingerprint (position 0 = entire line)
     local selected
     selected=$(
-        use_fzf "ssh-add -l" "2" "Select SSH Key Hash: "
+        use_fzf "ssh-add -l" "0" "Select SSH Key Hash: "
     )
 
     # 3. Echo the hash, pipe it to the clipboard function, and then echo again
@@ -46,7 +46,7 @@ function get_ps() {
 function get_gpg() {
     # if ! check_commands find; then return 1; fi
     local selected
-    selected=$(use_fzf "gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {key=\$5} /^uid/ {print key, \$10}'" "1" "Select GPG Key ID: ")
+    selected=$(use_fzf "gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {key=\$5} /^fpr/ {fpr=\$10} /^uid/ {print fpr, \$10}'" "1" "Select GPG Key Fingerprint: ")
     echo "$selected" | to_clipboard
     echo "$selected"
 }
