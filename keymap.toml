@@ -90,7 +90,7 @@ keymap = [
 	{ on = ".",         run = "hidden toggle",               desc = "Toggle the visibility of hidden files" },
 
 	# Find
-	{ on = [ "f","f" ], run = "plugin fzf-finder", desc = "🔍 fzf select + jump" },
+	{ on = [ "f","f" ], run = "plugin fzf-finder", desc = "🔍 find via fzf" },
 	{ on = [ "f","n" ], run = "find --smart",            desc = "Find next file" },
 	# { on = [ "f","d" ],         run = "search fd",                   desc = "Find files by name using fd" },
 	{ on = [ "f","r" ],         run = "search rg",                   desc = "Find files by content using ripgrep" },
@@ -101,27 +101,27 @@ keymap = [
 	# { on = "n", run = "find_arrow",              desc = "Go to the next found" },
 	# { on = "N", run = "find_arrow --previous",   desc = "Go to the previous found" },
 
-    { on = [ "k","a","a" ], run = "shell '$HOME/.config/yazi/scripts/zip_selected.sh \"$@\"' --block", desc = "📦 Archive Files" },
-    { on = [ "k","a","u" ], run = "shell '$HOME/.config/yazi/scripts/untar_selected.sh \"$@\"' --block", desc = "🎊 Uncompress" },
-	{ on   = [ "k", "b" ], run  = "shell '$HOME/.config/yazi/scripts/broot.sh \"$1\"' --block", desc = "🌴 broot dir" },
+    { on = [ "k","a","a" ], run = "shell '$YAZI_CONFIG_HOME/scripts/zip_selected.sh \"$@\"' --block", desc = "📦 Archive Files" },
+    { on = [ "k","a","u" ], run = "shell '$YAZI_CONFIG_HOME/scripts/untar_selected.sh \"$@\"' --block", desc = "🎊 Uncompress" },
+	{ on   = [ "k", "b" ], run  = "shell '$YAZI_CONFIG_HOME/scripts/broot.sh \"$1\"' --block", desc = "🌴 broot dir" },
 	{ on = [ "k", "c" ], run  = "plugin chmod", desc = "✍️ Chmod on selected files" },
 	{ on = [ "k", "d" ], run = "plugin diff", desc= "🔃 Diff the selected with the hovered file"},
 	{ on = [ "k", "f" ], run = "shell 'open -R \"$@\"'", desc= "Open in 🍎 macos finder", for="macos"},
     # { on = [ "k", "g", "c" ], run = "shell '$HOME/.confi~g/yazi/scripts/gpg_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Crypt Files pgp" },
-    { on = [ "k", "g", "e" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Encrypt Files pgp" },
-    { on = [ "k", "g", "E" ], run = "shell '$HOME/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s \"$@\"' --block", desc = "🔐☑️ SignEncrypt Files pgp" },
-    { on = [ "k", "g", "d" ], run = "shell '$HOME/.config/yazi/scripts/gpg_decrypt_selected.sh \"$@\"' --block", desc = "🔓 DeCrypt Files pgp" },
-    { on = [ "k", "g", "s" ], run = "shell '$HOME/.config/yazi/scripts/gpg_create_sig_selected.sh \"$@\"' --block", desc = "🖊️ Create sig for Files" },
-    { on = [ "k", "g", "v" ], run = "shell '$HOME/.config/yazi/scripts/gpg_verify_selected.sh \"$@\"' --block", desc = "❔ Verify sig pgp" },
+    { on = [ "k", "g", "e" ], run = "shell '$YAZI_CONFIG_HOME/scripts/gpg_sign_encrypt_selected.sh \"$@\"' --block", desc = "🔐 Encrypt Files pgp" },
+    { on = [ "k", "g", "E" ], run = "shell '$YAZI_CONFIG_HOME/scripts/gpg_sign_encrypt_selected.sh -s \"$@\"' --block", desc = "🔐☑️ SignEncrypt Files pgp" },
+    { on = [ "k", "g", "d" ], run = "shell '$YAZI_CONFIG_HOME/scripts/gpg_decrypt_selected.sh \"$@\"' --block", desc = "🔓 DeCrypt Files pgp" },
+    { on = [ "k", "g", "s" ], run = "shell '$YAZI_CONFIG_HOME/scripts/gpg_create_sig_selected.sh \"$@\"' --block", desc = "🖊️ Create sig for Files" },
+    { on = [ "k", "g", "v" ], run = "shell '$YAZI_CONFIG_HOME/scripts/gpg_verify_selected.sh \"$@\"' --block", desc = "❔ Verify sig pgp" },
     { on = [ "k", "g", "l" ], run = 'shell --block -- gpg --pinentry-mode loopback --list-packets "$1" | grep -A 1 "signature packet" ', desc = "📦🔍 List packets" },
-	{ on = [ "k", "j" ], run = "shell '$HOME/.config/yazi/scripts/json_open.sh \"$1\"' --block", desc = "📄 open json or yaml" },
+	{ on = [ "k", "j" ], run = "shell '$YAZI_CONFIG_HOME/scripts/json_open.sh \"$1\"' --block", desc = "📄 open json or yaml" },
     { on = [ "k", "k","k" ], run = "shell 'code \"$@\"'", desc = "💻 Open selected files in vscode" },
     { on = [ "k", "k", "o" ], run = "shell 'cot \"$@\"'", desc = "Open selected (*large*) files in cotedit", for="macos" },
 
     { on = [ "k", "m","a" ], run = "plugin mactag add", desc = "🏷️ Tag selected files", for="macos" },
     { on = [ "k", "m","r" ], run = "plugin mactag remove", desc = "🏷️ Untag selected files", for="macos" },
 
-	{ on = [ "k", "s" ], run  = "shell '$HOME/.config/yazi/scripts/ncdu.sh \"$1\"' --block", desc = "🧮 Show size dir" },
+	{ on = [ "k", "s" ], run  = "shell '$YAZI_CONFIG_HOME/scripts/ncdu.sh \"$1\"' --block", desc = "🧮 Show size dir" },
 	{ on = [ "k","t" ],  run = "create", esc = "🔨 Create a file (or dir/ )" },
 	# { on = [ "k", "k" ], run = "plugin file-actions around", desc= "Perform actions on selected files"},
 	# { on = [ "k", "x" ], run = "plugin my-plugin", desc= "TEST"},
@@ -132,12 +132,11 @@ keymap = [
 	# { on = [ "k", "x" ], run = "shell 'nu -c \"ls; echo \"Press enter to continue\"; read -r in\"' --block", desc = "yo" },
 	# { on = [ "k", "x" ], run = "shell 'nu -c \"echo \"Press enter to continue\"; read -r in\"' --block", desc = "yo" },
 	# { on = [ "k", "x" ], run = "shell 'nu -c \"echo \\\"Press enter to continue\\\"; read -r in\"' --block", desc = "yo" },
-    { on = [ "k", "x","x" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
-    { on = [ "k", "x","m" ], run = "shell '$HOME/.config/yazi/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
+    { on = [ "k", "x","x" ], run = "shell '$YAZI_CONFIG_HOME/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
+    { on = [ "k", "x","m" ], run = "shell '$YAZI_CONFIG_HOME/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
     { on = [ "k", "x","u" ], run = "plugin duckdb -ui", desc = "ui for duckdb" },
 	# { on = [ "k", "j", "e" ], run = "shell 'nu -c \"open \"$0\" | explore\"' --block --confirm", desc = "Nushell Explore" },
 	# { on = [ "k", "j", "j" ], run = "shell 'nu -c \"open \"$0\" \"' --block --confirm", desc = "Nushell show" },
-
 
 
     { on = [ "b" ], run = "plugin duckdb +1", desc = "->" },
@@ -156,20 +155,22 @@ keymap = [
 	{ on = [ "l", "d" ], run = "linemode size_mtime_perm",        desc = "✨ Set default linemode (size + time + links + permissions)" },
 	{ on = [ "l", "s" ], run = "linemode size_mtime",        desc = "📅 Set linemode to size + time" },
 	{ on = [ "l", "p" ], run = "linemode permissions", desc = "👮 Set linemode to permissions" },
-	{ on = [ "l", "m" ], run = "linemode mtime",       desc = "Set linemode to mtime" },
 	{ on = [ "l", "o" ], run = "linemode owner",       desc = "👤 Set linemode to owner" },
-	{ on = [ "l", "n" ], run = "linemode none",        desc = "Set linemode to none" },
 
 	# Copy
 	{ on = [ "y", "p" ], run = "copy path",             desc = "Copy the file path" },
 	{ on = [ "y", "d" ], run = "copy dirname",          desc = "Copy the directory path" },
 	{ on = [ "y", "f" ], run = "copy filename",         desc = "Copy the filename" },
 	{ on = [ "y", "F" ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
-	{ on   = [ "y", "t" ], run  = "plugin tree-to-clipboard", desc = "🌴 tree to clipboard" },
+	{ on  = [ "y", "r" ], run  = "plugin path-from-root", desc = "Copy path from git root" },
+	{ on  = [ "y", "t" ], run  = "plugin tree-to-clipboard", desc = "🌴 tree to clipboard" },
+
 
 
 	# Filter
-	{ on = "z", run = "filter --smart", desc = "Filter files" },
+	{ on = "z", run = "plugin smart-filter", desc = "Filter files" },
+	# { on = "z", run = "filter --smart", desc = "Filter files" },
+
 
 	# Ordering / ordering
 	{ on = [ "o", "d" ], run = "sort natural --reverse=no",      desc = "✨ Order default" },
@@ -238,20 +239,23 @@ keymap = [
     # { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent"', desc = "start gpg agent" },
 	# { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent; gpg-connect-agent /bye; echo \"\n[ Done ] GPG Agent Started\"; read -n 1 < /dev/tty" --block', desc = "🔌 Start GPG Agent" },
 	{ on = [ "c", "a" ], run = 'shell "~/.config/yazi/scripts/start_agents.sh" --block', desc = "🔌 restart agents gpg + ssh" },
-	{ on = [ "c", "d" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_disk' --block", desc = "💾 copy disk/partition" },
-	{ on = [ "c", "f" ], run = 'shell "echo \"\n--- [ Git Fetching Remote... ] ---\n\"; git fetch --verbose; echo \"\n\033[0;90mPress any key to return to Yazi...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "🌐 git fetch" },
-    { on = [ "c", "g" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_gpg' --block", desc = "🔐 copy gpg key" },
-    { on = [ "c", "i" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_available' --block", desc = "📦 list available packages" },
-    { on = [ "c", "I" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_packages_installed' --block", desc = "📦 list **installed** packages" },
-    { on = [ "c", "l" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_lock \"$1\"' --block", desc = "copy file lock " },
-    { on = [ "c", "p" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ps' --block", desc = "copy process " },
-    { on = [ "c", "s" ], run = "shell 'source $HOME/.config/yazi/scripts/fzf.sh && get_ssh_hash' --block", desc = "🔐 copy ssh key" },
-
+	{ on = [ "c", "d" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_disk' --block", desc = "💾 copy disk/partition" },
+	{ on = [ "c", "f" ], run = 'shell "echo \"\n--- [ Git Fetching Remote... ] ---\n\"; git fetch origin & git diff HEAD..origin --stat; echo \"\n\033[0;90mPress any key to return to Yazi...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "🌐 git fetch" },
+    { on = [ "c", "g" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_gpg' --block", desc = "🔐 copy gpg key" },
+    { on = [ "c", "i" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_packages_available' --block", desc = "📦 list available packages" },
+    { on = [ "c", "I" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_packages_installed' --block", desc = "📦 list **installed** packages" },
+    { on = [ "c", "l" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_lock \"$1\"' --block", desc = "copy file lock " },
+    { on = [ "c", "p" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_ps' --block", desc = "copy process " },
+    { on = [ "c", "s" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_ssh_hash' --block", desc = "🔐 copy ssh key" },
 
 
 	# Help
-	{ on = "<F1>", run = "help", desc = "Open help" },
-	{ on = "h", run = "help", desc = "Open help" },
+	{ on = "<F1>", run = 'shell "glow ./help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
+	{ on = "h", run = 'shell "glow ./help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
+	{ on = "<S-F1>", run = "help", desc = "open help" },
+	{ on = [ "e" ], run = 'shell "~/.config/yazi/scripts/launcher.sh" --block', desc = "🎨 Keymap Palette" },
+
+
 ]
 
 [tasks]
@@ -271,7 +275,7 @@ keymap = [
 	{ on = "<Enter>", run = "inspect", desc = "Inspect the task" },
 	{ on = "x",       run = "cancel",  desc = "Cancel the task" },
 
-	{ on = "<F1>", run = "help", desc = "Open help" }
+	{ on = "<S-F1>", run = "help", desc = "Open help" }
 ]
 
 [select]
@@ -294,7 +298,7 @@ keymap = [
 	{ on = "<S-Up>",   run = "arrow -5", desc = "Move cursor up 5 lines" },
 	{ on = "<S-Down>", run = "arrow 5",  desc = "Move cursor down 5 lines" },
 
-	{ on = "<F1>", run = "help", desc = "Open help" }
+	{ on = "<S-F1>", run = "help", desc = "Open help" }
 ]
 
 [input]
@@ -363,7 +367,7 @@ keymap = [
 	{ on = "<C-r>", run = "redo", desc = "Redo the last operation" },
 
 	# Help
-	{ on = "<F1>", run = "help", desc = "Open help" }
+	{ on = "<S-F1>", run = "help", desc = "Open help" }
 ]
 
 [completion]
