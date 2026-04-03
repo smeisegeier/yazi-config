@@ -73,6 +73,16 @@ use = "yazi-rs/plugins:mactag"
 rev = "b224ddf"
 hash = "ec24097962fb6236ccdeadf1e0cf66e5"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "e84f4fe"
+hash = "c887903a63a2ff520081b6d90a4b3392"
+
+[[plugin.deps]]
+use = "aresler/path-from-root"
+rev = "3daa62f"
+hash = "f3375d21ceb5f49d2d50ad199262006a"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "4c57537"
