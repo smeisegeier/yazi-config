@@ -142,7 +142,7 @@ keymap = [
     { on = [ "b" ], run = "plugin duckdb +1", desc = "->" },
     { on = [ "v" ], run = "plugin duckdb -1", desc = "<-" },
     { on = [ "T" ], run = "plugin toggle-pane min-preview", desc = "toggle min preview" },
-    { on = [ "Z" ], run = "plugin toggle-pane max-preview", desc = "toggle max preview" },
+    { on = [ "<F11>" ], run = "plugin toggle-pane max-preview", desc = "toggle max preview" },
 
 
 	# { on = [ "u" ], run = "unselect --all", desc = "Clear all selections globally" },
@@ -250,8 +250,8 @@ keymap = [
 
 
 	# Help
-	{ on = "<F1>", run = 'shell "glow ./help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
-	{ on = "h", run = 'shell "glow ./help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
+	{ on = "<F1>", run = 'shell "glow $YAZI_CONFIG_HOME/help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
+	{ on = "h", run = 'shell "glow $YAZI_CONFIG_HOME/help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
 	{ on = "<S-F1>", run = "help", desc = "open help" },
 	{ on = [ "e" ], run = 'shell "~/.config/yazi/scripts/launcher.sh" --block', desc = "🎨 Keymap Palette" },
 

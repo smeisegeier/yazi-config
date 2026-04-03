@@ -24,10 +24,11 @@
 - `tab` - toggle file information
 - `DELETE` - delete files to trash
 - `Shift + DELETE` - delete files permanently
+- `F2` - rename
 
 *navigation*
 
 - `m` `n` - move up / down in preview
 - `v` `b` - move left / right in preview (tables)
-- `Shift + z` - toggle preview fullscreen
+- `F11` - toggle preview fullscreen
 - `ö` `ä` - previous / next folder in history
