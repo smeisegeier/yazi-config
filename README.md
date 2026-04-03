@@ -86,5 +86,5 @@ YAZI_LOG=info yazi
 
 ## hints
 
-> [!INFO]
+> [!NOTE]
 > - for remote ssh connect use [vfs](https://yazi-rs.github.io/docs/next/configuration/vfs/) logic
