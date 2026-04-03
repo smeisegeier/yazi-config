@@ -83,3 +83,8 @@ y
 # debug mode (debug | info | warn | error) -> log is in ~/.local/state/yazi/yazi.log
 YAZI_LOG=info yazi
 ```
+
+## hints
+
+> [!INFO]
+> - for remote ssh connect use [vfs](https://yazi-rs.github.io/docs/next/configuration/vfs/) logic
