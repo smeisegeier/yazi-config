@@ -50,6 +50,13 @@ function get_gpg() {
     echo "$selected" | to_clipboard
     echo "$selected"
 }
+
+function get_gpg_signing_key() {
+    local selected
+    selected=$(use_fzf "gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {key=\$5} /^fpr/ {fpr=\$10} /^uid/ {print fpr, \$10}'" "1" "Select private key to sign with: ")
+    echo "$selected" | to_clipboard
+    echo "$selected"
+}
 function get_disk() {
     # if ! check_commands find; then return 1; fi
     local selected
