@@ -123,6 +123,10 @@ keymap = [
 
 	{ on = [ "k", "s" ], run  = "shell '$YAZI_CONFIG_HOME/scripts/ncdu.sh \"$1\"' --block", desc = "🧮 Show size dir" },
 	{ on = [ "k","t" ],  run = "create", esc = "🔨 Create a file (or dir/ )" },
+    { on = [ "k", "T" ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file and hover after created" },
+    #{ on = [ "k", "T" ], run = "plugin save-clipboard-to-file -- --no-hover", desc = "Paste clipboard content to file without hover after created" },
+
+
 	# { on = [ "k", "k" ], run = "plugin file-actions around", desc= "Perform actions on selected files"},
 	# { on = [ "k", "x" ], run = "plugin my-plugin", desc= "TEST"},
     # { on = [ "k", "u" ], run = "shell 'tar -xzvf \"$@\" '", desc = "⬇️ Uncompress" },
@@ -141,8 +145,8 @@ keymap = [
 
     { on = [ "b" ], run = "plugin duckdb +1", desc = "->" },
     { on = [ "v" ], run = "plugin duckdb -1", desc = "<-" },
-    { on = [ "T" ], run = "plugin toggle-pane min-preview", desc = "toggle min preview" },
     { on = [ "<F11>" ], run = "plugin toggle-pane max-preview", desc = "toggle max preview" },
+    { on = [ "<F10>" ], run = "plugin toggle-pane min-preview", desc = "toggle min preview" },
 
 
 	# { on = [ "u" ], run = "unselect --all", desc = "Clear all selections globally" },
@@ -168,8 +172,8 @@ keymap = [
 
 
 	# Filter
-	{ on = "z", run = "plugin smart-filter", desc = "Filter files" },
-	# { on = "z", run = "filter --smart", desc = "Filter files" },
+	{ on = "Z", run = "plugin smart-filter", desc = "Filter files+" },
+	{ on = "z", run = "filter --smart", desc = "Filter files" },
 
 
 	# Ordering / ordering

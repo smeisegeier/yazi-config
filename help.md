@@ -31,4 +31,5 @@
 - `m` `n` - move up / down in preview
 - `v` `b` - move left / right in preview (tables)
 - `F11` - toggle preview fullscreen
+- `F10` - toggle 2 panes view
 - `ö` `ä` - previous / next folder in history

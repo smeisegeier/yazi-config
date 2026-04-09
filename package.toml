@@ -83,6 +83,11 @@ use = "aresler/path-from-root"
 rev = "3daa62f"
 hash = "f3375d21ceb5f49d2d50ad199262006a"
 
+[[plugin.deps]]
+use = "boydaihungst/save-clipboard-to-file"
+rev = "4f034ac"
+hash = "4bdfecaa643db1cc28ccba799463d5b8"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "4c57537"
