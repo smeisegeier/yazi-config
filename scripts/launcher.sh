@@ -9,9 +9,12 @@ LIST=$(grep -E '^[[:space:]]*\{[^#]*on =' "$KEYMAP" | sed -E '
     :a
     s/(on = \[.*)"[[:space:]]*,[[:space:]]*"([^"]*".*\])/\1\2/
     ta
-    s/^[[:space:]]*\{[[:space:]]*on = \[ "([^"]+)" \],[[:space:]]*run = "([^"]+)",[[:space:]]*desc = "([^"]+)".*/\1 | \3 | \2/p
+    s/^[[:space:]]*\{[[:space:]]*on = \[ "([^"]+)" \],[[:space:]]*run = "([^"]+)",[[:space:]]*desc = "([^"]+)".*/\1 | \3@@\2/p
+    t done
+    s/^[[:space:]]*\{[[:space:]]*on = \[ "([^"]+)" \],[[:space:]]*run = '"'"'([^'"'"']+)'"'"',[[:space:]]*desc = "([^"]+)".*/\1 | \3@@\2/p
+    :done
     d
-')
+' | sed $'s/@@/\t/')
 
 # 2. Safety check
 if [[ -z "$LIST" ]]; then
@@ -21,14 +24,14 @@ if [[ -z "$LIST" ]]; then
 fi
 
 # 3. Show in FZF
-SELECTION=$(echo "$LIST" | fzf --ansi \
+SELECTION=$(printf '%s\n' "$LIST" | fzf --ansi \
     --header "Keys         | Description                         " \
-    --delimiter " \| " \
-    --with-nth 1,2)
+    --delimiter $'\t' \
+    --with-nth 1)
 
 # 4. Execute
 if [[ -n "$SELECTION" ]]; then
-    RAW_CMD=$(echo "$SELECTION" | sed 's/^.* | .* | //')
+    RAW_CMD=$(echo "$SELECTION" | cut -f2)
     
     # CASE A: Shell Commands (e.g., SSH Hash script)
     if [[ "$RAW_CMD" =~ "^shell " ]]; then

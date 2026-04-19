@@ -107,26 +107,24 @@ show-dir-size = [
 [open]
 rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt",] },
-	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "sys-open","edit","explain","reveal","terminal-show"] },
-    { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open", "reveal","terminal-show","chmod" ] },
+	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
+    { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 
-    { url = "*.{gpg}", use = [ "pgp-decrypt","reveal" ] },
-    { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal" ] },
-    { mime = "*/pgp-keys", use = [ "pgp-decrypt","terminal-show","reveal" ] },
-
+    { url = "*.{gpg}", use = [ "pgp-decrypt","reveal","terminal-show"] },
+    { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal","terminal-show"] },
+    { mime = "*/pgp-keys", use = [ "pgp-decrypt","reveal","terminal-show"] },
 
     { url = "*.{asc,key,pub}", use = [ "sys-open","edit","reveal","terminal-show","chmod" ] },
-    # { url = "*id_ed25519", use = [ "edit","terminal-show","reveal","chmod" ] },
-    { url = "*id_{rsa,dsa,ecdsa,ed25519}*", use = [ "edit","terminal-show","reveal","chmod" ] },
+    { url = "*id_{rsa,dsa,ecdsa,ed25519}*", use = [ "sys-open","edit","reveal","terminal-show","chmod" ] },
 
-    { url = "*.{sig}", use = [ "sig" ,"edit","terminal-show","reveal"] },
+    { url = "*.{sig}", use = [ "sig" ,"edit","reveal","terminal-show"] },
 
     { mime = "text/plain", use = [ "sys-open","edit","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","reveal","mediainfo","exif" ] },
     { mime = "text/html", use = [ "sys-open", "edit","reveal" ] },
-    { url = "*/", use = [ "edit","reveal", "compress","show-dir-size","chmod" ] },
+    { url = "*/", use = ["sys-open", "edit","reveal", "compress","show-dir-size","chmod" ] },
 	# { mime = "text/*", use = [ "edit", "reveal" ] },
 	{ mime = "{audio,video}/*", use = [ "play", "reveal","mediainfo","exif","pgp-encrypt" ] },
 	# { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },

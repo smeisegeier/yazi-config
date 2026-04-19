@@ -4,7 +4,7 @@
 echo -e "\033[0;34m--- Current Agent Status ---\033[0m"
 
 # Check GPG Cached Passphrases (test if signing works without prompt)
-if echo "test" | gpg --clearsign --output /dev/null --batch 2>/dev/null; then
+if echo "test" | gpg --clearsign --output /dev/null --batch --pinentry-mode error 2>/dev/null; then
     GPG_STATUS="\033[0;32mReady (cached)\033[0m"
 else
     GPG_STATUS="\033[0;31mNot cached\033[0m"
