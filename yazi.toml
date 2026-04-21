@@ -107,7 +107,7 @@ show-dir-size = [
 [open]
 rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt",] },
-	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
+	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","edit-large","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
