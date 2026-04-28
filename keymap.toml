@@ -95,7 +95,6 @@ keymap = [
 	# { on = [ "f","d" ],         run = "search fd",                   desc = "Find files by name using fd" },
 	{ on = [ "f","r" ],         run = "search rg",                   desc = "Find files by content using ripgrep" },
 	{ on = "<C-s>",     run = "search none",                 desc = "Cancel the ongoing search" },
-	{ on = [ "f","o" ], run = "plugin zoxide",               desc = "Jump to a directory using zoxide" },
 
 	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
 	# { on = "n", run = "find_arrow",              desc = "Go to the next found" },
@@ -238,6 +237,7 @@ keymap = [
 	{ on = [ "g", "y" ],       run = "cd ~/.config/yazi",   desc = "-> yazi" },
 	{ on = [ "g", "v" ],       run = "cd /Volumes",   desc = "-> Volumes", for = "macos" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
+	{ on = [ "g","z" ], run = "plugin zoxide",               desc = "Jump to a directory using zoxide" },
 
 	# enquire
     # { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent"', desc = "start gpg agent" },

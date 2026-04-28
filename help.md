@@ -20,6 +20,8 @@
   - `o` `n` - order natural (default)
 - `g` - goto menu
   - `g` `h` - goto home
+  - `g` `SPACE`- interactive
+  - `g` `z` - go using zoxide
 - **`k` - custom menu**
 - `tab` - toggle file information
 - `DELETE` - delete files to trash
