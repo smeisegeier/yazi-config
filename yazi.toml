@@ -103,6 +103,10 @@ terminal-show = [
 show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
 ]
+copy-tree = [
+    { run = 'p="$1"; [ -f "$p" ] && p="$(dirname "$p")"; tree -L 3 --charset=ascii "$p" | pbcopy', desc = "🌴 tree to clipboard" }
+]
+	# { on  = [ "y", "t" ], run  = "plugin tree-to-clipboard", desc = "🌴 tree to clipboard" },
 
 [open]
 rules = [
@@ -124,7 +128,7 @@ rules = [
     { mime = "text/plain", use = [ "sys-open","edit","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","reveal","mediainfo","exif" ] },
     { mime = "text/html", use = [ "sys-open", "edit","reveal" ] },
-    { url = "*/", use = ["sys-open", "edit","reveal", "compress","show-dir-size","chmod" ] },
+    { url = "*/", use = ["edit","reveal", "compress","show-dir-size","chmod","copy-tree" ] },
 	# { mime = "text/*", use = [ "edit", "reveal" ] },
 	{ mime = "{audio,video}/*", use = [ "play", "reveal","mediainfo","exif","pgp-encrypt" ] },
 	# { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
