@@ -98,8 +98,8 @@ sig = [
     { run = '~/.config/yazi/scripts/gpg_verify_signature.sh "$1"', block = true, desc = "❔ Verify sig pgp" },
 ]
 terminal-show = [
-    { run = 'bat "$@"', desc = "⚡ Show in terminal", block = true },
-    # { run = 'bat "$@"; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
+    # { run = 'bat "$@"', desc = "⚡ Show in terminal", block = true },
+    { run = 'bat "$@"; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
 ]
 show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
