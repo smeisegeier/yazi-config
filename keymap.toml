@@ -92,8 +92,8 @@ keymap = [
 	# Find
 	{ on = [ "f","f" ], run = "plugin fzf-finder", desc = "🔍 find via fzf" },
 	{ on = [ "f","n" ], run = "find --smart",            desc = "Find next file" },
-	# { on = [ "f","d" ],         run = "search fd",                   desc = "Find files by name using fd" },
-	{ on = [ "f","r" ],         run = "search rg",                   desc = "Find files by content using ripgrep" },
+	{ on = [ "f","d" ],         run = "search fd",                   desc = "Find files by name using fd" },
+	# { on = [ "f","r" ],         run = "search rg",                   desc = "Find files by content using ripgrep" },
 	{ on = "<C-s>",     run = "search none",                 desc = "Cancel the ongoing search" },
 
 	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
