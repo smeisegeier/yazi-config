@@ -32,8 +32,11 @@ edit = [
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
     { run = 'code "$@"', orphan = true, desc = "🖥️ VS Code", for = "linux" },
 ]
-edit-large = [
-    { run = 'cot "$@"', block = false, desc = "🗻 CotEditor for large files", for = "macos" },
+# edit-large = [
+#     { run = 'cot "$@"', block = false, desc = "🗻 CotEditor for large files", for = "macos" },
+# ]
+vim = [
+    { run = 'vim "$@"', block = true, desc = "🖊️ vim for large files", for = "unix" },
 ]
 sys-open = [
     { run = 'open "$@"', desc = " Open with macOS settings", orphan = true, for = "macos" },
@@ -104,6 +107,7 @@ terminal-show = [
 show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
 ]
+
 copy-tree = [
     { run = 'p="$1"; [ -f "$p" ] && p="$(dirname "$p")"; tree -L 3 --charset=ascii "$p" | pbcopy', desc = "🌴 tree to clipboard" }
 ]
@@ -111,25 +115,25 @@ copy-tree = [
 
 [open]
 rules = [
-	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt",] },
-	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","edit-large","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
+	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt"] },
+	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
-    { url = "*.{txt,csv}", use = [ "edit","edit-large","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
+    { url = "*.{txt,csv}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 
     { url = "*.{gpg}", use = [ "pgp-decrypt","reveal","terminal-show"] },
     { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal","terminal-show"] },
     { mime = "*/pgp-keys", use = [ "pgp-decrypt","reveal","terminal-show"] },
 
-    { url = "*.{asc,key,pub}", use = [ "sys-open","edit","reveal","terminal-show","chmod" ] },
-    { url = "*id_{rsa,dsa,ecdsa,ed25519}*", use = [ "sys-open","edit","reveal","terminal-show","chmod" ] },
+    { url = "*.{asc,key,pub}", use = [ "edit","sys-open","reveal","terminal-show","chmod" ] },
+    { url = "*id_{rsa,dsa,ecdsa,ed25519}*", use = [ "edit","sys-open","reveal","terminal-show","chmod" ] },
 
     { url = "*.{sig}", use = [ "sig" ,"edit","reveal","terminal-show"] },
 
-    { mime = "text/plain", use = [ "sys-open","edit","reveal","terminal-show" ] },
+    { mime = "text/plain", use = ["edit","vim","sys-open","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","reveal","mediainfo","exif" ] },
-    { mime = "text/html", use = [ "sys-open", "edit","reveal" ] },
-    { url = "*/", use = ["edit","reveal", "compress","show-dir-size","chmod","copy-tree" ] },
+    { mime = "text/html", use = ["edit","sys-open", "reveal" ] },
+    { url = "*/", use = ["reveal", "compress","show-dir-size","chmod","copy-tree" ] },
 	# { mime = "text/*", use = [ "edit", "reveal" ] },
 	{ mime = "{audio,video}/*", use = [ "play", "reveal","mediainfo","exif","pgp-encrypt" ] },
 	# { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
@@ -137,7 +141,7 @@ rules = [
 
 	{ mime = "vfs/{absent,stale}", use = "download" },
 	{ mime = "inode/empty", use = [ "edit", "reveal" ] },
-    { url = "*", use = [ "sys-open", "edit","reveal", "quicklook" ] },
+    { url = "*", use = ["edit","vim","sys-open","reveal", "quicklook" ] },
 ]
 
 [plugin]
