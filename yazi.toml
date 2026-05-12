@@ -121,8 +121,8 @@ rules = [
     { url = "*.{txt,csv}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 
-    { url = "*.{gpg}", use = [ "pgp-decrypt","reveal","terminal-show"] },
-    { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal","terminal-show"] },
+    { url = "*.{gpg}", use = [ "pgp-decrypt","reveal","terminal-show", "compress"] },
+    { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal","terminal-show", "compress"] },
     { mime = "*/pgp-keys", use = [ "pgp-decrypt","reveal","terminal-show"] },
 
     { url = "*.{asc,key,pub}", use = [ "edit","sys-open","reveal","terminal-show","chmod" ] },
