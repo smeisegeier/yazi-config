@@ -107,6 +107,9 @@ terminal-show = [
 show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
 ]
+broot = [
+    { run = 'broot "$1"', block = true, desc = "🌴 b-root dir" }
+]
 
 copy-tree = [
     { run = 'p="$1"; [ -f "$p" ] && p="$(dirname "$p")"; tree -L 3 --charset=ascii "$p" | pbcopy', desc = "🌴 tree to clipboard" }
@@ -133,7 +136,7 @@ rules = [
     { mime = "text/plain", use = ["edit","vim","sys-open","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","reveal","mediainfo","exif" ] },
     { mime = "text/html", use = ["edit","sys-open", "reveal" ] },
-    { url = "*/", use = ["reveal", "compress","show-dir-size","chmod","copy-tree" ] },
+    { url = "*/", use = ["reveal", "compress","show-dir-size","chmod","broot","copy-tree" ] },
 	# { mime = "text/*", use = [ "edit", "reveal" ] },
 	{ mime = "{audio,video}/*", use = [ "play", "reveal","mediainfo","exif","pgp-encrypt" ] },
 	# { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
