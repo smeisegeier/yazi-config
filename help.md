@@ -6,9 +6,10 @@
 - `SHIFT-F1` - show all mappings
 - `e` - execute commands using `fzf`
 
-*operations*
+*operations* <small>(examples)</small>
 
 - `q` - quit
+- `Q` - quit and **not** change current directory
 - **`ENTER` - file type sensitive operations**
 - `SPACE` - select / unselect files
 - `y` - yank / copy menu

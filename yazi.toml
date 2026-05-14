@@ -108,7 +108,7 @@ show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
 ]
 broot = [
-    { run = 'broot "$1"', block = true, desc = "🌴 b-root dir" }
+    { run = 'broot "$1"', block = true, desc = "🖼️ b-root dir" }
 ]
 
 copy-tree = [
