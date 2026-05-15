@@ -136,7 +136,7 @@ rules = [
     { mime = "text/plain", use = ["edit","vim","sys-open","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","reveal","mediainfo","exif" ] },
     { mime = "text/html", use = ["edit","sys-open", "reveal" ] },
-    { url = "*/", use = ["reveal", "compress","show-dir-size","chmod","broot","copy-tree" ] },
+    { url = "*/", use = ["edit","sys-open","reveal", "compress","show-dir-size","chmod","broot","copy-tree" ] },
 	# { mime = "text/*", use = [ "edit", "reveal" ] },
 	{ mime = "{audio,video}/*", use = [ "play", "reveal","mediainfo","exif","pgp-encrypt" ] },
 	# { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
