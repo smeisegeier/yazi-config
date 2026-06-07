@@ -242,7 +242,8 @@ keymap = [
 	# enquire
     # { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent"', desc = "start gpg agent" },
 	# { on = [ "c", "a" ], run = 'shell "gpgconf --kill gpg-agent; gpg-connect-agent /bye; echo \"\n[ Done ] GPG Agent Started\"; read -n 1 < /dev/tty" --block', desc = "🔌 Start GPG Agent" },
-	{ on = [ "c", "a" ], run = 'shell "~/.config/yazi/scripts/start_agents.sh" --block', desc = "🔌 restart agents gpg + ssh" },
+	{ on = [ "c", "a" ], run = 'shell "~/.config/yazi/scripts/start_agents_keys.sh" --block', desc = "🔌 cache key in agent (gpg/ssh)" },
+	{ on = [ "c", "A" ], run = 'shell "~/.config/yazi/scripts/start_agents.sh" --block', desc = "🔌 restart agents gpg + ssh" },
 	{ on = [ "c", "d" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_disk' --block", desc = "💾 copy disk/partition" },
 	{ on = [ "c", "f" ], run = 'shell "echo \"\n--- [ Git Fetching Remote... ] ---\n\"; git fetch origin & git diff HEAD..origin --stat; echo \"\n\033[0;90mPress any key to return to Yazi...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "🌐 git fetch" },
     { on = [ "c", "g" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_gpg' --block", desc = "🔐 copy gpg key" },
