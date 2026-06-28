@@ -176,6 +176,14 @@ prepend_previewers = [
     { mime = "video/*", run = "video" },
 ]
 
+# hack
+prepend_preloaders = [
+    { url = "*.csv",     run = "duckdb", multi = false },
+    { url = "*.tsv",     run = "duckdb", multi = false },
+    { url = "*.parquet", run = "duckdb", multi = false },
+    { url = "*.xlsx",    run = "duckdb", multi = false },
+]
+
 # This ensures extra metadata shows up in the right-hand pane
 # prepend_spotters = [
 #     { mime = "{image,video,audio}/*", run = "file-extra-metadata" },

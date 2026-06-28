@@ -41,6 +41,17 @@ local function clear_list(category)
 	set_opts(category, {}) -- replaces the whole list with an empty table
 end
 
+-- DuckDB prints "-- Loading resources from ~/.duckdbrc" to stderr even on success.
+-- Strip that banner so it isn't mistaken for a real error.
+local function has_real_stderr(stderr)
+	if not stderr or stderr == "" then
+		return false
+	end
+	local cleaned = stderr:gsub("[^\n]*duckdbrc[^\n]*\n?", "")
+	cleaned = cleaned:gsub("\027%[[%d;]*m", ""):gsub("%s+", "")
+	return cleaned ~= ""
+end
+
 local function add_queries_to_table(target_table, queries)
 	if type(queries) == "table" then
 		for _, item in ipairs(queries) do
@@ -575,7 +586,7 @@ end
 
 local function output_is_valid(output, mode, job)
 	if output then
-		if output.stderr and output.stderr ~= "" then
+		if has_real_stderr(output.stderr) then
 			ya.err("DuckDB returned an error or:\n" .. output.stderr)
 			return false
 		elseif not output.stdout or output.stdout == "" then
@@ -675,7 +686,7 @@ local function create_cache(job, mode, file_type, limit)
 	ya.dbg("stdout: " .. tostring(output.stdout))
 	ya.dbg("stderr: " .. tostring(output.stderr))
 
-	if not output or (output.stderr and output.stderr ~= "") then
+	if not output or has_real_stderr(output.stderr) then
 		ya.err(
 			output
 					and string.format(
