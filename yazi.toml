@@ -191,8 +191,8 @@ prepend_preloaders = [
 
 prepend_fetchers = [
     # run on files AND directories
-    { id = "mactag", url = "*", run = "mactag",prio="low", },
-    { id = "mactag", url = "*/", run = "mactag",prio="low", },
+    { group = "mactag", url = "*", run = "mactag",prio="low", },
+    { group = "mactag", url = "*/", run = "mactag",prio="low", },
 ]
 
 [tasks]

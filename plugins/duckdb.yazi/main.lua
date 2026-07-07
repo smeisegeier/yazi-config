@@ -84,6 +84,9 @@ local extension_map = {
 	xlsx = "excel",
 	duckdb = "duckdb",
 	db = "duckdb",
+	sqlite = "sqlite",
+	sqlite3 = "sqlite",
+	db3 = "sqlite",
 }
 
 local function get_extension(filename)
@@ -114,16 +117,23 @@ local duckdb_opener = ya.sync(function(_, arg)
 	if file_type == "excel" then
 		command = string.format([[%s-cmd "install spatial;" -cmd "load spatial;" ]], command)
 		ya.dbg("command: " .. tostring(command))
+	elseif file_type == "sqlite" then
+		command = string.format(
+			[[%s-cmd "install sqlite;" -cmd "load sqlite;" -cmd "attach '%s' as db (type sqlite);" ]],
+			command,
+			tostring(hovered_url)
+		)
+		ya.dbg("command: " .. tostring(command))
 	end
 
-	if file_type ~= "duckdb" then
+	if file_type == "duckdb" then
+		command = command .. tostring(hovered_url)
+	elseif file_type ~= "sqlite" then
 		local table_name = '\\"' .. hovered_url.stem .. '\\"'
 		local data_source_string = generate_data_source_string(hovered_url, file_type)
 		local query = string.format("CREATE TABLE %s AS FROM %s;", table_name, data_source_string)
 		command = string.format('%s-cmd "%s"', command, query)
 		ya.dbg("command final: " .. tostring(command))
-	else
-		command = command .. tostring(hovered_url)
 	end
 
 	if arg ~= "-open" then
@@ -186,7 +196,18 @@ local function generate_preload_query(job, mode, file_type, limit)
 		return "FROM " .. data_source_string .. limit_string
 	else
 		return string.format(
-			"SELECT * EXCLUDE(null_percentage), CAST(null_percentage AS DOUBLE) AS null_percentage FROM (SUMMARIZE FROM %s)",
+			[[
+SELECT s.* EXCLUDE(null_percentage), CAST(s.null_percentage AS DOUBLE) AS null_percentage, u.sum
+FROM (SUMMARIZE FROM %s) s
+LEFT JOIN (
+	SELECT column_name, sum FROM (
+		UNPIVOT (SELECT sum(TRY_CAST(COLUMNS(*) AS DOUBLE)) FROM %s)
+		ON COLUMNS(*)
+		INTO NAME column_name VALUE sum
+	)
+) u ON s.column_name = u.column_name
+]],
+			data_source_string,
 			data_source_string
 		)
 	end
@@ -204,6 +225,15 @@ SELECT
 	null_percentage AS "null%%",
 	LEFT(min, %d) AS min,
 	LEFT(max, %d) AS max,
+	CASE
+		WHEN sum IS NULL THEN NULL
+		WHEN TRY_CAST(sum AS DOUBLE) IS NULL THEN CAST(sum AS VARCHAR)
+		WHEN ABS(CAST(sum AS DOUBLE)) < 100000 THEN CAST(ROUND(CAST(sum AS DOUBLE), 2) AS VARCHAR)
+		WHEN ABS(CAST(sum AS DOUBLE)) < 1000000 THEN CAST(ROUND(CAST(sum AS DOUBLE) / 1000, 1) AS VARCHAR) || 'k'
+		WHEN ABS(CAST(sum AS DOUBLE)) < 1000000000 THEN CAST(ROUND(CAST(sum AS DOUBLE) / 1000000, 2) AS VARCHAR) || 'm'
+		WHEN ABS(CAST(sum AS DOUBLE)) < 1000000000000 THEN CAST(ROUND(CAST(sum AS DOUBLE) / 1000000000, 2) AS VARCHAR) || 'b'
+		ELSE '∞'
+	END AS sum,
 	CASE
 		WHEN avg IS NULL THEN NULL
 		WHEN TRY_CAST(avg AS DOUBLE) IS NULL THEN CAST(avg AS VARCHAR)
@@ -266,7 +296,7 @@ local function get_cache_path(job, mode, extension)
 	if extension then
 		suffix = "_" .. extension .. "." .. extension
 	end
-	local cache_version = 3
+	local cache_version = 4
 	local skip = job.skip
 	job.skip = 1000000 + cache_version
 	local base = ya.file_cache(job)
@@ -292,6 +322,12 @@ local function run_query(job, query, target, file_type)
 	if file_type == "duckdb" then
 		table.insert(args, "-readonly")
 		table.insert(args, tostring(target))
+	elseif file_type == "sqlite" then
+		add_queries_to_table(args, {
+			"install sqlite",
+			"load sqlite",
+			string.format("attach '%s' as db (type sqlite, read_only);", tostring(target)),
+		})
 	elseif file_type == "excel" then
 		add_queries_to_table(args, { "install spatial", "load spatial" })
 	end
@@ -434,7 +470,7 @@ set variable included_columns = (
 	)
 
 	local filtered_select = string.format(
-		"select %scolumns(c -> list_contains(getvariable('included_columns'), c)) from %s limit %d offset %d;",
+		"select %scolumns(lambda c: list_contains(getvariable('included_columns'), c)) from %s limit %d offset %d;",
 		row_id_prefix,
 		target,
 		limit,
@@ -454,6 +490,7 @@ local function generate_summarized_query(source, limit, offset)
 		'"null%"',
 		'"min"',
 		'"max"',
+		'"sum"',
 		'"avg"',
 		'"std"',
 		'"q25"',
@@ -490,8 +527,8 @@ local function generate_peek_query(target, job, limit, offset, file_type, cache_
 	local mode = get_opts("mode")
 	local is_original_file = (target == job.file.url)
 
-	-- If the file itself is a DuckDB database, list tables/columns
-	if is_original_file and file_type == "duckdb" then
+	-- If the file itself is a DuckDB or SQLite database, list tables/columns
+	if is_original_file and (file_type == "duckdb" or file_type == "sqlite") then
 		return generate_db_query(limit, offset)
 	end
 
@@ -517,12 +554,14 @@ local function generate_peek_query(target, job, limit, offset, file_type, cache_
           '   %s ' as "null_percentage",
           '   %s ' as min,
           '   %s ' as max,
+          '   %s ' as sum,
           '   %s ' as avg,
           '   %s ' as std,
           '   %s ' as q25,
           '   %s ' as q50,
           '   %s ' as q75
           from (describe select * from %s))]],
+					placeholder,
 					placeholder,
 					placeholder,
 					placeholder,
@@ -549,17 +588,19 @@ local function generate_peek_query(target, job, limit, offset, file_type, cache_
         '   %s ' as "null_percentage",
         case when min(m.stats_min) is null then '%s' else min(m.stats_min) end as min,
         case when min(m.stats_max) is null then '%s' else max(m.stats_max) end as max,
+        '   %s ' as "sum",
         '   %s ' as "avg",
         '   %s ' as "std",
         '   %s ' as q25,
         '   %s ' as q50,
         '   %s ' as q75
-        from (describe select * from %s) d 
-        left join parquet_metadata(%s) m 
+        from (describe select * from %s) d
+        left join parquet_metadata(%s) m
         on d.column_name = m.path_in_schema
         group by all
         order by min(column_id))
         ]],
+					placeholder,
 					placeholder,
 					placeholder,
 					placeholder,
@@ -578,7 +619,7 @@ local function generate_peek_query(target, job, limit, offset, file_type, cache_
 end
 
 local function render_output(output, job)
-	local cleaned = output.stdout and output.stdout:gsub("\r", "") or "[no output]"
+	local cleaned = output and output.stdout and output.stdout:gsub("\r", "") or "[no output]"
 	ya.preview_widget(job, {
 		ui.Text.parse(cleaned):area(job.area),
 	})
@@ -683,8 +724,10 @@ local function create_cache(job, mode, file_type, limit)
 	local base_query = generate_preload_query(job, mode, file_type, limit)
 	local query = string.format("COPY (%s) TO '%s' (FORMAT 'parquet');", base_query, target)
 	local output = run_query(job, query, nil, file_type)
-	ya.dbg("stdout: " .. tostring(output.stdout))
-	ya.dbg("stderr: " .. tostring(output.stderr))
+	if output then
+		ya.dbg("stdout: " .. tostring(output.stdout))
+		ya.dbg("stderr: " .. tostring(output.stderr))
+	end
 
 	if not output or has_real_stderr(output.stderr) then
 		ya.err(
@@ -745,7 +788,7 @@ function M:preload(job)
 	local file_type = check_file_type(job.file.url)
 	local all_done = true
 
-	if file_type == "duckdb" then
+	if file_type == "duckdb" or file_type == "sqlite" then
 		return true
 	end
 
@@ -769,14 +812,16 @@ function M:peek(job)
 	local query = generate_peek_query(args.target, job, args.limit, args.offset, args.file_type, args.cache_str)
 	ya.dbg("query: " .. tostring(query))
 	local output = run_query(job, query, args.target, args.file_type)
-	ya.dbg("stdout: " .. tostring(output.stdout))
-	ya.dbg("stderr: " .. tostring(output.stderr))
+	if output then
+		ya.dbg("stdout: " .. tostring(output.stdout))
+		ya.dbg("stderr: " .. tostring(output.stderr))
+	end
 	if not output_is_valid(output, args.mode, job) then
 		if args.target == args.cache_url and args.scrolled_collumns == 0 then
 			add_to_list("bad_cache", args.cache_str)
 			remove_file(args.cache_url)
 			return require("duckdb"):peek(job)
-		elseif is_on_list("bad_cache", args.cache_str) then
+		else
 			return require("code"):peek(job)
 		end
 	end

@@ -31,6 +31,10 @@ keymap = [
 	{ on = "<PageUp>",     run = "arrow -100%", desc = "Move cursor up one page" },
 	{ on = "<PageDown>",   run = "arrow 100%",  desc = "Move cursor down one page" },
 
+	# H/M/L viewport motions (PR #3970) merged 2026-06-24, after v26.5.6 (2026-05-05) — not in a release yet.
+	# { on = "H", run = "arrow 0vp",   desc = "Move cursor to top of viewport" },
+	# { on = "L", run = "arrow 100vp", desc = "Move cursor to bottom of viewport" },
+
 	# { on = "h", run = "leave", desc = "Go back to the parent directory" },
 	# { on = "l", run = "enter", desc = "Enter the child directory" },
 
@@ -91,10 +95,11 @@ keymap = [
 
 	# Find
 	{ on = [ "f","f" ], run = "plugin fzf-finder", desc = "🔍 find via fzf" },
+	{ on = [ "f","r" ],         run = "search --via=fd",             desc = "Find files by name using fd (regex)" },
+	{ on = [ "f","g" ],         run = "search --via=fd --args='--glob'",             desc = "Find files by name using fd (glob)" },
 	{ on = [ "f","n" ], run = "find --smart",            desc = "Find next file" },
-	{ on = [ "f","d" ],         run = "search fd",                   desc = "Find files by name using fd" },
-	# { on = [ "f","r" ],         run = "search rg",                   desc = "Find files by content using ripgrep" },
-	{ on = "<C-s>",     run = "search none",                 desc = "Cancel the ongoing search" },
+	# { on = [ "f","r" ],         run = "search --via=rg",             desc = "Find files by content using ripgrep" },
+	{ on = "<C-s>",     run = "escape --search",             desc = "Cancel the ongoing search" },
 
 	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
 	# { on = "n", run = "find_arrow",              desc = "Go to the next found" },

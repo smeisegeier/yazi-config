@@ -88,3 +88,32 @@ YAZI_LOG=info yazi
 
 > [!NOTE]
 > - for remote ssh connect use [vfs](https://yazi-rs.github.io/docs/next/configuration/vfs/) logic
+
+> [!CAUTION]
+> how to upgrade yazi:
+> By default, brew upgrade runs cleanup afterward and deletes the old Cellar keg — so once you upgrade, the old 26.1.22 binary is gone and there's no yazi@26.1.22 versioned formula to fall back to in homebrew-core.
+> How to keep a safe rollback path:
+> ```bash
+> brew unpin yazi
+> export HOMEBREW_NO_INSTALL_CLEANUP=1
+> # tell brew not to auto-remove the old keg
+> ```
+>
+> ```bash
+> brew upgrade yazi
+> ```
+>
+> ❌ If something breaks:
+>
+> ```bash
+> brew switch yazi 26.1.22 
+> # instant relink to the old keg, no reinstall/download needed, since cleanup was skipped.
+> ```
+>
+> ✅ If you're happy with the new version:
+>
+> ```bash
+> brew cleanup yazi 
+> brew pin yazi
+> # later to reclaim the disk space from the old keg.
+> ```
