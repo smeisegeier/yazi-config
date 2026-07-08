@@ -92,3 +92,23 @@ hash = "4bdfecaa643db1cc28ccba799463d5b8"
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "4c57537"
 hash = "e25fb61c14484de843b52430a72b5196"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-latte"
+rev = "4770a34"
+hash = "b8f46853c27707115f25f3423a47bd38"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "4770a34"
+hash = "7dfe41c9c3d9be76da8a844263d0bbed"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-macchiato"
+rev = "4770a34"
+hash = "67f2240fd9c98f21714527a24cd672f8"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:dracula"
+rev = "4770a34"
+hash = "20624fcdfcf7e4e912de05e348065e5e"
