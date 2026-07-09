@@ -10,18 +10,18 @@ hash = "d64feec9761392cbc250d199ab4b8a3a"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "b224ddf"
-hash = "815dd20e682dec52bb92864037fa5f53"
+rev = "8cd50c6"
+hash = "5b1c276b75cae91cbbdbe7863f39a540"
 
 [[plugin.deps]]
 use = "boydaihungst/file-extra-metadata"
-rev = "871ba3c"
-hash = "ff02946e042df4869617edb9aa310523"
+rev = "611d0ed"
+hash = "14006064a6a53a1770fbdcefb97a8347"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "b224ddf"
-hash = "8b1af6b5a69797ee951f2a80ce570818"
+rev = "8cd50c6"
+hash = "39ce0924dfe3989dc89d7caa1473c77c"
 
 [[plugin.deps]]
 use = "AnirudhG07/plugins-yazi:copy-file-contents"
@@ -30,8 +30,8 @@ hash = "f8530ee84fee95dbcc26bb1d8d8019c7"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "b224ddf"
-hash = "91937a4a9b779eabc6983e258befdfe9"
+rev = "8cd50c6"
+hash = "e3260d0b1feded8c8e3ae3afa1169e30"
 
 [[plugin.deps]]
 use = "macydnah/office"

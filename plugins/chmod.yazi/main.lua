@@ -1,9 +1,9 @@
---- @since 25.12.29
+--- @since 26.1.22
 
 local selected_or_hovered = ya.sync(function()
 	local tab, paths = cx.active, {}
-	for _, u in pairs(tab.selected) do
-		paths[#paths + 1] = tostring(u)
+	for _, f in pairs(tab.selected) do
+		paths[#paths + 1] = tostring(f.url or f) -- TODO: remove
 	end
 	if #paths == 0 and tab.current.hovered then
 		paths[1] = tostring(tab.current.hovered.url)
@@ -37,7 +37,7 @@ return {
 			return
 		end
 
-		local output, err = Command("chmod"):arg(value):arg(urls):stderr(Command.PIPED):output()
+		local output, err = Command("chmod"):arg(value):arg(urls):output()
 		if not output then
 			fail("Failed to run chmod: %s", err)
 		elseif not output.status.success then
