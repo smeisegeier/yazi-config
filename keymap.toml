@@ -142,13 +142,13 @@ keymap = [
 	# { on = [ "k", "x" ], run = "shell 'nu -c \"echo \\\"Press enter to continue\\\"; read -r in\"' --block", desc = "yo" },
     { on = [ "k", "x","x" ], run = "shell '$YAZI_CONFIG_HOME/scripts/sqlite_show_schema.sh \"$1\"' --block", desc = "🗄️ show db schema" },
     { on = [ "k", "x","m" ], run = "shell '$YAZI_CONFIG_HOME/scripts/sqlite_show_meta.sh \"$1\"' --block", desc = "🗄️ show db meta" },
-    { on = [ "k", "x","u" ], run = "plugin duckdb -ui", desc = "ui for duckdb" },
+    { on = [ "k", "x","u" ], run = "plugin duckdb -- -ui", desc = "ui for duckdb" },
 	# { on = [ "k", "j", "e" ], run = "shell 'nu -c \"open \"$0\" | explore\"' --block --confirm", desc = "Nushell Explore" },
 	# { on = [ "k", "j", "j" ], run = "shell 'nu -c \"open \"$0\" \"' --block --confirm", desc = "Nushell show" },
 
 
-    { on = [ "b" ], run = "plugin duckdb +1", desc = "->" },
-    { on = [ "v" ], run = "plugin duckdb -1", desc = "<-" },
+    { on = [ "b" ], run = "plugin duckdb -- +1", desc = "->" },
+    { on = [ "v" ], run = "plugin duckdb -- -1", desc = "<-" },
     { on = [ "<F11>" ], run = "plugin toggle-pane max-preview", desc = "toggle max preview" },
     { on = [ "<F10>" ], run = "plugin toggle-pane min-preview", desc = "toggle min preview" },
 

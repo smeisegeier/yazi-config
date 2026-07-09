@@ -25,7 +25,7 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 **![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey) install dependencies** <small>(this assumes [vscode](https://code.visualstudio.com/) is installed already)</small>
 
 ```bash
-brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell ouch ncdu nbpreview rich-cli glow mactag librsvg ffmpegthumbnailer resvg mediainfo tree
+brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell ouch ncdu nbpreview rich-cli glow mactag librsvg ffmpegthumbnailer resvg mediainfo tree tag
 ```
 
 <br>

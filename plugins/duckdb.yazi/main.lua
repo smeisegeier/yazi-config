@@ -158,7 +158,7 @@ function M:entry(job)
 	scrolled_columns = math.max(0, scrolled_columns + scroll_delta)
 	set_opts("scrolled_columns", scrolled_columns)
 
-	ya.emit("seek", { "lateral scroll" })
+	ya.emit("peek", { force = true })
 end
 
 -- Setup from init.lua: require("duckdb"):setup({ mode = "standard"/"summarized" })
