@@ -15,7 +15,7 @@ function M:peek(job)
 
 	ya.sleep(math.max(0, rt.preview.image_delay / 1000 + start - os.clock()))
 	ya.image_show(cache, job.area)
-	ya.preview_widgets(job, {})
+	ya.preview_widget(job, {})
 end
 
 function M:seek(job)
@@ -34,7 +34,7 @@ function M:doc2pdf(job)
 	  2. Always writes the converted files to the filesystem, so no "Mario|Bros|Piping|Magic" for the data stream (https://ask.libreoffice.org/t/using-convert-to-output-to-stdout/38753)
 	  3. The `pdf:draw_pdf_Export` filter needs literal double quotes when defining its options (https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html?&DbPAR=SHARED&System=UNIX#generaltext/shared/guide/pdf_params.xhp)
 	  3.1 Regarding double quotes and Lua strings, see https://www.lua.org/manual/5.1/manual.html#2.1 --]]
-	local libreoffice = Command("libreoffice")
+	local libreoffice = Command("soffice")
 		:arg({
 			"--headless",
 			"--convert-to",
