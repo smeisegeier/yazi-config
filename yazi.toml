@@ -27,16 +27,16 @@ svg_precision  = 2
 
 [opener]
 edit = [
-    { run = 'code "$@"', desc = "🖥️ VS Code", for = "macos" },
+    { run = 'code "$@"', desc = "💻 VS Code", for = "macos" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
-    { run = 'code "$@"', orphan = true, desc = "🖥️ VS Code", for = "linux" },
+    { run = 'code "$@"', orphan = true, desc = "💻 VS Code", for = "linux" },
 ]
 # edit-large = [
 #     { run = 'cot "$@"', block = false, desc = "🗻 CotEditor for large files", for = "macos" },
 # ]
 vim = [
-    { run = 'vim "$@"', block = true, desc = "🖊️ vim for large files", for = "unix" },
+    { run = 'vim "$@"', block = true, desc = "📝 vim for large files", for = "unix" },
 ]
 sys-open = [
     { run = 'open "$@"', desc = " Open with macOS settings", orphan = true, for = "macos" },
@@ -52,9 +52,9 @@ terminal-block = [
     { run = 'code --wait "$@"', desc = "-", block = true },
 ]
 play = [
-	{ run = "open %s",         desc = "▶️ Play", for = "macos" },
-	{ run = "xdg-open %s1",    desc = "▶️ Play", for = "linux", orphan = true },
-	{ run = 'start "" %s1',    desc = "▶️ Play", for = "windows", orphan = true },
+	{ run = "open %s",         desc = "🎥 Play", for = "macos" },
+	{ run = "xdg-open %s1",    desc = "🎥 Play", for = "linux", orphan = true },
+	{ run = 'start "" %s1',    desc = "🎥 Play", for = "windows", orphan = true },
 	{ run = "termux-open %s1", desc = "Play", for = "android" },
 ]
 mediainfo = [
@@ -74,24 +74,24 @@ extract = [
 	{ run = "ya pub extract --list %s", desc = "📦 Extract here" },
 ]
 compress = [
-    { run = '~/.config/yazi/scripts/zip_selected.sh "$@"', block = true, desc = "🗜️ Zip files" },
+    { run = '~/.config/yazi/scripts/zip_selected.sh "$@"', block = true, desc = "📦 Zip files" },
 ]
 reveal = [
     { run = 'open -R "$1"', desc = " Reveal in Finder", for = "macos" }
 ]
 duckdb-ui = [
-    { run = 'duckdb -ui "$1"', block = true, desc = "🦆 DuckDB UI" }
+    { run = 'duckdb -readonly "$1" -ui', block = true, desc = "🔒 DuckDB UI (readonly)" }
 ]
 explain = [
     { run = 'nu ~/.config/yazi/scripts/explain.sh "$1"', block = true, desc = "💡 Explain schema" }
 ]
 chmod = [
-    { run = 'ya emit plugin chmod', desc = "✍️ Chmod on selected files" }
+    { run = 'ya emit plugin chmod', desc = "🔏 Chmod on selected files" }
 ]
 pgp-encrypt = [
     { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh "$@"', block = true, desc = "🔐 Encrypt Files pgp" },
-    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s "$@"', block = true, desc = "🔐🖊️ Sign+Encrypt Files pgp" },
-    { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh "$@"', block = true, desc = "🖊️ Create sig for Files" },
+    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s "$@"', block = true, desc = "🔐📝 Sign+Encrypt Files pgp" },
+    { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh "$@"', block = true, desc = "📝 Create sig for Files" },
 ]
 pgp-decrypt = [
     { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh "$@"', block = true, desc = "🔓 Decrypt Files pgp" },
@@ -108,7 +108,7 @@ show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
 ]
 broot = [
-    { run = 'broot "$1"', block = true, desc = "🖼️ b-root dir" }
+    { run = 'broot "$1"', block = true, desc = "🌳 b-root dir" }
 ]
 
 copy-tree = [
