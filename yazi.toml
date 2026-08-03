@@ -80,7 +80,7 @@ reveal = [
     { run = 'open -R "$1"', desc = " Reveal in Finder", for = "macos" }
 ]
 duckdb-ui = [
-    { run = 'duckdb -readonly "$1" -ui', block = true, desc = "🔒 DuckDB UI (readonly)" }
+    { run = '~/.config/yazi/scripts/duckdb_ui_readonly.sh "$1"', block = true, desc = "🔒 DuckDB UI (readonly)" }
 ]
 explain = [
     { run = 'nu ~/.config/yazi/scripts/explain.sh "$1"', block = true, desc = "💡 Explain schema" }
