@@ -95,10 +95,10 @@ keymap = [
 
 	# Find
 	{ on = [ "f","f" ], run = "plugin fzf-finder", desc = "🔍 find via fzf" },
-	{ on = [ "f","r" ],         run = "search --via=fd",             desc = "Find files by name using fd (regex)" },
-	{ on = [ "f","g" ],         run = "search --via=fd --args='--glob'",             desc = "Find files by name using fd (glob)" },
+	{ on = [ "f","d" ],         run = "search --via=fd",             desc = "Find files by name using fd (regex)" },
+	{ on = [ "f","D" ],         run = "search --via=fd --args='--glob'",             desc = "Find files by name using fd (glob)" },
 	{ on = [ "f","n" ], run = "find --smart",            desc = "Find next file" },
-	# { on = [ "f","r" ],         run = "search --via=rg",             desc = "Find files by content using ripgrep" },
+	{ on = [ "f","r" ],         run = "search --via=rg",             desc = "Find files by content using ripgrep" },
 	{ on = "<C-s>",     run = "escape --search",             desc = "Cancel the ongoing search" },
 
 	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
