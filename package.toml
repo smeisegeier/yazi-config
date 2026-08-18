@@ -5,33 +5,33 @@ hash = "e02a788e5b8ae0fb47fd0193dda589cc"
 
 [[plugin.deps]]
 use = "AnirudhG07/rich-preview"
-rev = "7d616ad"
-hash = "d64feec9761392cbc250d199ab4b8a3a"
+rev = "02597c4"
+hash = "33982a6e2d6df07619a2a0fc163a0950"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "8cd50c6"
-hash = "5b1c276b75cae91cbbdbe7863f39a540"
+rev = "6f26ae0"
+hash = "aa2562a617b637f9f8eba55f8216db05"
 
 [[plugin.deps]]
 use = "boydaihungst/file-extra-metadata"
-rev = "611d0ed"
-hash = "14006064a6a53a1770fbdcefb97a8347"
+rev = "8bb639d"
+hash = "8c5f14c09c981a496afaab5184e4aa08"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "8cd50c6"
-hash = "39ce0924dfe3989dc89d7caa1473c77c"
+rev = "6f26ae0"
+hash = "14558d2829c0aa05e99c57de8f74d199"
 
 [[plugin.deps]]
 use = "AnirudhG07/plugins-yazi:copy-file-contents"
-rev = "71545f4"
-hash = "f8530ee84fee95dbcc26bb1d8d8019c7"
+rev = "3f4f1a3"
+hash = "421263a8558fbd2fdb07a75f074cc6e3"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "8cd50c6"
-hash = "e3260d0b1feded8c8e3ae3afa1169e30"
+rev = "6f26ae0"
+hash = "46cbdc05596a3ecd730b288e28c7079d"
 
 [[plugin.deps]]
 use = "macydnah/office"
@@ -55,28 +55,28 @@ hash = "87b9233a74325e95011670ed20bbd0d4"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:piper"
-rev = "b224ddf"
-hash = "384464b6df8cb807425c521f8cd790f3"
+rev = "6f26ae0"
+hash = "45a533508a9840cc5a10cf6129f63e6a"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "b224ddf"
-hash = "4c0260feb50ea2437380690ffc241da7"
+rev = "6f26ae0"
+hash = "5b2fbef7d1513ce38ff72623a071a5e"
 
 [[plugin.deps]]
 use = "uhs-robert/sshfs"
-rev = "4070c8e"
-hash = "a4cd81fe60c350c3f0fde9957f4a4bb9"
+rev = "a8b8903"
+hash = "8c1b36103121a66b37308afaf7124575"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mactag"
-rev = "b224ddf"
-hash = "ec24097962fb6236ccdeadf1e0cf66e5"
+rev = "6f26ae0"
+hash = "34e3e12060f833cc21446f23a7ced8d1"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "e84f4fe"
-hash = "c887903a63a2ff520081b6d90a4b3392"
+rev = "6f26ae0"
+hash = "d6f7351ea25a43c9b5f4315fa1e23935"
 
 [[plugin.deps]]
 use = "aresler/path-from-root"
@@ -85,30 +85,30 @@ hash = "f3375d21ceb5f49d2d50ad199262006a"
 
 [[plugin.deps]]
 use = "boydaihungst/save-clipboard-to-file"
-rev = "4f034ac"
-hash = "4bdfecaa643db1cc28ccba799463d5b8"
+rev = "084113f"
+hash = "eee76f9c3c2bf1d23c3d3b5e830527c7"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
-rev = "4c57537"
-hash = "e25fb61c14484de843b52430a72b5196"
+rev = "be0b21d"
+hash = "ab7c71d442d3a9e16331ea0d95ab36a8"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-latte"
-rev = "4770a34"
-hash = "b8f46853c27707115f25f3423a47bd38"
+rev = "be0b21d"
+hash = "273ee53369ccfbf7feb9b0c65e387ed8"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "4770a34"
-hash = "7dfe41c9c3d9be76da8a844263d0bbed"
+rev = "be0b21d"
+hash = "ce320f877fe709b189433941aba747c4"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-macchiato"
-rev = "4770a34"
-hash = "67f2240fd9c98f21714527a24cd672f8"
+rev = "be0b21d"
+hash = "5b1bf96d1cba26376087c37de993c517"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:dracula"
-rev = "4770a34"
-hash = "20624fcdfcf7e4e912de05e348065e5e"
+rev = "be0b21d"
+hash = "40136c9a02e166067a36d9ad618887f2"

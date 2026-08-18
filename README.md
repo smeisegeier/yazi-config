@@ -1,6 +1,6 @@
 # file-manager-config
 
-[yazi](https://github.com/sxyazi/yazi) release `26.1.22` is used here
+[yazi](https://github.com/sxyazi/yazi) release `26.8.15` is used here
 
 ## keymappings
 
@@ -91,7 +91,7 @@ YAZI_LOG=info yazi
 
 > [!CAUTION]
 > how to upgrade yazi:
-> By default, brew upgrade runs cleanup afterward and deletes the old Cellar keg — so once you upgrade, the old 26.1.22 binary is gone and there's no yazi@26.1.22 versioned formula to fall back to in homebrew-core.
+> By default, brew upgrade runs cleanup afterward and deletes the old Cellar keg — so once you upgrade, the old 26.5.6 binary is gone and there's no yazi@26.5.6 versioned formula to fall back to in homebrew-core.
 > How to keep a safe rollback path:
 > ```bash
 > brew unpin yazi
@@ -106,7 +106,7 @@ YAZI_LOG=info yazi
 > ❌ If something breaks:
 >
 > ```bash
-> brew switch yazi 26.1.22 
+> brew switch yazi 26.5.6 
 > # instant relink to the old keg, no reinstall/download needed, since cleanup was skipped.
 > ```
 >
@@ -117,3 +117,13 @@ YAZI_LOG=info yazi
 > brew pin yazi
 > # later to reclaim the disk space from the old keg.
 > ```
+
+## release notes
+
+### 26.8.15 (from 26.5.6)
+
+- `vfs.toml`: SFTP sections renamed upstream, `[services.*]` → `[sftp.*]`, and the per-entry `type = "sftp"` field was dropped (the scheme is now the table key itself). Update local `vfs.toml` accordingly or SFTP mounts will fail to parse.
+- `yazi.toml`: `[tasks] micro_workers`/`macro_workers` (already dead since 26.5.6) replaced with `file_workers`, `plugin_workers`, `fetch_workers`, `preload_workers`, `process_workers`.
+- `keymap.toml`: deprecated `copy dirname` action renamed to `copy dirpath`.
+- ran `ya pkg upgrade` for all managed plugins/flavors; `office.yazi` and `duckdb.yazi` were skipped since both carry local hand-applied fixes that don't match their pinned upstream commit — left on their old revs, no removed/deprecated API usage found in either.
+- `Url.is_archive` was removed upstream; only the inactive, unmanaged `file-actions.yazi` plugin used it (binding already commented out in `keymap.toml`) — no action needed unless it's re-enabled.

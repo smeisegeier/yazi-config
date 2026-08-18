@@ -168,7 +168,7 @@ keymap = [
 
 	# Copy
 	{ on = [ "y", "p" ], run = "copy path",             desc = "Copy the file path" },
-	{ on = [ "y", "d" ], run = "copy dirname",          desc = "Copy the directory path" },
+	{ on = [ "y", "d" ], run = "copy dirpath",          desc = "Copy the directory path" },
 	{ on = [ "y", "f" ], run = "copy filename",         desc = "Copy the filename" },
 	{ on = [ "y", "F" ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
 	{ on  = [ "y", "r" ], run  = "plugin path-from-root", desc = "Copy path from git root" },
