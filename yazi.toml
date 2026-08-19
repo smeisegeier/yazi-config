@@ -27,29 +27,29 @@ svg_precision  = 2
 
 [opener]
 edit = [
-    { run = 'code "$@"', desc = "💻 VS Code", for = "macos" },
-	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
-	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
-    { run = 'code "$@"', orphan = true, desc = "💻 VS Code", for = "linux" },
+    { run = 'code %s', desc = "💻 VS Code", for = "macos" },
+	{ run = 'code %s',    orphan = true, desc = "code",           for = "windows" },
+	{ run = 'code -w %s', block = true,  desc = "code (block)",   for = "windows" },
+    { run = 'code %s', orphan = true, desc = "💻 VS Code", for = "linux" },
 ]
 # edit-large = [
 #     { run = 'cot "$@"', block = false, desc = "🗻 CotEditor for large files", for = "macos" },
 # ]
 vim = [
-    { run = 'vim "$@"', block = true, desc = "📝 vim for large files", for = "unix" },
+    { run = 'vim %s', block = true, desc = "📝 vim for large files", for = "unix" },
 ]
 sys-open = [
-    { run = 'open "$@"', desc = " Open with macOS settings", orphan = true, for = "macos" },
-	{ run = 'xdg-open "$1"', orphan = true, desc = "Open with OS settings", for = "linux" },
-	{ run = 'start "" "%1"', orphan = true, desc = "Open with Windows settings", for = "windows" },
+    { run = 'open %s', desc = " Open with macOS settings", orphan = true, for = "macos" },
+	{ run = 'xdg-open %s1', orphan = true, desc = "Open with OS settings", for = "linux" },
+	{ run = 'start "" %s1', orphan = true, desc = "Open with Windows settings", for = "windows" },
 ]
 quicklook = [
     # { run = 'osascript -e "tell application \"Finder\" to reveal POSIX file \"$1\"" -e "tell application \"Finder\" to activate" -e "tell application \"System Events\" to delay 0.5" -e "tell application \"System Events\" to keystroke \" \""', orphan = true, desc = "🔍 Quicklook" }
-    { run = 'qlmanage -p "$1" >/dev/null 2>&1', desc = "🔍 Quicklook", orphan = true , for = "macos"},
+    { run = 'qlmanage -p %s1 >/dev/null 2>&1', desc = "🔍 Quicklook", orphan = true , for = "macos"},
 ]
 # * for batch rename
 terminal-block = [
-    { run = 'code --wait "$@"', desc = "-", block = true },
+    { run = 'code --wait %s', desc = "-", block = true },
 ]
 play = [
 	{ run = "open %s",         desc = "🎥 Play", for = "macos" },
@@ -64,7 +64,7 @@ mediainfo = [
 exif = [
     # { run = 'zsh -c "exiftool \"$1\" | bat"', block = true, desc = "📸 Show Full EXIF" }
     # { run = 'exiftool "$1"', block = true, desc = "📸 Show Full EXIF" }
-    { run = 'zsh -c "exiftool \"$1\" | bat --language yaml --style=header,grid; echo \"\nPress any key\"; read -k 1"', block = true, desc = "📸 Show full EXIF" }
+    { run = 'zsh -c "exiftool %s1 | bat --language yaml --style=header,grid; echo \"\nPress any key\"; read -k 1"', block = true, desc = "📸 Show full EXIF" }
 ]
 download = [
 	{ run = "ya emit download --open %S", desc = "🌐 Download and open" },
@@ -74,45 +74,45 @@ extract = [
 	{ run = "ya pub extract --list %s", desc = "📦 Extract here" },
 ]
 compress = [
-    { run = '~/.config/yazi/scripts/zip_selected.sh "$@"', block = true, desc = "📦 Zip files" },
+    { run = '~/.config/yazi/scripts/zip_selected.sh %s', block = true, desc = "📦 Zip files" },
 ]
 reveal = [
-    { run = 'open -R "$1"', desc = " Reveal in Finder", for = "macos" }
+    { run = 'open -R %s1', desc = " Reveal in Finder", for = "macos" }
 ]
 duckdb-ui = [
-    { run = '~/.config/yazi/scripts/duckdb_ui_readonly.sh "$1"', block = true, desc = "🔒 DuckDB UI (readonly)" }
+    { run = '~/.config/yazi/scripts/duckdb_ui_readonly.sh %s1', block = true, desc = "🔒 DuckDB UI (readonly)" }
 ]
 explain = [
-    { run = 'nu ~/.config/yazi/scripts/explain.sh "$1"', block = true, desc = "💡 Explain schema" }
+    { run = 'nu ~/.config/yazi/scripts/explain.sh %s1', block = true, desc = "💡 Explain schema" }
 ]
 chmod = [
     { run = 'ya emit plugin chmod', desc = "🔏 Chmod on selected files" }
 ]
 pgp-encrypt = [
-    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh "$@"', block = true, desc = "🔐 Encrypt Files pgp" },
-    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s "$@"', block = true, desc = "🔐📝 Sign+Encrypt Files pgp" },
-    { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh "$@"', block = true, desc = "📝 Create sig for Files" },
+    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh %s', block = true, desc = "🔐 Encrypt Files pgp" },
+    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s %s', block = true, desc = "🔐📝 Sign+Encrypt Files pgp" },
+    { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh %s', block = true, desc = "📝 Create sig for Files" },
 ]
 pgp-decrypt = [
-    { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh "$@"', block = true, desc = "🔓 Decrypt Files pgp" },
-    { run = 'gpg --list-packets "$@" | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "📦🔍 List packets" },
+    { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh %s', block = true, desc = "🔓 Decrypt Files pgp" },
+    { run = 'gpg --list-packets %s | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "📦🔍 List packets" },
 ]
 sig = [
-    { run = '~/.config/yazi/scripts/gpg_verify_signature.sh "$1"', block = true, desc = "❔ Verify sig pgp" },
+    { run = '~/.config/yazi/scripts/gpg_verify_signature.sh %s1', block = true, desc = "❔ Verify sig pgp" },
 ]
 terminal-show = [
     # { run = 'bat "$@"', desc = "⚡ Show in terminal", block = true },
-    { run = 'bat "$@"; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
+    { run = 'bat %s; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
 ]
 show-dir-size = [
-    { run = 'ncdu -r --show-itemcount --color dark-bg "$1"', block = true, desc = "📏 Show Size" }
+    { run = 'ncdu -r --show-itemcount --color dark-bg %s1', block = true, desc = "📏 Show Size" }
 ]
 broot = [
-    { run = 'broot "$1"', block = true, desc = "🌳 b-root dir" }
+    { run = 'broot %s1', block = true, desc = "🌳 b-root dir" }
 ]
 
 copy-tree = [
-    { run = 'p="$1"; [ -f "$p" ] && p="$(dirname "$p")"; tree -L 3 --charset=ascii "$p" | pbcopy', desc = "🌴 tree to clipboard" }
+    { run = 'p=%s1; [ -f "$p" ] && p="$(dirname "$p")"; tree -L 3 --charset=ascii "$p" | pbcopy', desc = "🌴 tree to clipboard" }
 ]
 	# { on  = [ "y", "t" ], run  = "plugin tree-to-clipboard", desc = "🌴 tree to clipboard" },
 
