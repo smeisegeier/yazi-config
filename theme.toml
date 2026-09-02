@@ -10,6 +10,40 @@
 dark = "catppuccin-frappe"
 light = "catppuccin-latte"
 
+# https://www.nerdfonts.com/cheat-sheet
+[icon]
+# prepend_globs = [
+#     { url = "**/Readme.*",     text = "📜", fg = "#77aa99" },
+# ]
+append_exts = [
+    { name = "duckdb", text = "🦆", fg = "#00afff" },
+    { name = "gpg",     text = "🔐", fg = "#00a86b" },
+    { name = "key",     text = "🔑", fg = "#e3c58e" },
+    { name = "parquet", text = "\ueb29", fg = "#50a4c0" },
+    # { name = "tar",     text = "🗄️", fg = "#eca517" },
+]   
+
+append_dirs = [
+    { name = "uml",  text = "\ue8cb" },
+]
+
+
+append_globs = [
+    { url = "**/.trash/",  text = "\uea81", fg = "#7ebae4" },
+    { url = "**/config/",  text = "", fg = "#7ebae4" },
+    { url = "**/src/",  text = "\uf44f", fg = "#7ebae4" },
+    { url = "**/test/",  text = "󰙨", fg = "#7ebae4" },
+    { url = "**/data/",  text = "󱔼", fg = "#7ebae4" },
+    { url = "**/sql/",  text = "", fg = "#7ebae4" },
+    { url = "**/.local/",  text = "󰌢", fg = "#7ebae4" },
+    { url = "**/.ssh/",  text = "󰣀", fg = "#7ebae4" },
+    { url = "**/{share,common}/",  text = "", fg = "#7ebae4" },
+    { url = "**/{.venv,python}/",  text = "\ue606", fg = "#7ebae4" },
+    { url = "**/[Dd]ocs/",  text = "󰈙" },
+    { url = "**/{img,images,assets,media,static}/",  text = "\uf03e" },
+    { url = "**/{log,logs}/",  text = "" },
+]
+
 # : }}}
 
 # : Manager {{{
