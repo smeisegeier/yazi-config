@@ -39,9 +39,12 @@ vim = [
     { run = 'vim %s', block = true, desc = "📝 vim for large files", for = "unix" },
 ]
 sys-open = [
-    { run = 'open %s', desc = " Open with macOS settings", orphan = true, for = "macos" },
-	{ run = 'xdg-open %s1', orphan = true, desc = "Open with OS settings", for = "linux" },
-	{ run = 'start "" %s1', orphan = true, desc = "Open with Windows settings", for = "windows" },
+    { run = 'open %s', desc = "🚀 Open with macOS settings", orphan = true, for = "macos" },
+	{ run = 'xdg-open %s1', orphan = true, desc = "🚀 Open with OS settings", for = "linux" },
+	{ run = 'start "" %s1', orphan = true, desc = "🚀 Open with Windows settings", for = "windows" },
+]
+sys-open-shell = [
+    { run = '~/.config/yazi/scripts/exec_selected.sh %s1', block = true, desc = "🐚 Execute in shell (quits yazi)" },
 ]
 quicklook = [
     # { run = 'osascript -e "tell application \"Finder\" to reveal POSIX file \"$1\"" -e "tell application \"Finder\" to activate" -e "tell application \"System Events\" to delay 0.5" -e "tell application \"System Events\" to keystroke \" \""', orphan = true, desc = "🔍 Quicklook" }
@@ -123,7 +126,7 @@ copy-tree = [
 rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt"] },
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
-    { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
+    { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{csv}", use = [ "edit","vim","reveal","duckdb-ui-rw","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { url = "*.{txt}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
