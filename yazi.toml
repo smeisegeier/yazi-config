@@ -80,7 +80,10 @@ reveal = [
     { run = 'open -R %s1', desc = " Reveal in Finder", for = "macos" }
 ]
 duckdb-ui = [
-    { run = '~/.config/yazi/scripts/duckdb_ui_readonly.sh %s1', block = true, desc = "🔒 DuckDB UI (readonly)" }
+    { run = '~/.config/yazi/scripts/duckdb_ui.sh ro %s1', block = true, desc = "🔒 DuckDB UI (readonly)" }
+]
+duckdb-ui-rw = [
+    { run = '~/.config/yazi/scripts/duckdb_ui.sh rw %s1', block = true, desc = "📝 DuckDB UI (read/write)" }
 ]
 explain = [
     { run = 'nu ~/.config/yazi/scripts/explain.sh %s1', block = true, desc = "💡 Explain schema" }
@@ -121,7 +124,8 @@ rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt"] },
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
-    { url = "*.{txt,csv}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
+    { url = "*.{csv}", use = [ "edit","vim","reveal","duckdb-ui-rw","terminal-show","terminal-block","pgp-encrypt","compress" ] },
+    { url = "*.{txt}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 
     { url = "*.{gpg}", use = [ "pgp-decrypt","reveal","terminal-show", "compress"] },

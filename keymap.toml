@@ -143,7 +143,8 @@ keymap = [
     { on = [ "k", "x","x" ], run = "shell '$YAZI_CONFIG_HOME/scripts/duckdb_show_schema.sh %h' --block", desc = "📇 show db schema" },
     { on = [ "k", "x","m" ], run = "shell '$YAZI_CONFIG_HOME/scripts/duckdb_show_meta.sh %h' --block", desc = "📇 show db meta" },
     # { on = [ "k", "x","u" ], run = "plugin duckdb -- -ui", desc = "ui for duckdb" },
-    { on = [ "k", "x","u" ], run = "shell '$YAZI_CONFIG_HOME/scripts/duckdb_ui_readonly.sh %h' --block --orphan --confirm", desc = "🔒 ui for duckdb (readonly)" },
+    { on = [ "k", "x","u" ], run = "shell '$YAZI_CONFIG_HOME/scripts/duckdb_ui.sh ro %h' --block --orphan --confirm", desc = "🔒 ui for duckdb (readonly)" },
+    { on = [ "k", "x","w" ], run = "shell '$YAZI_CONFIG_HOME/scripts/duckdb_ui.sh rw %h' --block --orphan --confirm", desc = "📝 ui for csv (read/write)" },
 	# { on = [ "k", "j", "e" ], run = "shell 'nu -c \"open \"$0\" | explore\"' --block --confirm", desc = "Nushell Explore" },
 	# { on = [ "k", "j", "j" ], run = "shell 'nu -c \"open \"$0\" \"' --block --confirm", desc = "Nushell show" },
 
