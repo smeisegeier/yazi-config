@@ -111,7 +111,7 @@ terminal-show = [
     { run = 'bat %s; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
 ]
 show-dir-size = [
-    { run = 'ncdu -r --show-itemcount --color dark-bg %s1', block = true, desc = "📏 Show Size" }
+    { run = 'ncdu -r --show-itemcount --color off %s1', block = true, desc = "📏 Show Size" }
 ]
 broot = [
     { run = 'broot %s1', block = true, desc = "🌳 b-root dir" }
