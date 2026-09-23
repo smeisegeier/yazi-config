@@ -2,6 +2,10 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-09-23.1
+### Changed
+- `gpg_decrypt_selected.sh` now passes `--skip-verify`, so signed-and-encrypted files decrypt without signature checks (no failures or noise when the signer's public key is missing).
+
 ## v26-09-21.1
 ### Fixed
 - `gpg_decrypt_selected.sh` only stripped a `.gpg` suffix, so decrypting a `.pgp` file redirected gpg's output to the same path as the input — truncating the source to 0 bytes before gpg could even read it. Now supports `.gpg`, `.pgp`, and `.asc`, decrypts to a temp file first, and only replaces the original once gpg exits successfully with non-empty output.

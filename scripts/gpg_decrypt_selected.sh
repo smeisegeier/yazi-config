@@ -36,7 +36,7 @@ for file in "$@"; do
     tmp_out="$(mktemp "${out}.XXXXXX")"
 
     echo "Decrypting '$file'..."
-    gpg --decrypt --pinentry-mode loopback --verbose "$file" > "$tmp_out"
+    gpg --decrypt --skip-verify --pinentry-mode loopback --verbose "$file" > "$tmp_out"
     status=$?
 
     if [ $status -eq 0 ] && [ -s "$tmp_out" ]; then
