@@ -128,6 +128,8 @@ rules = [
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{sh,nu,ps1,py,lua,r,conf,ini,js}", use = [ "edit","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{csv}", use = [ "edit","vim","reveal","duckdb-ui-rw","terminal-show","terminal-block","pgp-encrypt","compress" ] },
+    # bulk rename/create uses the first blocking opener matching its temp file, so route it to `code --wait` before vim
+    { url = "bulk-{rename,create}.txt", use = [ "terminal-block" ] },
     { url = "*.{txt}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 

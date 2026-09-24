@@ -2,6 +2,10 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-09-24.1
+### Changed
+- Bulk rename/create now opens the filename list in VS Code (`code --wait` via the `terminal-block` opener) instead of vim. Yazi opens `bulk-rename.txt` with the first opener that waits for the editor to close, and the `*.txt` rule resolved to `vim`. A dedicated rule for `bulk-{rename,create}.txt` now comes before it.
+
 ## v26-09-23.1
 ### Changed
 - `gpg_decrypt_selected.sh` now passes `--skip-verify`, so signed-and-encrypted files decrypt without signature checks (no failures or noise when the signer's public key is missing).
