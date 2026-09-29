@@ -114,7 +114,7 @@ terminal-show = [
     { run = 'bat %s; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
 ]
 show-dir-size = [
-    { run = 'ncdu -r --show-itemcount --color dark-bg %s1', block = true, desc = "📏 Show Size" }
+    { run = 'ncdu -r --show-itemcount --color off %s1', block = true, desc = "📏 Show Size" }
 ]
 broot = [
     { run = 'broot %s1', block = true, desc = "🌳 b-root dir" }
@@ -132,6 +132,8 @@ rules = [
     { url = "*.{sh,nu,ps1,lua,r,conf,ini,js}", use = [ "edit","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{py}", use = [ "edit","py-open","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{csv}", use = [ "edit","vim","reveal","duckdb-ui-rw","terminal-show","terminal-block","pgp-encrypt","compress" ] },
+    # bulk rename/create uses the first blocking opener matching its temp file, so route it to `code --wait` before vim
+    { url = "bulk-{rename,create}.txt", use = [ "terminal-block" ] },
     { url = "*.{txt}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 

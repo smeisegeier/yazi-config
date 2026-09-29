@@ -18,6 +18,7 @@ light = "catppuccin-latte"
 append_exts = [
     { name = "duckdb", text = "🦆", fg = "#00afff" },
     { name = "gpg",     text = "🔐", fg = "#00a86b" },
+    { name = "pgp",     text = "🔐", fg = "#00a86b" },
     { name = "key",     text = "🔑", fg = "#e3c58e" },
     { name = "parquet", text = "\ueb29", fg = "#50a4c0" },
     # { name = "tar",     text = "🗄️", fg = "#eca517" },
