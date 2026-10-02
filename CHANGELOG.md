@@ -2,6 +2,14 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-02.1
+### Fixed
+- "Execute in shell" no longer runs the script inside a paused yazi. The opener was blocking, and yazi only acts on `ya emit quit` once the opener's process has finished. So the script ran while yazi was paused, and its output or key prompt showed up only after yazi came back. `exec_selected.sh` now writes the file path to `$YAZI_EXEC_FILE` and quits yazi. The `y` shell wrapper then runs the script in the real terminal after yazi has exited. This needs the updated `y()` in `~/.zshrc`. Without it, the script falls back to running inside yazi.
+
+### Changed
+- "Execute in shell" now prompts for arguments before running (`exec_selected.sh -a`). Press Enter on an empty prompt to run with no arguments. The menu entry without arguments is commented out.
+- `.py` files no longer offer "Execute in shell" (`sys-open-shell`). Use the `py-open` opener (`uv run`) instead.
+
 ## v26-09-24.1
 ### Changed
 - Bulk rename/create now opens the filename list in VS Code (`code --wait` via the `terminal-block` opener) instead of vim. Yazi opens `bulk-rename.txt` with the first opener that waits for the editor to close, and the `*.txt` rule resolved to `vim`. A dedicated rule for `bulk-{rename,create}.txt` now comes before it.

@@ -44,7 +44,8 @@ sys-open = [
 	{ run = 'start "" %s1', orphan = true, desc = "🚀 Open with Windows settings", for = "windows" },
 ]
 sys-open-shell = [
-    { run = '~/.config/yazi/scripts/exec_selected.sh %s1', block = true, desc = "🐚 Execute in shell (quits yazi)" },
+    # { run = '~/.config/yazi/scripts/exec_selected.sh %s1', desc = "🐚 Execute in shell (quits yazi)" },
+    { run = '~/.config/yazi/scripts/exec_selected.sh -a %s1', desc = "🐚 Execute in shell with args (quits yazi)" },
 ]
 py-open = [
     { run = 'uv run %s1', block = true, desc = "🐍 uv run" },
@@ -130,7 +131,7 @@ rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt"] },
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{sh,nu,ps1,lua,r,conf,ini,js}", use = [ "edit","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
-    { url = "*.{py}", use = [ "edit","py-open","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
+    { url = "*.{py}", use = [ "edit","py-open","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{csv}", use = [ "edit","vim","reveal","duckdb-ui-rw","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     # bulk rename/create uses the first blocking opener matching its temp file, so route it to `code --wait` before vim
     { url = "bulk-{rename,create}.txt", use = [ "terminal-block" ] },
