@@ -2,6 +2,16 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-02.2
+### Fixed
+- Extracting archives no longer leaves macOS AppleDouble `._*` files next to every real file. Opening an archive used yazi's built-in extract plugin (`7zz`), which writes `._` entries out as normal files. All archive types now open with `untar_selected.sh` ("📦 Extract here"), which replaces the built-in extractor in the menu.
+- `untar_selected.sh` skips `._*` entries for every format: tar gets `--exclude "._*" --no-xattrs`, plus `--no-mac-metadata` on bsdtar only, since GNU tar rejects it. unzip skips `__MACOSX/` and `._*`, and 7-Zip uses `-xr!._*` and `-xr!__MACOSX`.
+- Plain uncompressed `.tar` archives now extract with GNU tar on Linux. The script no longer forces `-z`, and both tars detect the compression themselves.
+
+### Changed
+- `untar_selected.sh` now handles any archive 7-Zip can read (`.7z`, `.rar`, `.xz`, single-file `.gz`, …). It uses `7zz` on macOS and `7z` on Linux.
+- Archives are extracted into a temp folder first. A single top-level item is moved up into the current folder. Otherwise the contents go into a folder named after the archive, with a timestamp suffix if that name already exists, so nothing gets overwritten.
+
 ## v26-10-02.1
 ### Fixed
 - "Execute in shell" no longer runs the script inside a paused yazi. The opener was blocking, and yazi only acts on `ya emit quit` once the opener's process has finished. So the script ran while yazi was paused, and its output or key prompt showed up only after yazi came back. `exec_selected.sh` now writes the file path to `$YAZI_EXEC_FILE` and quits yazi. The `y` shell wrapper then runs the script in the real terminal after yazi has exited. This needs the updated `y()` in `~/.zshrc`. Without it, the script falls back to running inside yazi.
