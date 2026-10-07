@@ -44,8 +44,7 @@ sys-open = [
 	{ run = 'start "" %s1', orphan = true, desc = "🚀 Open with Windows settings", for = "windows" },
 ]
 sys-open-shell = [
-    # { run = '~/.config/yazi/scripts/exec_selected.sh %s1', desc = "🐚 Execute in shell (quits yazi)" },
-    { run = '~/.config/yazi/scripts/exec_selected.sh -a %s1', desc = "🐚 Execute in shell with args (quits yazi)" },
+    { run = 'ya emit plugin exec-args', desc = "🐚 Execute with args" },
 ]
 py-open = [
     { run = 'uv run %s1', block = true, desc = "🐍 uv run" },

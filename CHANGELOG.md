@@ -2,6 +2,13 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-07.1
+### Changed
+- "Execute with args" (`sys-open-shell`) stays in yazi again. The new `exec-args` plugin asks for the arguments in a yazi prompt, with only the file name in its title. It then runs the file while yazi is paused and waits for a key before coming back. It no longer depends on the `y()` wrapper in `~/.zshrc`, so it behaves the same on every machine and from plain `yazi`. The opener exits right away, so no task is left running.
+
+### Removed
+- `scripts/exec_selected.sh` and the `$YAZI_EXEC_FILE` handoff to `y()`. The extra `y()` code from v26-10-02.1 is no longer needed.
+
 ## v26-10-02.2
 ### Fixed
 - Extracting archives no longer leaves macOS AppleDouble `._*` files next to every real file. Opening an archive used yazi's built-in extract plugin (`7zz`), which writes `._` entries out as normal files. All archive types now open with `untar_selected.sh` ("📦 Extract here"), which replaces the built-in extractor in the menu.
