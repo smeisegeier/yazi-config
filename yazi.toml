@@ -139,6 +139,8 @@ rules = [
     { url = "bulk-{rename,create}.txt", use = [ "terminal-block" ] },
     { url = "*.{txt}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
+    # office files are zip containers and are often sniffed as application/zip, so match by extension
+    { url = "*.{docx,xlsx,pptx,odt,ods,odp}", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
 
     { url = "*.{gpg}", use = [ "pgp-decrypt","reveal","terminal-show", "compress"] },
     { mime = "*/pgp-encrypted", use = [ "pgp-decrypt","reveal","terminal-show", "compress"] },

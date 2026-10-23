@@ -27,9 +27,10 @@ return {
 			return
 		end
 
-		-- newline instead of ";" so a trailing "&" or "#" in args can't eat the pause
+		-- newline instead of ";" so a trailing "&" or "#" in args can't eat the pause;
+		-- erase the prompt line afterwards so the next shell call starts on a clean line
 		ya.emit("shell", {
-			ya.quote(file) .. " " .. args .. "\necho; read -n 1 -s -r -p 'Press any key to continue...'",
+			ya.quote(file) .. " " .. args .. "\necho; read -n 1 -s -r -p 'Press any key to continue...'; printf '\\r\\033[2K'",
 			block = true,
 		})
 	end,

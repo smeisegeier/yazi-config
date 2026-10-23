@@ -2,6 +2,11 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-23.1
+### Fixed
+- After a shell call, the "Press any key to continue..." line no longer stays on screen, and the next shell call's output no longer starts at the end of that line. `exec-args` and `run_blocking.sh` now erase the prompt line after the key press.
+- Office files (`.docx`, `.xlsx`, `.pptx`, `.odt`, `.ods`, `.odp`) are no longer treated as archives when `file` reports them as `application/zip`. A rule that matches by extension now opens them with the system app.
+
 ## v26-10-07.1
 ### Changed
 - "Execute with args" (`sys-open-shell`) stays in yazi again. The new `exec-args` plugin asks for the arguments in a yazi prompt, with only the file name in its title. It then runs the file while yazi is paused and waits for a key before coming back. It no longer depends on the `y()` wrapper in `~/.zshrc`, so it behaves the same on every machine and from plain `yazi`. The opener exits right away, so no task is left running.
