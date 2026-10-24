@@ -73,7 +73,7 @@ keymap = [
 	{ on = [ "<Enter>" ], run = "open --interactive", desc = "Open with selection menu"},
 	# { on = "<S-Enter>", run = 'shell "nu ~/.config/yazi/scripts/explain.sh \"$0\"" --block', desc = "Explain / Quick Look" },
 
-	{ on = [ "<S-Enter>" ], run = 'shell "echo \"Edit\nEdit-Large\nPGP-Encrypt\nExif\nMediaInfo\nReveal\nChmod\nExplain\" | fzf --height 100% --reverse | xargs -I {} ya emit open --with {}" --block', desc = "🚀 Full-screen Opener Selector"},
+	{ on = [ "<S-Enter>" ], run = 'shell "printf \"Edit\nEdit-Large\nPGP-Encrypt\nExif\nMediaInfo\nReveal\nChmod\nExplain\n\" | fzf --height 100% --reverse | xargs -I {} ya emit open --with {}" --block', desc = "🚀 Full-screen Opener Selector"},
 
 	{ on = [ "y","c" ],         run = "plugin copy-file-contents",                        desc = "Copy contents of files" },
 	{ on = [ "y","y" ],         run = "yank",                        desc = "Copy selected files" },
@@ -252,7 +252,7 @@ keymap = [
 	{ on = [ "c", "a" ], run = 'shell "~/.config/yazi/scripts/start_agents_keys.sh" --block', desc = "🔌 cache key in agent (gpg/ssh)" },
 	{ on = [ "c", "A" ], run = 'shell "~/.config/yazi/scripts/start_agents.sh" --block', desc = "🔌 restart agents gpg + ssh" },
 	{ on = [ "c", "d" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_disk' --block", desc = "💾 copy disk/partition" },
-	{ on = [ "c", "f" ], run = 'shell "echo \"\n--- [ Git Fetching Remote... ] ---\n\"; git fetch origin && git diff HEAD..origin --stat; echo \"\n\033[0;90mPress any key to return to Yazi...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "🌐 git fetch" },
+	{ on = [ "c", "f" ], run = 'shell "printf \"\n--- [ Git Fetching Remote... ] ---\n\"; git fetch origin && git diff HEAD..origin --stat; printf \"\n\033[0;90mPress any key to return to Yazi...\033[0m\n\"; read -n 1 < /dev/tty" --block', desc = "🌐 git fetch" },
     { on = [ "c", "g" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_gpg' --block", desc = "🔐 copy gpg key" },
     { on = [ "c", "i" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_packages_available' --block", desc = "📦 list available packages" },
     { on = [ "c", "I" ], run = "shell 'source $YAZI_CONFIG_HOME/scripts/fzf.sh && get_packages_installed' --block", desc = "📦 list **installed** packages" },
@@ -262,8 +262,8 @@ keymap = [
 
 
 	# Help
-	{ on = "<F1>", run = 'shell "glow $YAZI_CONFIG_HOME/help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
-	{ on = "h", run = 'shell "glow $YAZI_CONFIG_HOME/help.md; echo \"\n\033[0;90mPress any key...\033[0m\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
+	{ on = "<F1>", run = 'shell "glow $YAZI_CONFIG_HOME/help.md; printf \"\n\033[0;90mPress any key...\033[0m\n\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
+	{ on = "h", run = 'shell "glow $YAZI_CONFIG_HOME/help.md; printf \"\n\033[0;90mPress any key...\033[0m\n\"; read -n 1 < /dev/tty" --block', desc = "see help page" },
 	{ on = "<S-F1>", run = "help", desc = "open help" },
 	{ on = [ "e" ], run = 'shell "~/.config/yazi/scripts/launcher.sh" --block', desc = "🎨 Keymap Palette" },
 

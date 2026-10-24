@@ -2,6 +2,11 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-24.1
+### Fixed
+- "git fetch" (`c f`) and the help page (`F1`, `h`) no longer show raw escape codes such as `\n\033[0;90m` around "Press any key". yazi runs `shell` bindings with `sh -c`, and bash's `echo` doesn't handle escapes without `-e`. These bindings now use `printf`.
+- The full-screen opener selector (`Shift+Enter`) lists every opener in fzf again, instead of one entry with literal `\n` between the names.
+
 ## v26-10-23.1
 ### Fixed
 - After a shell call, the "Press any key to continue..." line no longer stays on screen, and the next shell call's output no longer starts at the end of that line. `exec-args` and `run_blocking.sh` now erase the prompt line after the key press.
