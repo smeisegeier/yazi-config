@@ -10,7 +10,8 @@ require("duckdb"):setup({
  	column_fit_factor = float                  -- Default: 10.0
 })
 
-if os.getenv("OSTYPE") == "linux-gnu" then
+-- OSTYPE is a shell variable and isn't exported, so ask yazi for the OS instead
+if ya.target_os() == "linux" then
   require("sshfs"):setup()
 end
 

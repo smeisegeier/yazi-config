@@ -54,25 +54,24 @@ cd ~/.config/yazi && chmod 755 install_unix.sh && ./install_unix.sh
 ```
 
 ## install on windows
-> [!WARNING]
-> **[![windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/) install currently not supported**
 
-<!-- ```bash
-# try nerdfonts install
-winget install DEVCOM.JetBrainsMonoNerdFont
+**[![windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/) run the install script** <small>(this assumes [vscode](https://code.visualstudio.com/) is installed already)</small>
 
-winget install sxyazi.yazi Gyan.FFmpeg 7zip.7zip jqlang.jq sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick
+```powershell
+# download install_windows.ps1 from this repo, then in PowerShell:
+Set-ExecutionPolicy -Scope Process Bypass; .\install_windows.ps1
+```
 
-cd ${env:APPDATA} && mkdir yazi 
+It installs the dependencies with winget (including [Git for Windows](https://gitforwindows.org/)), clones the config to `%USERPROFILE%\.config\yazi`, and sets these for your user:
 
-# -> config dir
-# cd ${env:APPDATA}/yazi 2>nul || cd "%APPDATA%"/yazi
+- `YAZI_CONFIG_HOME` → `%USERPROFILE%\.config\yazi`
+- `YAZI_FILE_ONE` → Git's `file.exe` (yazi needs it to detect file types)
+- `PATH` += `Git\usr\bin` (for `sh`, `file`, `xargs`, …) and `.config\yazi\scripts\win` (for `yzsh`)
 
-# clone into %APPDATA%/yazi/config
-git clone https://github.com/smeisegeier/yazi-config ./config
-
-``` -->
-
+> [!NOTE]
+> - yazi runs shell bindings with `cmd.exe` on Windows. Bindings and openers that need bash go through `yzsh`, which runs the script in Git Bash and converts Windows paths for it.
+> - Not available on Windows yet: pgp/gpg and agent keys (`k g …`, `c a`, `c A`, `c g`, `c s`), "Execute with args", the `c d/l/p/i/I` pickers, dir size (ncdu), Quicklook. macOS only: Finder tags, Finder/iCloud keys. Unix only: chmod, mount, suspend.
+> - Symlinks (`p l`, `p L`) need Windows Developer Mode or an admin shell.
 
 ## launch
 

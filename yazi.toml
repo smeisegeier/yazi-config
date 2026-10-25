@@ -44,7 +44,7 @@ sys-open = [
 	{ run = 'start "" %s1', orphan = true, desc = "🚀 Open with Windows settings", for = "windows" },
 ]
 sys-open-shell = [
-    { run = 'ya emit plugin exec-args', desc = "🐚 Execute with args" },
+    { run = 'ya emit plugin exec-args', desc = "🐚 Execute with args", for = "unix" },
 ]
 py-open = [
     { run = 'uv run %s1', block = true, desc = "🐍 uv run" },
@@ -70,7 +70,8 @@ mediainfo = [
 exif = [
     # { run = 'zsh -c "exiftool \"$1\" | bat"', block = true, desc = "📸 Show Full EXIF" }
     # { run = 'exiftool "$1"', block = true, desc = "📸 Show Full EXIF" }
-    { run = 'zsh -c "exiftool %s1 | bat --language yaml --style=header,grid; echo \"\nPress any key\"; read -k 1"', block = true, desc = "📸 Show full EXIF" }
+    { run = 'zsh -c "exiftool %s1 | bat --language yaml --style=header,grid; echo \"\nPress any key\"; read -k 1"', block = true, desc = "📸 Show full EXIF", for = "unix" },
+    { run = 'exiftool %s1 | bat --language yaml --style=header,grid & pause', block = true, desc = "📸 Show full EXIF", for = "windows" },
 ]
 download = [
 	{ run = "ya emit download --open %S", desc = "🌐 Download and open" },
@@ -80,51 +81,58 @@ extract = [
 	{ run = "ya pub extract --list %s", desc = "📦 Extract here" },
 ]
 untar = [
-	{ run = '~/.config/yazi/scripts/untar_selected.sh %s', block = true, desc = "📦 Extract here" },
+	{ run = '~/.config/yazi/scripts/untar_selected.sh %s', block = true, desc = "📦 Extract here", for = "unix" },
+	{ run = 'yzsh untar_selected.sh %s', block = true, desc = "📦 Extract here", for = "windows" },
 ]
 compress = [
-    { run = '~/.config/yazi/scripts/zip_selected.sh %s', block = true, desc = "📦 Zip files" },
+    { run = '~/.config/yazi/scripts/zip_selected.sh %s', block = true, desc = "📦 Zip files", for = "unix" },
+    { run = 'yzsh zip_selected.sh %s', block = true, desc = "📦 Zip files", for = "windows" },
 ]
 reveal = [
-    { run = 'open -R %s1', desc = " Reveal in Finder", for = "macos" }
+    { run = 'open -R %s1', desc = " Reveal in Finder", for = "macos" },
+    { run = 'explorer /select,%s1', desc = "📂 Reveal in Explorer", for = "windows" },
 ]
 duckdb-ui = [
-    { run = '~/.config/yazi/scripts/duckdb_ui.sh ro %s1', block = true, desc = "🔒 DuckDB UI (readonly)" }
+    { run = '~/.config/yazi/scripts/duckdb_ui.sh ro %s1', block = true, desc = "🔒 DuckDB UI (readonly)", for = "unix" },
+    { run = 'yzsh duckdb_ui.sh ro %s1', block = true, desc = "🔒 DuckDB UI (readonly)", for = "windows" },
 ]
 duckdb-ui-rw = [
-    { run = '~/.config/yazi/scripts/duckdb_ui.sh rw %s1', block = true, desc = "📝 DuckDB UI (read/write)" }
+    { run = '~/.config/yazi/scripts/duckdb_ui.sh rw %s1', block = true, desc = "📝 DuckDB UI (read/write)", for = "unix" },
+    { run = 'yzsh duckdb_ui.sh rw %s1', block = true, desc = "📝 DuckDB UI (read/write)", for = "windows" },
 ]
 explain = [
-    { run = 'nu ~/.config/yazi/scripts/explain.sh %s1', block = true, desc = "💡 Explain schema" }
+    { run = 'nu ~/.config/yazi/scripts/explain.sh %s1', block = true, desc = "💡 Explain schema", for = "unix" },
+    { run = 'yzsh explain.sh %s1', block = true, desc = "💡 Explain schema", for = "windows" },
 ]
 chmod = [
-    { run = 'ya emit plugin chmod', desc = "🔏 Chmod on selected files" }
+    { run = 'ya emit plugin chmod', desc = "🔏 Chmod on selected files", for = "unix" }
 ]
 pgp-encrypt = [
-    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh %s', block = true, desc = "🔐 Encrypt Files pgp" },
-    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s %s', block = true, desc = "🔐📝 Sign+Encrypt Files pgp" },
-    { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh %s', block = true, desc = "📝 Create sig for Files" },
+    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh %s', block = true, desc = "🔐 Encrypt Files pgp", for = "unix" },
+    { run = '~/.config/yazi/scripts/gpg_sign_encrypt_selected.sh -s %s', block = true, desc = "🔐📝 Sign+Encrypt Files pgp", for = "unix" },
+    { run = '~/.config/yazi/scripts/gpg_create_sig_selected.sh %s', block = true, desc = "📝 Create sig for Files", for = "unix" },
 ]
 pgp-decrypt = [
-    { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh %s', block = true, desc = "🔓 Decrypt Files pgp" },
-    { run = 'gpg --list-packets %s | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "📦🔍 List packets" },
+    { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh %s', block = true, desc = "🔓 Decrypt Files pgp", for = "unix" },
+    { run = 'gpg --list-packets %s | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "📦🔍 List packets", for = "unix" },
 ]
 sig = [
-    { run = '~/.config/yazi/scripts/gpg_verify_signature.sh %s1', block = true, desc = "❔ Verify sig pgp" },
+    { run = '~/.config/yazi/scripts/gpg_verify_signature.sh %s1', block = true, desc = "❔ Verify sig pgp", for = "unix" },
 ]
 terminal-show = [
     # { run = 'bat "$@"', desc = "⚡ Show in terminal", block = true },
-    { run = 'bat %s; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true },
+    { run = 'bat %s; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true, for = "unix" },
+    { run = 'bat %s & pause', desc = "⚡ Show in terminal", block = true, for = "windows" },
 ]
 show-dir-size = [
-    { run = 'ncdu -r --show-itemcount --color off %s1', block = true, desc = "📏 Show Size" }
+    { run = 'ncdu -r --show-itemcount --color off %s1', block = true, desc = "📏 Show Size", for = "unix" }
 ]
 broot = [
     { run = 'broot %s1', block = true, desc = "🌳 b-root dir" }
 ]
 
 copy-tree = [
-    { run = 'p=%s1; [ -f "$p" ] && p="$(dirname "$p")"; tree -L 3 --charset=ascii "$p" | pbcopy', desc = "🌴 tree to clipboard" }
+    { run = 'ya emit plugin tree-to-clipboard', desc = "🌴 tree to clipboard" }
 ]
 	# { on  = [ "y", "t" ], run  = "plugin tree-to-clipboard", desc = "🌴 tree to clipboard" },
 
@@ -209,8 +217,9 @@ prepend_preloaders = [
 
 prepend_fetchers = [
     # run on files AND directories
-    { group = "mactag", url = "*", run = "mactag",prio="low", },
-    { group = "mactag", url = "*/", run = "mactag",prio="low", },
+    # mactag-macos skips the fetch outside macOS, where the `tag` command doesn't exist
+    { group = "mactag", url = "*", run = "mactag-macos",prio="low", },
+    { group = "mactag", url = "*/", run = "mactag-macos",prio="low", },
 ]
 
 [tasks]
