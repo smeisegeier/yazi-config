@@ -2,6 +2,25 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-25.1
+### Added
+- First Windows support. `install_windows.ps1` installs the dependencies, clones the config to `%USERPROFILE%\.config\yazi` and sets `YAZI_CONFIG_HOME`, `YAZI_FILE_ONE` and `PATH`. On Windows, yazi runs shell bindings with `cmd.exe`, so bindings and openers that need bash now have a `for = "windows"` twin that calls `yzsh` (`scripts/win/`). It runs the script in Git Bash and converts Windows paths for it. Openers that only need one command (Show in terminal, EXIF, reveal in Explorer) run directly in cmd.
+- `.gitattributes` keeps LF line endings on checkout, so the bash scripts still run after cloning on Windows.
+- `docs/windows-plan.md` lists the next steps and the features still missing on Windows. They are to be done on a Windows host.
+- The fzf finder (`ff`) shows a short extended-search hint next to the result count.
+
+### Changed
+- Bindings and openers that only work on unix are scoped with `for = "unix"`, so Windows no longer lists them. Nothing changes on macOS or Linux.
+- `launcher.sh` and `zip_selected.sh` are bash scripts now (they were zsh). The keymap palette (`e`) skips bindings meant for another OS.
+- "git fetch" (`c f`), the help page (`F1`, `h`) and the opener selector (`Shift+Enter`) moved from inline shell code into `scripts/git_fetch.sh`, `scripts/help.sh` and `scripts/opener_select.sh`. They behave the same.
+- The "🌴 tree to clipboard" opener uses the `tree-to-clipboard` plugin instead of `pbcopy`, so it works on Linux too. On Windows the plugin uses the built-in `tree /A /F`.
+- The Finder-tag fetcher runs through `mactag-macos`, which skips it outside macOS. It no longer tries to start the missing `tag` command for every folder on Linux and Windows.
+
+### Fixed
+- `k g v` (verify signature) called `gpg_verify_selected.sh`, which doesn't exist. It now calls `gpg_verify_signature.sh`.
+- `k t` (create) had `esc =` instead of `desc =`, so it had no description in the key list or the palette.
+- sshfs never loaded on Linux, because `init.lua` checked `$OSTYPE`, a shell variable that isn't exported. It now uses `ya.target_os()`.
+
 ## v26-10-24.1
 ### Fixed
 - "git fetch" (`c f`) and the help page (`F1`, `h`) no longer show raw escape codes such as `\n\033[0;90m` around "Press any key". yazi runs `shell` bindings with `sh -c`, and bash's `echo` doesn't handle escapes without `-e`. These bindings now use `printf`.

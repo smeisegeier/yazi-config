@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Windows entry point (called through yzsh.cmd): run a config script, or a bash snippet, under Git Bash.
+# usage: yzsh <script> [args...]     e.g. yzsh untar_selected.sh "C:\Users\me\a.zip"
+#        yzsh -c '<snippet>' [args...]
+# Windows paths in the args (C:\... or C:/...) are converted to /c/..., so dirname/basename keep working.
+
+to_posix() {
+    if [[ $1 =~ ^[A-Za-z]:[\\/] ]] && command -v cygpath >/dev/null 2>&1; then
+        cygpath -u "$1"
+    else
+        printf '%s' "$1"
+    fi
+}
+
+cfg="$(to_posix "${YAZI_CONFIG_HOME:-$HOME/.config/yazi}")"
+export YAZI_CONFIG_HOME="$cfg"
+
+args=()
+for a in "$@"; do
+    args+=("$(to_posix "$a")")
+done
+set -- "${args[@]}"
+
+if [ "$1" = "-c" ]; then
+    snippet="$2"
+    shift 2
+    exec bash -c "$snippet" yzsh "$@"
+fi
+
+script="$cfg/scripts/$1"
+shift
+if [ ! -f "$script" ]; then
+    echo "yzsh: no such script: $script" >&2
+    exit 1
+fi
+
+# pick the interpreter from the shebang, the exec bit isn't reliable on NTFS
+read -r shebang < "$script"
+case "$shebang" in
+    *nu*) exec nu "$script" "$@" ;;
+    *)    exec bash "$script" "$@" ;;
+esac

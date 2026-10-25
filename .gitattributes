@@ -1,0 +1,6 @@
+# keep LF everywhere so bash scripts still run after a Windows checkout (core.autocrlf=true)
+* text=auto eol=lf
+*.png binary
+# upstream plugin is stored with CRLF - leave it as is
+plugins/compress.yazi/** -text
+*.cmd text eol=crlf

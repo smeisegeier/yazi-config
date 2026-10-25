@@ -29,12 +29,18 @@ return {
 			path = ya.parent_path(path)
 		end
 
-		local output, err = Command("tree")
-			:arg("-L")
-			:arg("3") -- Limit depth to 3 levels, adjust as needed
-			:arg("--charset=ascii") -- Use ASCII characters for compatibility
-			:arg(path)
-			:output()
+		local output, err
+		if ya.target_family() == "windows" then
+			-- `tree` is the built-in tree.com there: no depth limit, /A for ASCII, /F to list files
+			output, err = Command("cmd"):arg({ "/c", "tree", path, "/A", "/F" }):output()
+		else
+			output, err = Command("tree")
+				:arg("-L")
+				:arg("3") -- Limit depth to 3 levels, adjust as needed
+				:arg("--charset=ascii") -- Use ASCII characters for compatibility
+				:arg(path)
+				:output()
+		end
 
 		if not output then
 			return info("Failed to generate tree, error: " .. err)
