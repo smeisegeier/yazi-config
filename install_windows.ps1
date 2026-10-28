@@ -4,6 +4,17 @@
 
 $ErrorActionPreference = "Stop"
 
+# 0. preflight: managed machines may lock PowerShell down or lack winget
+if ($ExecutionContext.SessionState.LanguageMode -ne "FullLanguage") {
+    # Constrained Language Mode (AppLocker/WDAC) blocks the .NET calls used below
+    Write-Host "PowerShell runs in $($ExecutionContext.SessionState.LanguageMode) mode here, this script needs FullLanguage. Ask your IT or install manually (see README)."
+    return
+}
+if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+    Write-Host "winget not found. Install 'App Installer' from the Microsoft Store, then run this script again."
+    return
+}
+
 # 1. dependencies (vscode is assumed to be installed already)
 $packages = @(
     "sxyazi.yazi", "Git.Git", "7zip.7zip", "jqlang.jq", "sharkdp.fd", "BurntSushi.ripgrep.MSVC",
@@ -60,4 +71,41 @@ if (-not (Select-String -Path $PROFILE -Pattern "function y " -Quiet)) {
     Write-Host "y() wrapper added to $PROFILE"
 }
 
-Write-Host "`nDone. Open a new terminal (so the PATH and env changes apply), set a Nerd Font, then run: y"
+# 5. let the profile (and so `y`) load: the windows default "Restricted" blocks it
+# the first non-Undefined scope below Process is what applies in a new terminal
+$policy = Get-ExecutionPolicy -List | Where-Object { $_.Scope -ne "Process" -and $_.ExecutionPolicy -ne "Undefined" } | Select-Object -First 1
+if (-not $policy -or $policy.ExecutionPolicy -in @("Restricted", "AllSigned")) {
+    try {
+        Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force
+        Write-Host "Execution policy for your user set to RemoteSigned"
+    } catch {
+        # group policy on managed machines overrides the user scope
+        Write-Host "Could not set the execution policy ($($_.Exception.Message)). Your profile may not load."
+    }
+}
+
+# 6. use the nerd font in Windows Terminal for all profiles, unless a default font is already set
+$wtSettings = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$font = "JetBrainsMono Nerd Font"
+$fontSet = $false
+if (Test-Path $wtSettings) {
+    try {
+        $wt = Get-Content -Path $wtSettings -Raw | ConvertFrom-Json
+        $defaults = $wt.profiles.defaults
+        if ($defaults -and -not $defaults.font.face) {
+            if (-not $defaults.font) { $defaults | Add-Member -NotePropertyName font -NotePropertyValue ([pscustomobject]@{}) }
+            $defaults.font | Add-Member -NotePropertyName face -NotePropertyValue $font -Force
+            Copy-Item -Path $wtSettings -Destination "$wtSettings.bak" -Force
+            # UTF-8 without BOM, as Windows Terminal writes it
+            [IO.File]::WriteAllText($wtSettings, ($wt | ConvertTo-Json -Depth 32), (New-Object Text.UTF8Encoding $false))
+            Write-Host "Windows Terminal font set to $font (backup: settings.json.bak)"
+        }
+        $fontSet = [bool]($defaults -and $defaults.font.face)
+    } catch {
+        # settings.json with comments does not parse in Windows PowerShell 5.1
+        Write-Host "Could not update Windows Terminal settings ($($_.Exception.Message))."
+    }
+}
+
+Write-Host "`nDone. Open a new terminal (so the PATH and env changes apply), then run: y"
+if (-not $fontSet) { Write-Host "Set '$font' as your terminal font." }

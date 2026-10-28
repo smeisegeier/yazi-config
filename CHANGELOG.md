@@ -2,6 +2,12 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-28.1
+### Changed
+- `install_unix.sh` does the manual install steps from the README: it installs homebrew (macOS) and the dependencies (brew, or pacman on Arch), installs Hack Nerd Font if no nerd font is found, and clones the config if it is missing, so it also works as a standalone download. It exits on anything but macOS or Linux and points to `install_windows.ps1`. The old msys branch is gone; it pointed `YAZI_CONFIG_HOME` at `%APPDATA%\yazi\config`, not where the Windows installer puts the config.
+- `install_windows.ps1` stops early with a hint if PowerShell runs in Constrained Language Mode or winget is missing. It sets the execution policy for the user to `RemoteSigned` if scripts are blocked, so the profile with `y` loads, and makes JetBrainsMono Nerd Font the default font in Windows Terminal unless one is set (backup: `settings.json.bak`).
+- README: install is one command per OS. Windows uses `irm … | iex`, which needs no execution policy change.
+
 ## v26-10-25.1
 ### Added
 - First Windows support. `install_windows.ps1` installs the dependencies, clones the config to `%USERPROFILE%\.config\yazi` and sets `YAZI_CONFIG_HOME`, `YAZI_FILE_ONE` and `PATH`. On Windows, yazi runs shell bindings with `cmd.exe`, so bindings and openers that need bash now have a `for = "windows"` twin that calls `yzsh` (`scripts/win/`). It runs the script in Git Bash and converts Windows paths for it. Openers that only need one command (Show in terminal, EXIF, reveal in Explorer) run directly in cmd.

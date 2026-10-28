@@ -8,64 +8,28 @@
 
 ## install on unix
 
-**![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey) ![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey) pre-install**
-
-- if [nerdfonts](https://www.nerdfonts.com) are not installed, consider e.g _hack nerd font_:
-- don't forget to set the terminal font after installing
+**![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey) ![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey) run the install script** <small>(this assumes [vscode](https://code.visualstudio.com/) is installed already)</small>
 
 ```bash
-wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip && cd ~/.local/share/fonts && unzip Hack.zip && rm Hack.zip && fc-cache -fv
+git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi && bash ~/.config/yazi/install_unix.sh
 ```
 
-**![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey) install [homebrew](https://brew.sh/) if not present**
+It does, skipping anything already present:
 
-<br>
-
-**![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey) install dependencies** <small>(this assumes [vscode](https://code.visualstudio.com/) is installed already)</small>
-
-```bash
-brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide imagemagick broot nushell ouch ncdu nbpreview rich-cli glow mactag librsvg ffmpegthumbnailer resvg mediainfo tree tag
-```
-
-<br>
-
-**![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey) install dependencies**<small> (this assumes [vscode](https://code.visualstudio.com/) is installed already)</small>
-
-```bash
-# example usage on arch linux
-# as for terminal: any will do (kitty, alacritty, ghostty etc)
-# install dependencies beyond what yazi already did
-sudo pacman -S yazi nushell broot ncdu code ouch nbpreview rich-cli glow
-```
-<br>
-
-**![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey) ![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey) clone config**
-
-```bash
-git clone https://github.com/smeisegeier/yazi-config ~/.config/yazi
-```
-<br>
-
-**![macos](https://img.shields.io/badge/macOS-blue?logo=apple&logoColor=white&labelColor=grey) ![linux](https://img.shields.io/badge/Linux-blue?logo=linux&labelColor=grey) execute launch script**
-
-```bash
-cd ~/.config/yazi && chmod 755 install_unix.sh && ./install_unix.sh
-```
+- macOS: installs [homebrew](https://brew.sh/), then the dependencies with brew
+- Linux: installs the dependencies with pacman (arch). Other distros: install them with your package manager, the list is in the script
+- installs _Hack Nerd Font_ if no [nerd font](https://www.nerdfonts.com) is found. Set it as the terminal font afterwards
+- clones the config to `~/.config/yazi` (so the script also works as a standalone download)
+- adds `YAZI_CONFIG_HOME` and the `y` wrapper to `~/.zshrc`
 
 ## install on windows
 
 **[![windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/) run the install script** <small>(this assumes [vscode](https://code.visualstudio.com/) is installed already)</small>
 
-- download install_windows.ps1 from this repo, then in PowerShell:
+- in PowerShell:
 
 ```powershell
-Set-ExecutionPolicy -Scope Process Bypass; .\install_windows.ps1
-```
-
-- if your PowerShell profile fails with "running scripts is disabled on this system", allow local scripts for your user once, then open a new terminal:
-
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+irm https://raw.githubusercontent.com/smeisegeier/yazi-config/main/install_windows.ps1 | iex
 ```
 
 It installs the dependencies with winget (including [Git for Windows](https://gitforwindows.org/)), clones the config to `%USERPROFILE%\.config\yazi`, and sets these for your user:
@@ -74,7 +38,10 @@ It installs the dependencies with winget (including [Git for Windows](https://gi
 - `YAZI_FILE_ONE` → Git's `file.exe` (yazi needs it to detect file types)
 - `PATH` += `Git\usr\bin` (for `sh`, `file`, `xargs`, …) and `.config\yazi\scripts\win` (for `yzsh`)
 
-It also installs _JetBrainsMono Nerd Font_. Set it as the terminal font afterwards, e.g. in Windows Terminal: Settings → your profile → Appearance → Font face → `JetBrainsMono Nerd Font`, then restart the terminal.
+It also:
+
+- adds the `y` wrapper to your PowerShell profile, and sets the execution policy for your user to `RemoteSigned` if scripts are blocked, so the profile loads. Group policy on managed machines can override this
+- installs _JetBrainsMono Nerd Font_ and makes it the default font in Windows Terminal, unless one is set already (backup: `settings.json.bak`). For other terminals, set the font yourself
 
 > [!NOTE]
 > - yazi runs shell bindings with `cmd.exe` on Windows. Bindings and openers that need bash go through `yzsh`, which runs the script in Git Bash and converts Windows paths for it.
