@@ -2,6 +2,10 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-10-29.1
+### Added
+- `.qmd` files get a `📰 quarto preview` opener (`quarto preview`, blocking). `edit` stays the default.
+
 ## v26-10-28.1
 ### Changed
 - `install_unix.sh` does the manual install steps from the README: it installs homebrew (macOS) and the dependencies (brew, or pacman on Arch), installs Hack Nerd Font if no nerd font is found, and clones the config if it is missing, so it also works as a standalone download. It exits on anything but macOS or Linux and points to `install_windows.ps1`. The old msys branch is gone; it pointed `YAZI_CONFIG_HOME` at `%APPDATA%\yazi\config`, not where the Windows installer puts the config.

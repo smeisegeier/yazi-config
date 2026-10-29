@@ -49,6 +49,9 @@ sys-open-shell = [
 py-open = [
     { run = 'uv run %s1', block = true, desc = "🐍 uv run" },
 ]
+quarto-preview = [
+    { run = 'quarto preview %s1', block = true, desc = "📰 quarto preview" },
+]
 quicklook = [
     # { run = 'osascript -e "tell application \"Finder\" to reveal POSIX file \"$1\"" -e "tell application \"Finder\" to activate" -e "tell application \"System Events\" to delay 0.5" -e "tell application \"System Events\" to keystroke \" \""', orphan = true, desc = "🔍 Quicklook" }
     { run = 'qlmanage -p %s1 >/dev/null 2>&1', desc = "🔍 Quicklook", orphan = true , for = "macos"},
@@ -141,6 +144,7 @@ rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt"] },
 	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{sh,nu,ps1,lua,r,conf,ini,js}", use = [ "edit","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
+    { url = "*.{qmd}", use = [ "edit","quarto-preview","sys-open","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{py}", use = [ "edit","py-open","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{csv}", use = [ "edit","vim","reveal","duckdb-ui-rw","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     # bulk rename/create uses the first blocking opener matching its temp file, so route it to `code --wait` before vim
