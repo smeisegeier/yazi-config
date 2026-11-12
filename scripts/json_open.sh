@@ -8,6 +8,11 @@ def main [x: string] {
         # 2. 'table -e' forces all nested layers to expand
         open $x | table -e | print
 
+    } else if ($x | str ends-with ".jsonc") {
+
+        # nu has no jsonc type, but `from json` accepts comments
+        open --raw $x | from json | table -e | print
+
     } else {
         print $"❌ Error: ($x) is not a supported data file (JSON/YAML)"
     }

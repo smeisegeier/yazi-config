@@ -2,6 +2,10 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-11-12.1
+### Added
+- `.jsonc` files get the same openers as `.json`. The preview uses `bat` with JSON syntax, because the built-in fallback previewer has no colors for jsonc. `explain` and `k j` show them as a nu table.
+
 ## v26-10-29.1
 ### Added
 - `.qmd` files get a `📰 quarto preview` opener (`quarto preview`, blocking). `edit` stays the default.

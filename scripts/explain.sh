@@ -10,6 +10,12 @@ def main [path: string] {
             open $path | table -e | print
         }
 
+        "jsonc" => {
+            # nu has no jsonc type, but `from json` accepts comments
+            print $"(ansi grey)> open --raw ($path) | from json | table -e(ansi reset)"
+            open --raw $path | from json | table -e | print
+        }
+
         "duckdb" | "db" | "sqlite"  => {
             print $"(ansi grey)> duckdb -readonly ($path) 'SHOW ALL' | from json | table -e | print(ansi reset)"
             duckdb -readonly $path "SHOW ALL" -json | from json | table -e | print

@@ -142,7 +142,7 @@ copy-tree = [
 [open]
 rules = [
 	{ url = "*.{duckdb,sqlite,sqlite3,db}", use = ["duckdb-ui","explain","reveal","pgp-encrypt"] },
-	{ url = "*.{json,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
+	{ url = "*.{json,jsonc,yaml,yml,xml,toml}", use = [ "edit","vim","sys-open","explain","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{sh,nu,ps1,lua,r,conf,ini,js}", use = [ "edit","sys-open","sys-open-shell", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{qmd}", use = [ "edit","quarto-preview","sys-open","reveal","terminal-show","pgp-encrypt"] },
     { url = "*.{py}", use = [ "edit","py-open","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
@@ -191,6 +191,8 @@ prepend_previewers = [
 	{ url = "*.js", run = 'piper -- bat --color=always --style=numbers "$1"' },
 
 	{ url = "*.json", run = "nbpreview" }, # looks better than rich
+	# nbpreview fallback (built-in code previewer) has no jsonc syntax, so render it as json via bat
+	{ url = "*.jsonc", run = 'piper -- bat --color=always --style=numbers -l json "$1"' },
 
     { url = "*.csv", run = "duckdb" },
     { url = "*.tsv", run = "duckdb" },
