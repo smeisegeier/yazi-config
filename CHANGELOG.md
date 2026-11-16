@@ -2,6 +2,10 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-11-16.2
+### Added
+- `.sparsebundle` folders get `💽 Attach volume` (`hdiutil attach`) and `⏏️ Detach volume` openers (macOS). Detach looks up the bundle's disk in `hdiutil info`, so it works whatever the volume is called.
+
 ## v26-11-16.1
 ### Changed
 - `🐍 uv run` pauses with "Press any key..." after the script exits (unix and windows entries).

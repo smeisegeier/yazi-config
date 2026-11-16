@@ -128,6 +128,10 @@ terminal-show = [
     { run = 'bat %s; ~/.config/yazi/scripts/pause.sh', desc = "⚡ Show in terminal", block = true, for = "unix" },
     { run = 'bat %s & yzsh pause.sh', desc = "⚡ Show in terminal", block = true, for = "windows" },
 ]
+disk-image = [
+    { run = 'hdiutil attach %s1; ~/.config/yazi/scripts/pause.sh', block = true, desc = "💽 Attach volume", for = "macos" },
+    { run = '~/.config/yazi/scripts/hdiutil_detach.sh %s1', block = true, desc = "⏏️ Detach volume", for = "macos" },
+]
 show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color off %s1', block = true, desc = "📏 Show Size", for = "unix" }
 ]
@@ -167,6 +171,7 @@ rules = [
     { mime = "text/plain", use = ["edit","vim","sys-open","reveal","terminal-show" ] },
     { mime = "image/*", use = [ "sys-open","reveal","mediainfo","exif" ] },
     { mime = "text/html", use = ["edit","sys-open", "reveal" ] },
+    { url = "*.sparsebundle/", use = ["disk-image","reveal","show-dir-size" ] },
     { url = "*/", use = ["edit","sys-open","reveal", "compress","show-dir-size","chmod","broot","copy-tree" ] },
 	# { mime = "text/*", use = [ "edit", "reveal" ] },
 	{ mime = "{audio,video}/*", use = [ "play", "reveal","mediainfo","exif","pgp-encrypt" ] },
