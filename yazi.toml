@@ -47,7 +47,8 @@ sys-open-shell = [
     { run = 'ya emit plugin exec-args', desc = "🐚 Execute with args", for = "unix" },
 ]
 py-open = [
-    { run = 'uv run %s1', block = true, desc = "🐍 uv run" },
+    { run = 'uv run %s1; ~/.config/yazi/scripts/pause.sh', block = true, desc = "🐍 uv run", for = "unix" },
+    { run = 'uv run %s1 & yzsh pause.sh', block = true, desc = "🐍 uv run", for = "windows" },
 ]
 quarto-preview = [
     { run = 'quarto preview %s1', block = true, desc = "📰 quarto preview" },
@@ -67,14 +68,14 @@ play = [
 	{ run = "termux-open %s1", desc = "Play", for = "android" },
 ]
 mediainfo = [
-    { run = "mediainfo %s1; echo 'Press any key'; read -n 1", block = true, desc = "🎬 Show media info", for = "unix" },
-	{ run = "mediainfo %s1 & pause", block = true, desc = "🎬 Show media info", for = "windows" },
+    { run = "mediainfo %s1; ~/.config/yazi/scripts/pause.sh", block = true, desc = "🎬 Show media info", for = "unix" },
+	{ run = "mediainfo %s1 & yzsh pause.sh", block = true, desc = "🎬 Show media info", for = "windows" },
 ]
 exif = [
     # { run = 'zsh -c "exiftool \"$1\" | bat"', block = true, desc = "📸 Show Full EXIF" }
     # { run = 'exiftool "$1"', block = true, desc = "📸 Show Full EXIF" }
-    { run = 'zsh -c "exiftool %s1 | bat --language yaml --style=header,grid; echo \"\nPress any key\"; read -k 1"', block = true, desc = "📸 Show full EXIF", for = "unix" },
-    { run = 'exiftool %s1 | bat --language yaml --style=header,grid & pause', block = true, desc = "📸 Show full EXIF", for = "windows" },
+    { run = 'zsh -c "exiftool %s1 | bat --language yaml --style=header,grid; ~/.config/yazi/scripts/pause.sh"', block = true, desc = "📸 Show full EXIF", for = "unix" },
+    { run = 'exiftool %s1 | bat --language yaml --style=header,grid & yzsh pause.sh', block = true, desc = "📸 Show full EXIF", for = "windows" },
 ]
 download = [
 	{ run = "ya emit download --open %S", desc = "🌐 Download and open" },
@@ -117,15 +118,15 @@ pgp-encrypt = [
 ]
 pgp-decrypt = [
     { run = '~/.config/yazi/scripts/gpg_decrypt_selected.sh %s', block = true, desc = "🔓 Decrypt Files pgp", for = "unix" },
-    { run = 'gpg --list-packets %s | grep -A 1 "signature packet"; echo "Press any key"; read -n 1', block = true, desc = "📦🔍 List packets", for = "unix" },
+    { run = 'gpg --list-packets %s | grep -A 1 "signature packet"; ~/.config/yazi/scripts/pause.sh', block = true, desc = "📦🔍 List packets", for = "unix" },
 ]
 sig = [
     { run = '~/.config/yazi/scripts/gpg_verify_signature.sh %s1', block = true, desc = "❔ Verify sig pgp", for = "unix" },
 ]
 terminal-show = [
     # { run = 'bat "$@"', desc = "⚡ Show in terminal", block = true },
-    { run = 'bat %s; echo "Press any key"; read -n 1', desc = "⚡ Show in terminal", block = true, for = "unix" },
-    { run = 'bat %s & pause', desc = "⚡ Show in terminal", block = true, for = "windows" },
+    { run = 'bat %s; ~/.config/yazi/scripts/pause.sh', desc = "⚡ Show in terminal", block = true, for = "unix" },
+    { run = 'bat %s & yzsh pause.sh', desc = "⚡ Show in terminal", block = true, for = "windows" },
 ]
 show-dir-size = [
     { run = 'ncdu -r --show-itemcount --color off %s1', block = true, desc = "📏 Show Size", for = "unix" }

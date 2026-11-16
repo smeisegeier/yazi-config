@@ -17,5 +17,5 @@ def main [x: string] {
         print $"❌ Error: ($x) is not a supported data file (JSON/YAML)"
     }
 
-    input "Press any key..."
+    print -n $"\n\e[0;90mPress any key...\e[0m"; input -n 1 -s | ignore; print -n "\r\e[2K"
 }

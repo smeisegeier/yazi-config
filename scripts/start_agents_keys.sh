@@ -98,5 +98,4 @@ elif [[ "$selected" == \[SSH\]* ]]; then
     fi
 fi
 
-echo -e "\nPress any key..."
-read -n 1 < /dev/tty
+"$(dirname "$0")/pause.sh"

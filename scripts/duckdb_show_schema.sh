@@ -16,6 +16,6 @@ def main [x: string] {
 
     # Force flush and wait
     print $output
-    ^read -p "Press any key..."
+    print -n $"\n\e[0;90mPress any key...\e[0m"; input -n 1 -s | ignore; print -n "\r\e[2K"
 
 }

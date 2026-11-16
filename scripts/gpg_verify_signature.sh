@@ -42,5 +42,4 @@ elif echo "$gpg_output" | grep -q "gpg: BAD signature"; then
     echo -e "\033[0;31m✗ Signature INVALID\033[0m"
 fi
 
-echo "Press any key"
-read -n 1
+"$(dirname "$0")/pause.sh"

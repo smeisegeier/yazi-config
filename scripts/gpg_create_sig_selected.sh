@@ -38,6 +38,4 @@ for file in "$@"; do
     fi
 done
 
-echo ""
-echo "Press any key to continue..."
-read -n 1
+"$(dirname "$0")/pause.sh"

@@ -26,7 +26,7 @@ LIST=$(grep -E '^[[:space:]]*\{[^#]*on =' "$KEYMAP" | grep -vE "$OTHER_OS" | sed
 # 2. Safety check
 if [[ -z "$LIST" ]]; then
     echo "❌ No active keymaps found."
-    read -n 1 -s -r < /dev/tty
+    "$(dirname "$0")/pause.sh"
     exit 1
 fi
 
@@ -45,8 +45,7 @@ if [[ -n "$SELECTION" ]]; then
         CLEAN_CMD=$(echo "$RAW_CMD" | sed -E "s/^shell //; s/ --block$//; s/^['\"]//; s/['\"]$//")
         echo -e "\033[0;34m⚡ Executing Shell: $CLEAN_CMD\033[0m\n"
         eval "$CLEAN_CMD"
-        echo -e "\n\033[0;90mPress any key to return to Yazi...\033[0m"
-        read -n 1 -s -r < /dev/tty
+        "$(dirname "$0")/pause.sh"
     
     # CASE B: Plugin/Internal Commands (e.g., Zoxide)
     else

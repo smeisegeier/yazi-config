@@ -54,5 +54,4 @@ fi
 
 # --- 5. Final Success ---
 echo -e "\n\033[0;32m[ ✔ ] Agents Synced and Verified\033[0m"
-echo "Press any key..."
-read -n 1 < /dev/tty
+"$(dirname "$0")/pause.sh"

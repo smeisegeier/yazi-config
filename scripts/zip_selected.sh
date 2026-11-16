@@ -40,5 +40,4 @@ else
     echo -e "\n\033[0;31m[ ✘ ] Zip failed\033[0m"
 fi
 
-echo -n -e "\n\033[0;90mPress any key\033[0m"
-read -n 1 -s -r < /dev/tty
+"$(dirname "$0")/pause.sh"

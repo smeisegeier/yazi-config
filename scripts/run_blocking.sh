@@ -7,6 +7,4 @@ if [ -n "$cmd" ]; then
     eval "$cmd"
 fi
 
-echo
-read -n 1 -s -r -p "Press any key to continue..."
-printf '\r\033[2K'
+"$(dirname "$0")/pause.sh"

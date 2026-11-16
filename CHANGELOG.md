@@ -2,6 +2,11 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-11-16.1
+### Changed
+- `🐍 uv run` pauses with "Press any key..." after the script exits (unix and windows entries).
+- All pause prompts read the same: a gray `Press any key...` that waits for one key and clears its line. Bash openers, scripts and the `exec-args` plugin call the new `scripts/pause.sh`; Windows openers use `yzsh pause.sh` instead of cmd's `pause`; the nu scripts print the same prompt inline.
+
 ## v26-11-12.1
 ### Added
 - `.jsonc` files get the same openers as `.json`. The preview uses `bat` with JSON syntax, because the built-in fallback previewer has no colors for jsonc. `explain` and `k j` show them as a nu table.
