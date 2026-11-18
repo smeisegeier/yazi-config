@@ -2,6 +2,16 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-11-18.1
+### Added
+- Files named `config` get a colored `bat` preview (`scripts/config_preview.sh`). bat keeps its own syntax for paths it knows (`~/.ssh/config`, `.git/config`, `~/.aws/config`); otherwise the syntax is guessed from the content: JSON, SSH config, INI (`[section]` or `key = value`) or YAML (`key: value`).
+
+### Changed
+- Previews follow the macOS appearance: `.md` uses glow's light or dark style, and the `bat` previews (`.js`, `.jsonc`, `config`) use `--theme=auto:system`. Before, light mode showed light-gray text.
+
+### Fixed
+- The `terminal-block` opener rule for bulk rename/create now matches its temp file (`**/bulk-{rename,create}.txt`); yazi matches `url` patterns against the full path, so the bare file name never matched.
+
 ## v26-11-16.2
 ### Added
 - `.sparsebundle` folders get `💽 Attach volume` (`hdiutil attach`) and `⏏️ Detach volume` openers (macOS). Detach looks up the bundle's disk in `hdiutil info`, so it works whatever the volume is called.

@@ -153,7 +153,7 @@ rules = [
     { url = "*.{py}", use = [ "edit","py-open","sys-open", "reveal","terminal-show","chmod","pgp-encrypt"] },
     { url = "*.{csv}", use = [ "edit","vim","reveal","duckdb-ui-rw","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     # bulk rename/create uses the first blocking opener matching its temp file, so route it to `code --wait` before vim
-    { url = "bulk-{rename,create}.txt", use = [ "terminal-block" ] },
+    { url = "**/bulk-{rename,create}.txt", use = [ "terminal-block" ] },
     { url = "*.{txt}", use = [ "edit","vim","reveal","terminal-show","terminal-block","pgp-encrypt","compress" ] },
     { mime = "application/pdf", use = [ "sys-open","reveal","pgp-encrypt","compress" ] },
     # office files are zip containers and are often sniffed as application/zip, so match by extension
@@ -189,16 +189,19 @@ prepend_previewers = [
     # { url = "*.svg", run = "image", prio="high" },
     # { mime = "image/svg+xml", run = "image" },
 
-	{ url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+	# glow can't detect the terminal background under piper, so follow the macOS appearance (dark when `defaults` is unavailable)
+	{ url = "*.md", run = 'piper -- s=dark; defaults read -g AppleInterfaceStyle >/dev/null 2>&1 || { command -v defaults >/dev/null && s=light; }; CLICOLOR_FORCE=1 glow -w=$w -s=$s "$1"' },
     # { url = "*.md", run = "rich-preview" },   # also looks good
 
     { url = "*.rst", run = "rich-preview"}, # for restructured text (.rst) files
     { url = "*.ipynb", run = "rich-preview"}, # looks good
-	{ url = "*.js", run = 'piper -- bat --color=always --style=numbers "$1"' },
+	{ url = "*.js", run = 'piper -- bat --color=always --style=numbers --theme=auto:system "$1"' },
 
 	{ url = "*.json", run = "nbpreview" }, # looks better than rich
 	# nbpreview fallback (built-in code previewer) has no jsonc syntax, so render it as json via bat
-	{ url = "*.jsonc", run = 'piper -- bat --color=always --style=numbers -l json "$1"' },
+	{ url = "*.jsonc", run = 'piper -- bat --color=always --style=numbers --theme=auto:system -l json "$1"' },
+	# extensionless "config" files: bat path mapping, else syntax sniffed from the content
+	{ url = "**/config", run = 'piper -- ~/.config/yazi/scripts/config_preview.sh "$1"' },
 
     { url = "*.csv", run = "duckdb" },
     { url = "*.tsv", run = "duckdb" },
