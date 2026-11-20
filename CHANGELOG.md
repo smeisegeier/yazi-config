@@ -2,6 +2,10 @@
 
 Notable changes to this yazi config. CalVer: `vYY-MM-DD`, with a `.N` sequence suffix for additional versions released the same day.
 
+## v26-11-20.1
+### Added
+- `t 4` … `t 9` switch to tabs 4–9, extending the existing `t 1` … `t 3` bindings.
+
 ## v26-11-18.1
 ### Added
 - Files named `config` get a colored `bat` preview (`scripts/config_preview.sh`). bat keeps its own syntax for paths it knows (`~/.ssh/config`, `.git/config`, `~/.aws/config`); otherwise the syntax is guessed from the content: JSON, SSH config, INI (`[section]` or `key = value`) or YAML (`key: value`).
